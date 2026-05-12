@@ -1,6 +1,13 @@
 # Git
 .git/
 
+# Large video files (exceed GitHub 100MB limit — host on YouTube/Vimeo instead)
+*.mp4
+*.m4a
+*.mov
+*.avi
+*.mkv
+
 # OS files
 .DS_Store
 Thumbs.db

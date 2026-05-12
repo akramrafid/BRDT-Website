@@ -1,236 +1,359 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Login - BRDT</title>
-<meta name="description" content="Sign in to your BRDT account to manage donations and track your contributions to rural communities in Bangladesh."/>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-</head>
-<body>
-<!-- Top Bar -->
-<div class="top-bar">
-<div class="container top-bar-inner">
-<div class="top-bar-left">
-<span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
-<span><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span>
-</div>
-<div class="top-bar-right">
-<a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-<a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-<a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</div>
-</div>
-<!-- Main Header -->
-<header class="main-header">
-<div class="container header-inner">
-<div class="logo">
-<a class="logo-link" href="index.html">
-<img alt="BRDT Logo" class="logo-img" src="logo.png"/>
-<div class="logo-text">
-<span class="logo-title">Belghar Rural Development Trust</span>
-<span class="logo-tagline">Enriching Rural Communities Lives</span>
-</div>
-</a>
-</div>
-<nav class="main-nav">
-<ul>
-<li><a href="projects.html">Projects</a></li>
-<li><a href="madrasah.html">Madrasah</a></li>
-<li><a href="ramadan.html">Ramadan</a></li>
-<li class="has-dropdown">
-<a href="#">Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i></a>
-<ul class="dropdown-menu">
-<li><a href="appeal-zakat.html"><i class="fa-solid fa-sack-dollar"></i> Zakat</a></li>
-<li><a href="appeal-fitra.html"><i class="fa-solid fa-wheat-awn"></i> Fitra</a></li>
-<li><a href="appeal-sadaqah.html"><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah Jariyah</a></li>
-<li><a href="appeal-flood.html"><i class="fa-solid fa-house-flood-water"></i> Flood</a></li>
-<li><a href="appeal-sponsor-hafiz.html"><i class="fa-solid fa-book-open-reader"></i> Sponsor a Hafiz</a></li>
-<li><a href="appeal-back-to-school.html"><i class="fa-solid fa-school"></i> Back to School</a></li>
-<li><a href="appeal-orphan.html"><i class="fa-solid fa-child-reaching"></i> Orphan Sponsorship</a></li>
-</ul>
-</li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-</ul>
-</nav>
-<div class="header-actions">
-<a class="login-link active" href="login.html">Login/Register</a>
-<a class="btn-donate" href="#">Donate Now</a>
-</div>
-</div>
-</header>
-
-<!-- Login Form Section -->
-<section class="auth-section">
-    <div class="auth-banner"></div>
-    <div class="container">
-        <div class="auth-card" id="login-card">
-            <h2 class="auth-title">Let's get you signed in</h2>
-            <p class="auth-subtitle">Please enter the email address before making your donations</p>
-
-            <!-- Email-only login view (default) -->
-            <div id="email-login-view">
-                <form class="auth-form" id="login-form-email">
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" placeholder="Enter your email address" required/>
-                    </div>
-                    <button type="submit" class="btn-auth-submit">Get Login Link</button>
-                </form>
-                <div class="auth-alt-action">
-                    <a href="#" id="show-password-login" class="auth-link-underline">Use your email and password instead</a>
-                </div>
-            </div>
-
-            <!-- Email + Password login view (hidden by default) -->
-            <div id="password-login-view" style="display: none;">
-                <form class="auth-form" id="login-form-password">
-                    <div class="form-group">
-                        <label for="login-email-pw">Email</label>
-                        <input type="email" id="login-email-pw" placeholder="Enter your email address" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <div class="password-input-wrapper">
-                            <input type="password" id="login-password" placeholder="Enter your password" required/>
-                            <button type="button" class="password-toggle" id="toggle-login-pw">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-auth-submit">Sign In</button>
-                </form>
-                <div class="auth-alt-action">
-                    <a href="#" id="show-email-login" class="auth-link-underline">Use login link instead</a>
-                </div>
-            </div>
-
-            <div class="auth-divider">
-                <span></span>
-            </div>
-            <p class="auth-switch">Don't have an account? <a href="register.html" class="auth-link-bold">Sign up</a></p>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - BRDT</title>
+    <meta
+      name="description"
+      content="Sign in to your BRDT account to manage donations and track your contributions to rural communities in Bangladesh."
+    />
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
+          <span
+            ><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span
+          >
         </div>
+        <div class="top-bar-right">
+          <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="https://x.com/brdtbd" target="_blank"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a href="https://www.instagram.com/brdtrust/" target="_blank"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+            target="_blank"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+          <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+            ><i class="fa-brands fa-tiktok"></i
+          ></a>
+        </div>
+      </div>
     </div>
-</section>
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo">
+          <a class="logo-link" href="index.html">
+            <img alt="BRDT Logo" class="logo-img" src="logo.png" />
+            <div class="logo-text">
+              <span class="logo-title">Belghar Rural Development Trust</span>
+              <span class="logo-tagline"
+                >Enriching Rural Communities Lives</span
+              >
+            </div>
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="madrasah.html">Madrasah</a></li>
+            <li><a href="ramadan.html">Ramadan</a></li>
+            <li class="has-dropdown">
+              <a href="#"
+                >Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="appeal-zakat.html"
+                    ><i class="fa-solid fa-sack-dollar"></i> Zakat</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-fitra.html"
+                    ><i class="fa-solid fa-wheat-awn"></i> Fitra</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sadaqah.html"
+                    ><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah
+                    Jariyah</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-flood.html"
+                    ><i class="fa-solid fa-house-flood-water"></i> Flood</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sponsor-hafiz.html"
+                    ><i class="fa-solid fa-book-open-reader"></i> Sponsor a
+                    Hafiz</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-back-to-school.html"
+                    ><i class="fa-solid fa-school"></i> Back to School</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-orphan.html"
+                    ><i class="fa-solid fa-child-reaching"></i> Orphan
+                    Sponsorship</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a class="login-link active" href="login.html">Login/Register</a>
+          <a class="btn-donate" href="#">Donate Now</a>
+        </div>
+      </div>
+    </header>
 
-<!-- Newsletter -->
-<div class="container section-padding text-center">
-    <div class="newsletter-wrap">
+    <!-- Login Form Section -->
+    <section class="auth-section">
+      <div class="auth-banner"></div>
+      <div class="container">
+        <div class="auth-card" id="login-card">
+          <h2 class="auth-title">Let's get you signed in</h2>
+          <p class="auth-subtitle">
+            Please enter the email address before making your donations
+          </p>
+
+          <!-- Email-only login view (default) -->
+          <div id="email-login-view">
+            <form class="auth-form" id="login-form-email">
+              <div class="form-group">
+                <label for="login-email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-auth-submit">
+                Get Login Link
+              </button>
+            </form>
+            <div class="auth-alt-action">
+              <a href="#" id="show-password-login" class="auth-link-underline"
+                >Use your email and password instead</a
+              >
+            </div>
+          </div>
+
+          <!-- Email + Password login view (hidden by default) -->
+          <div id="password-login-view" style="display: none">
+            <form class="auth-form" id="login-form-password">
+              <div class="form-group">
+                <label for="login-email-pw">Email</label>
+                <input
+                  type="email"
+                  id="login-email-pw"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="login-password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggle-login-pw"
+                  >
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="btn-auth-submit">Sign In</button>
+            </form>
+            <div class="auth-alt-action">
+              <a href="#" id="show-email-login" class="auth-link-underline"
+                >Use login link instead</a
+              >
+            </div>
+          </div>
+
+          <div class="auth-divider">
+            <span></span>
+          </div>
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="register.html" class="auth-link-bold">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <div class="container section-padding text-center">
+      <div class="newsletter-wrap">
         <div class="newsletter-text">
-            <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
-            <p>Get notified about updates, news and events.</p>
+          <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+          <p>Get notified about updates, news and events.</p>
         </div>
         <div class="newsletter-input">
-            <form class="d-flex">
-                <input type="email" placeholder="Email address" required>
-                <button type="submit" class="btn-primary">Subscribe <i class="fa-solid fa-paper-plane"></i></button>
-            </form>
-            <p class="privacy-note mt-2">Will be used in accordance with our <a href="#">Privacy Policy</a></p>
+          <form class="d-flex">
+            <input type="email" placeholder="Email address" required />
+            <button type="submit" class="btn-primary">
+              Subscribe <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+          <p class="privacy-note mt-2">
+            Will be used in accordance with our <a href="#">Privacy Policy</a>
+          </p>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Footer -->
-<footer class="main-footer">
-<div class="container footer-grid">
-<div class="footer-col brand-col">
-<img alt="BRDT Logo" class="footer-logo" src="logo.png"/>
-<p>Enriching rural lives through sustainable development, education, and immediate relief to those in need.</p>
-<div class="social-links">
-<a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-<a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-<a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</div>
-<div class="footer-col">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="about.html">About Us</a></li>
-<li><a href="projects.html">Our Projects</a></li>
-<li><a href="#">Appeals</a></li>
-<li><a href="#">Zakat Calculator</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-<li><a href="contact.html#faqs">FAQ's</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4>Our Policies</h4>
-<ul>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms of Service</a></li>
-<li><a href="#">Refund Policy</a></li>
-<li><a href="#">100% Donation Policy</a></li>
-</ul>
-</div>
-<div class="footer-col newsletter-col">
-<h4>Newsletter</h4>
-<p>Subscribe to our newsletter to get latest updates.</p>
-<form class="newsletter-form">
-<input placeholder="Your Email Address" required="" type="email"/>
-<button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-</form>
-</div>
-</div>
-<div class="footer-bottom">
-<div class="container inner-bottom">
-<p>© 2026 BRDT Charity. All Rights Reserved. Registered Charity Number: 1234567.</p>
-<div class="payment-methods">
-<i class="fa-brands fa-cc-visa"></i>
-<i class="fa-brands fa-cc-mastercard"></i>
-<i class="fa-brands fa-cc-paypal"></i>
-<i class="fa-brands fa-cc-apple-pay"></i>
-</div>
-</div>
-</div>
-</footer>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col brand-col">
+          <img alt="BRDT Logo" class="footer-logo" src="logo.png" />
+          <p>
+            Enriching rural lives through sustainable development, education,
+            and immediate relief to those in need.
+          </p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="https://x.com/brdtbd" target="_blank"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.instagram.com/brdtrust/" target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+              target="_blank"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Our Projects</a></li>
+            <li><a href="#">Appeals</a></li>
+            <li><a href="#">Zakat Calculator</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html#faqs">FAQ's</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Policies</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">100% Donation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter-col">
+          <h4>Newsletter</h4>
+          <p>Subscribe to our newsletter to get latest updates.</p>
+          <form class="newsletter-form">
+            <input placeholder="Your Email Address" required="" type="email" />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container inner-bottom">
+          <p>
+            © 2026 BRDT Charity. All Rights Reserved. Registered Charity Number:
+            1234567.
+          </p>
+          <div class="payment-methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-<script>
-// Toggle between email login and password login
-document.getElementById('show-password-login').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('email-login-view').style.display = 'none';
-    document.getElementById('password-login-view').style.display = 'block';
-});
+    <script>
+      // Toggle between email login and password login
+      document
+        .getElementById("show-password-login")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("email-login-view").style.display = "none";
+          document.getElementById("password-login-view").style.display =
+            "block";
+        });
 
-document.getElementById('show-email-login').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('password-login-view').style.display = 'none';
-    document.getElementById('email-login-view').style.display = 'block';
-});
+      document
+        .getElementById("show-email-login")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("password-login-view").style.display = "none";
+          document.getElementById("email-login-view").style.display = "block";
+        });
 
-// Password visibility toggle
-document.getElementById('toggle-login-pw').addEventListener('click', function() {
-    const pwInput = document.getElementById('login-password');
-    const icon = this.querySelector('i');
-    if (pwInput.type === 'password') {
-        pwInput.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-    } else {
-        pwInput.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-    }
-});
+      // Password visibility toggle
+      document
+        .getElementById("toggle-login-pw")
+        .addEventListener("click", function () {
+          const pwInput = document.getElementById("login-password");
+          const icon = this.querySelector("i");
+          if (pwInput.type === "password") {
+            pwInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            pwInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
+        });
 
-// Form submissions (demo)
-document.getElementById('login-form-email').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('A login link has been sent to your email address!');
-});
+      // Form submissions (demo)
+      document
+        .getElementById("login-form-email")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("A login link has been sent to your email address!");
+        });
 
-document.getElementById('login-form-password').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Login successful! Welcome back.');
-});
-</script>
-</body>
+      document
+        .getElementById("login-form-password")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Login successful! Welcome back.");
+        });
+    </script>
+  </body>
 </html>

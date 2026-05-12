@@ -1,107 +1,538 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Fitra (Zakat al-Fitr) - BRDT Charity</title>
-<meta name="description" content="Give your Fitra (Zakat al-Fitr) through BRDT this Ramadan. Help feed hungry families before Eid prayer with your obligatory charity."/>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-</head>
-<body>
-<div class="top-bar"><div class="container top-bar-inner"><div class="top-bar-left"><span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span><span><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span></div><div class="top-bar-right"><a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a><a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a><a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a></div></div></div>
-<header class="main-header"><div class="container header-inner"><div class="logo"><a class="logo-link" href="index.html"><img alt="BRDT Logo" class="logo-img" src="logo.png"/><div class="logo-text"><span class="logo-title">Belghar Rural Development Trust</span><span class="logo-tagline">Enriching Rural Communities Lives</span></div></a></div>
-<nav class="main-nav"><ul><li><a href="projects.html">Projects</a></li><li><a href="madrasah.html">Madrasah</a></li><li><a href="ramadan.html">Ramadan</a></li><li class="has-dropdown"><a href="#">Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i></a><ul class="dropdown-menu"><li><a href="appeal-zakat.html"><i class="fa-solid fa-sack-dollar"></i> Zakat</a></li><li><a href="appeal-fitra.html"><i class="fa-solid fa-wheat-awn"></i> Fitra</a></li><li><a href="appeal-sadaqah.html"><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah Jariyah</a></li><li><a href="appeal-flood.html"><i class="fa-solid fa-house-flood-water"></i> Flood</a></li><li><a href="appeal-sponsor-hafiz.html"><i class="fa-solid fa-book-open-reader"></i> Sponsor a Hafiz</a></li><li><a href="appeal-back-to-school.html"><i class="fa-solid fa-school"></i> Back to School</a></li><li><a href="appeal-orphan.html"><i class="fa-solid fa-child-reaching"></i> Orphan Sponsorship</a></li></ul></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></nav>
-<div class="header-actions"><a class="login-link" href="login.html">Login/Register</a><a class="btn-donate" href="#">Donate Now</a></div></div></header>
-
-<section class="appeal-banner">
-  <div class="container appeal-banner-inner">
-    <div class="appeal-banner-icon"><i class="fa-solid fa-wheat-awn"></i></div>
-    <h1>Fitra <span>(Zakat al-Fitr)</span></h1>
-    <p>Zakat al-Fitr is the obligatory charity given at the end of Ramadan, ensuring every Muslim can celebrate Eid with dignity. Pay your Fitra through BRDT before Eid prayer.</p>
-    <div class="appeal-breadcrumb"><a href="index.html">Home</a><span>/</span><span>Appeals</span><span>/</span><span>Fitra</span></div>
-  </div>
-</section>
-
-<section class="what-is-section">
-  <div class="container">
-    <div class="what-is-grid">
-      <div class="appeal-info-col">
-        <h2>What is <em>Fitra?</em></h2>
-        <p>Fitra, also known as Zakat al-Fitr or Fitrana, is a compulsory form of charity due from every Muslim at the conclusion of the holy month of Ramadan. It is payable by the head of a household on behalf of themselves and every dependent — including children, spouses, and elderly parents — under their care.</p>
-        <p>Unlike Zakat, Fitra is not calculated on wealth. It is a fixed amount per person, equivalent to the cost of one meal, and must be given before the Eid al-Fitr prayer. Its purpose is to purify the fasting person from any shortcomings during Ramadan and to enable the poor to celebrate Eid with joy.</p>
-        <div class="info-highlight"><strong>Ibn Abbas (RA) narrated:</strong> "The Messenger of Allah (ﷺ) made Zakat al-Fitr obligatory as a purification for the fasting person from idle talk and obscenities, and as food for the poor." — Abu Dawud. Your Fitra ensures that no family in Bangladesh goes hungry on the day of Eid.</div>
-        <div class="appeal-key-info">
-          <h4><i class="fa-solid fa-circle-info"></i> Fitra Key Facts</h4>
-          <ul>
-            <li><i class="fa-solid fa-check-circle"></i> Compulsory for every Muslim regardless of wealth level</li>
-            <li><i class="fa-solid fa-check-circle"></i> Must be paid before the Eid al-Fitr prayer</li>
-            <li><i class="fa-solid fa-check-circle"></i> Paid on behalf of every dependant in the household</li>
-            <li><i class="fa-solid fa-check-circle"></i> Equivalent to 2.5kg of staple food (wheat, rice, barley) per person</li>
-            <li><i class="fa-solid fa-check-circle"></i> Can be paid as a cash equivalent — approximately ৳500 per person</li>
-          </ul>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fitra (Zakat al-Fitr) - BRDT Charity</title>
+    <meta
+      name="description"
+      content="Give your Fitra (Zakat al-Fitr) through BRDT this Ramadan. Help feed hungry families before Eid prayer with your obligatory charity."
+    />
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span
+          ><span
+            ><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span
+          >
         </div>
-        <p>BRDT collects Fitra donations and distributes food parcels and cash assistance to the poorest families in rural Bangladesh before Eid, so they can celebrate with happiness and dignity.</p>
+        <div class="top-bar-right">
+          <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+            ><i class="fa-brands fa-facebook-f"></i></a
+          ><a href="https://x.com/brdtbd" target="_blank"
+            ><i class="fa-brands fa-twitter"></i></a
+          ><a href="https://www.instagram.com/brdtrust/" target="_blank"
+            ><i class="fa-brands fa-instagram"></i></a
+          ><a
+            href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+            target="_blank"
+            ><i class="fa-brands fa-linkedin-in"></i></a
+          ><a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+            ><i class="fa-brands fa-tiktok"></i
+          ></a>
+        </div>
       </div>
-      <div>
-        <div class="appeal-donate-widget">
-          <div class="appeal-widget-header"><h3>Pay Your Fitra</h3><p>Quick, easy &amp; 100% reaches those in need</p></div>
-          <div class="appeal-widget-body">
-            <div class="aw-type-toggle"><button class="active" onclick="setType(this)">One-Off</button><button onclick="setType(this)">Monthly</button></div>
-            <div class="aw-amounts"><button onclick="setAmount(this,'৳500')">৳500</button><button class="active" onclick="setAmount(this,'৳1000')">৳1,000</button><button onclick="setAmount(this,'৳1500')">৳1,500</button><button onclick="setAmount(this,'৳2000')">৳2,000</button><button onclick="setAmount(this,'৳3000')">৳3,000</button><button onclick="setAmount(this,'')">Other</button></div>
-            <div class="aw-custom"><span>৳</span><input id="donate-amount" placeholder="Enter amount" type="number" value="1000"/></div>
-            <select class="aw-fund-select"><option value="fitra">Fitra Fund</option><option value="most-needed">Where most needed</option></select>
-            <button class="aw-donate-btn" onclick="donate()">Pay Fitra Now <i class="fa-solid fa-arrow-right"></i></button>
-            <div class="aw-trust-row"><i class="fa-solid fa-shield-halved"></i> Secure &amp; trusted donation</div>
+    </div>
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo">
+          <a class="logo-link" href="index.html"
+            ><img alt="BRDT Logo" class="logo-img" src="logo.png" />
+            <div class="logo-text">
+              <span class="logo-title">Belghar Rural Development Trust</span
+              ><span class="logo-tagline"
+                >Enriching Rural Communities Lives</span
+              >
+            </div></a
+          >
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="madrasah.html">Madrasah</a></li>
+            <li><a href="ramadan.html">Ramadan</a></li>
+            <li class="has-dropdown">
+              <a href="#"
+                >Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="appeal-zakat.html"
+                    ><i class="fa-solid fa-sack-dollar"></i> Zakat</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-fitra.html"
+                    ><i class="fa-solid fa-wheat-awn"></i> Fitra</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sadaqah.html"
+                    ><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah
+                    Jariyah</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-flood.html"
+                    ><i class="fa-solid fa-house-flood-water"></i> Flood</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sponsor-hafiz.html"
+                    ><i class="fa-solid fa-book-open-reader"></i> Sponsor a
+                    Hafiz</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-back-to-school.html"
+                    ><i class="fa-solid fa-school"></i> Back to School</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-orphan.html"
+                    ><i class="fa-solid fa-child-reaching"></i> Orphan
+                    Sponsorship</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a class="login-link" href="login.html">Login/Register</a
+          ><a class="btn-donate" href="#">Donate Now</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="appeal-banner">
+      <div class="container appeal-banner-inner">
+        <div class="appeal-banner-icon">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
+        <h1>Fitra <span>(Zakat al-Fitr)</span></h1>
+        <p>
+          Zakat al-Fitr is the obligatory charity given at the end of Ramadan,
+          ensuring every Muslim can celebrate Eid with dignity. Pay your Fitra
+          through BRDT before Eid prayer.
+        </p>
+        <div class="appeal-breadcrumb">
+          <a href="index.html">Home</a><span>/</span><span>Appeals</span
+          ><span>/</span><span>Fitra</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="what-is-section">
+      <div class="container">
+        <div class="what-is-grid">
+          <div class="appeal-info-col">
+            <h2>What is <em>Fitra?</em></h2>
+            <p>
+              Fitra, also known as Zakat al-Fitr or Fitrana, is a compulsory
+              form of charity due from every Muslim at the conclusion of the
+              holy month of Ramadan. It is payable by the head of a household on
+              behalf of themselves and every dependent — including children,
+              spouses, and elderly parents — under their care.
+            </p>
+            <p>
+              Unlike Zakat, Fitra is not calculated on wealth. It is a fixed
+              amount per person, equivalent to the cost of one meal, and must be
+              given before the Eid al-Fitr prayer. Its purpose is to purify the
+              fasting person from any shortcomings during Ramadan and to enable
+              the poor to celebrate Eid with joy.
+            </p>
+            <div class="info-highlight">
+              <strong>Ibn Abbas (RA) narrated:</strong> "The Messenger of Allah
+              (ﷺ) made Zakat al-Fitr obligatory as a purification for the
+              fasting person from idle talk and obscenities, and as food for the
+              poor." — Abu Dawud. Your Fitra ensures that no family in
+              Bangladesh goes hungry on the day of Eid.
+            </div>
+            <div class="appeal-key-info">
+              <h4><i class="fa-solid fa-circle-info"></i> Fitra Key Facts</h4>
+              <ul>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> Compulsory for every
+                  Muslim regardless of wealth level
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> Must be paid before
+                  the Eid al-Fitr prayer
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> Paid on behalf of
+                  every dependant in the household
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> Equivalent to 2.5kg
+                  of staple food (wheat, rice, barley) per person
+                </li>
+                <li>
+                  <i class="fa-solid fa-check-circle"></i> Can be paid as a cash
+                  equivalent — approximately ৳500 per person
+                </li>
+              </ul>
+            </div>
+            <p>
+              BRDT collects Fitra donations and distributes food parcels and
+              cash assistance to the poorest families in rural Bangladesh before
+              Eid, so they can celebrate with happiness and dignity.
+            </p>
+          </div>
+          <div>
+            <div class="appeal-donate-widget">
+              <div class="appeal-widget-header">
+                <h3>Pay Your Fitra</h3>
+                <p>Quick, easy &amp; 100% reaches those in need</p>
+              </div>
+              <div class="appeal-widget-body">
+                <div class="aw-type-toggle">
+                  <button class="active" onclick="setType(this)">One-Off</button
+                  ><button onclick="setType(this)">Monthly</button>
+                </div>
+                <div class="aw-amounts">
+                  <button onclick="setAmount(this, '৳500')">৳500</button
+                  ><button class="active" onclick="setAmount(this, '৳1000')">
+                    ৳1,000</button
+                  ><button onclick="setAmount(this, '৳1500')">৳1,500</button
+                  ><button onclick="setAmount(this, '৳2000')">৳2,000</button
+                  ><button onclick="setAmount(this, '৳3000')">৳3,000</button
+                  ><button onclick="setAmount(this, '')">Other</button>
+                </div>
+                <div class="aw-custom">
+                  <span>৳</span
+                  ><input
+                    id="donate-amount"
+                    placeholder="Enter amount"
+                    type="number"
+                    value="1000"
+                  />
+                </div>
+                <select class="aw-fund-select">
+                  <option value="fitra">Fitra Fund</option>
+                  <option value="most-needed">Where most needed</option>
+                </select>
+                <button class="aw-donate-btn" onclick="donate()">
+                  Pay Fitra Now <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <div class="aw-trust-row">
+                  <i class="fa-solid fa-shield-halved"></i> Secure &amp; trusted
+                  donation
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="how-works-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>How <span>Fitra Works</span></h2>
+          <p>
+            Understand the simple process of paying your Fitra and how it
+            transforms lives before Eid.
+          </p>
+        </div>
+        <div class="benefit-cards">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fa-solid fa-people-group"></i>
+            </div>
+            <h3>Count Your Household</h3>
+            <p>
+              Include yourself, your spouse, children, and any other dependants
+              you financially support. Multiply ৳500 per person to find your
+              total Fitra amount. Pay before the Eid prayer for it to be valid.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fa-solid fa-bowl-rice"></i>
+            </div>
+            <h3>Food for the Hungry</h3>
+            <p>
+              BRDT converts your Fitra into essential food parcels — rice,
+              lentils, oil, and flour — distributed to the poorest families in
+              rural Bangladesh before Eid morning, ensuring no one fasts on the
+              day of celebration.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fa-solid fa-sun"></i></div>
+            <h3>Celebrate Eid Together</h3>
+            <p>
+              Your Fitra brings the joy of Eid to families who cannot afford to
+              celebrate. It purifies your Ramadan fast, fulfils your obligation
+              to Allah, and ensures the entire community — rich and poor alike —
+              can rejoice on Eid day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="appeal-faq-section">
+      <div class="container">
+        <div class="faq-header text-center">
+          <h2>Frequently Asked Questions</h2>
+          <p>Everything you need to know about paying your Fitra.</p>
+        </div>
+        <div class="faq-accordion">
+          <details open>
+            <summary>
+              When should Fitra be paid? <i class="fa-solid fa-plus"></i
+              ><i class="fa-solid fa-minus"></i>
+            </summary>
+            <div class="faq-content">
+              <p>
+                Fitra must be paid before the Eid al-Fitr prayer. Many scholars
+                recommend giving it in the last days of Ramadan so it can be
+                distributed to the poor before Eid morning. It can also be paid
+                at the beginning of Ramadan to give administrators more time for
+                distribution.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Who must pay Fitra? <i class="fa-solid fa-plus"></i
+              ><i class="fa-solid fa-minus"></i>
+            </summary>
+            <div class="faq-content">
+              <p>
+                Every Muslim who possesses more than their basic needs must pay
+                Fitra for themselves and all their dependants. The head of
+                household pays on behalf of their spouse, children, and any
+                other dependants. Unlike Zakat, there is no Nisab threshold — it
+                is obligatory on all Muslims who have food for that day and
+                night.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              What is the amount of Fitra? <i class="fa-solid fa-plus"></i
+              ><i class="fa-solid fa-minus"></i>
+            </summary>
+            <div class="faq-content">
+              <p>
+                Fitra is equivalent to one Sa' (approximately 2.5kg) of staple
+                food such as wheat, barley, dates, or rice per person. In
+                monetary terms, BRDT estimates this at approximately ৳500 per
+                person, though this may vary. Check with your local Islamic
+                authority for the most current rate.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Can I pay Fitra for multiple people at once?
+              <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i>
+            </summary>
+            <div class="faq-content">
+              <p>
+                Yes. When donating, simply enter the total amount for all
+                members of your household. For example, if there are 4 people in
+                your family, enter ৳2,000 (4 × ৳500). BRDT will distribute this
+                as food aid to families in need.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="making-diff-section">
+      <div class="container">
+        <h2>Feeding Families Before <span>Eid</span></h2>
+        <p>
+          Thanks to the generosity of donors like you, BRDT has been able to
+          distribute Fitra food parcels to thousands of families in rural
+          Bangladesh. No family should go hungry on the day of Eid — your Fitra
+          makes that possible.
+        </p>
+        <div class="diff-stats">
+          <div class="diff-stat">
+            <i class="fa-solid fa-bowl-food"></i
+            ><span class="stat-num">3,000+</span
+            ><span class="stat-label">Families Fed on Eid</span>
+          </div>
+          <div class="diff-stat">
+            <i class="fa-solid fa-location-dot"></i
+            ><span class="stat-num">50+</span
+            ><span class="stat-label">Villages Reached</span>
+          </div>
+          <div class="diff-stat">
+            <i class="fa-solid fa-calendar-check"></i
+            ><span class="stat-num">5+</span
+            ><span class="stat-label">Years of Service</span>
+          </div>
+          <div class="diff-stat">
+            <i class="fa-solid fa-heart"></i><span class="stat-num">100%</span
+            ><span class="stat-label">Donation Policy</span>
+          </div>
+        </div>
+        <a class="btn-primary" href="#">Pay Your Fitra Now</a>
+      </div>
+    </section>
+
+    <section class="promise-section">
+      <div class="container">
+        <div class="promise-inner">
+          <div class="promise-icon-badge">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="promise-text">
+            <h3>Our Promise To You</h3>
+            <p>
+              Every penny of your Fitra goes directly to feeding families in
+              Bangladesh. BRDT's 100% Donation Policy guarantees zero deductions
+              for administration or overheads.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container section-padding text-center">
+      <div class="newsletter-wrap">
+        <div class="newsletter-text">
+          <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+          <p>Get notified about updates, news and events.</p>
+        </div>
+        <div class="newsletter-input">
+          <form class="d-flex">
+            <input type="email" placeholder="Email address" required /><button
+              type="submit"
+              class="btn-primary"
+            >
+              Subscribe <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+          <p class="privacy-note mt-2">
+            Will be used in accordance with our <a href="#">Privacy Policy</a>
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="how-works-section">
-  <div class="container">
-    <div class="section-header"><h2>How <span>Fitra Works</span></h2><p>Understand the simple process of paying your Fitra and how it transforms lives before Eid.</p></div>
-    <div class="benefit-cards">
-      <div class="benefit-card"><div class="benefit-icon"><i class="fa-solid fa-people-group"></i></div><h3>Count Your Household</h3><p>Include yourself, your spouse, children, and any other dependants you financially support. Multiply ৳500 per person to find your total Fitra amount. Pay before the Eid prayer for it to be valid.</p></div>
-      <div class="benefit-card"><div class="benefit-icon"><i class="fa-solid fa-bowl-rice"></i></div><h3>Food for the Hungry</h3><p>BRDT converts your Fitra into essential food parcels — rice, lentils, oil, and flour — distributed to the poorest families in rural Bangladesh before Eid morning, ensuring no one fasts on the day of celebration.</p></div>
-      <div class="benefit-card"><div class="benefit-icon"><i class="fa-solid fa-sun"></i></div><h3>Celebrate Eid Together</h3><p>Your Fitra brings the joy of Eid to families who cannot afford to celebrate. It purifies your Ramadan fast, fulfils your obligation to Allah, and ensures the entire community — rich and poor alike — can rejoice on Eid day.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="appeal-faq-section">
-  <div class="container">
-    <div class="faq-header text-center"><h2>Frequently Asked Questions</h2><p>Everything you need to know about paying your Fitra.</p></div>
-    <div class="faq-accordion">
-      <details open><summary>When should Fitra be paid? <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i></summary><div class="faq-content"><p>Fitra must be paid before the Eid al-Fitr prayer. Many scholars recommend giving it in the last days of Ramadan so it can be distributed to the poor before Eid morning. It can also be paid at the beginning of Ramadan to give administrators more time for distribution.</p></div></details>
-      <details><summary>Who must pay Fitra? <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i></summary><div class="faq-content"><p>Every Muslim who possesses more than their basic needs must pay Fitra for themselves and all their dependants. The head of household pays on behalf of their spouse, children, and any other dependants. Unlike Zakat, there is no Nisab threshold — it is obligatory on all Muslims who have food for that day and night.</p></div></details>
-      <details><summary>What is the amount of Fitra? <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i></summary><div class="faq-content"><p>Fitra is equivalent to one Sa' (approximately 2.5kg) of staple food such as wheat, barley, dates, or rice per person. In monetary terms, BRDT estimates this at approximately ৳500 per person, though this may vary. Check with your local Islamic authority for the most current rate.</p></div></details>
-      <details><summary>Can I pay Fitra for multiple people at once? <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i></summary><div class="faq-content"><p>Yes. When donating, simply enter the total amount for all members of your household. For example, if there are 4 people in your family, enter ৳2,000 (4 × ৳500). BRDT will distribute this as food aid to families in need.</p></div></details>
-    </div>
-  </div>
-</section>
-
-<section class="making-diff-section">
-  <div class="container">
-    <h2>Feeding Families Before <span>Eid</span></h2>
-    <p>Thanks to the generosity of donors like you, BRDT has been able to distribute Fitra food parcels to thousands of families in rural Bangladesh. No family should go hungry on the day of Eid — your Fitra makes that possible.</p>
-    <div class="diff-stats">
-      <div class="diff-stat"><i class="fa-solid fa-bowl-food"></i><span class="stat-num">3,000+</span><span class="stat-label">Families Fed on Eid</span></div>
-      <div class="diff-stat"><i class="fa-solid fa-location-dot"></i><span class="stat-num">50+</span><span class="stat-label">Villages Reached</span></div>
-      <div class="diff-stat"><i class="fa-solid fa-calendar-check"></i><span class="stat-num">5+</span><span class="stat-label">Years of Service</span></div>
-      <div class="diff-stat"><i class="fa-solid fa-heart"></i><span class="stat-num">100%</span><span class="stat-label">Donation Policy</span></div>
-    </div>
-    <a class="btn-primary" href="#">Pay Your Fitra Now</a>
-  </div>
-</section>
-
-<section class="promise-section"><div class="container"><div class="promise-inner"><div class="promise-icon-badge"><i class="fa-solid fa-award"></i></div><div class="promise-text"><h3>Our Promise To You</h3><p>Every penny of your Fitra goes directly to feeding families in Bangladesh. BRDT's 100% Donation Policy guarantees zero deductions for administration or overheads.</p></div></div></div></section>
-
-<div class="container section-padding text-center"><div class="newsletter-wrap"><div class="newsletter-text"><h2>SUBSCRIBE TO OUR NEWSLETTER</h2><p>Get notified about updates, news and events.</p></div><div class="newsletter-input"><form class="d-flex"><input type="email" placeholder="Email address" required><button type="submit" class="btn-primary">Subscribe <i class="fa-solid fa-paper-plane"></i></button></form><p class="privacy-note mt-2">Will be used in accordance with our <a href="#">Privacy Policy</a></p></div></div></div>
-
-<footer class="main-footer"><div class="container footer-grid"><div class="footer-col brand-col"><img alt="BRDT Logo" class="footer-logo" src="logo.png"/><p>Enriching rural lives through sustainable development, education, and immediate relief to those in need.</p><div class="social-links"><a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a><a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a><a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a></div></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="about.html">About Us</a></li><li><a href="projects.html">Our Projects</a></li><li><a href="appeal-fitra.html">Fitra</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="contact.html#faqs">FAQ's</a></li></ul></div><div class="footer-col"><h4>Our Policies</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">100% Donation Policy</a></li></ul></div><div class="footer-col newsletter-col"><h4>Newsletter</h4><p>Subscribe to our newsletter to get latest updates.</p><form class="newsletter-form"><input placeholder="Your Email Address" required="" type="email"/><button type="submit"><i class="fa-solid fa-paper-plane"></i></button></form></div></div><div class="footer-bottom"><div class="container inner-bottom"><p>© 2026 BRDT Charity. All Rights Reserved. Registered Charity Number: 1234567.</p><div class="payment-methods"><i class="fa-brands fa-cc-visa"></i><i class="fa-brands fa-cc-mastercard"></i><i class="fa-brands fa-cc-paypal"></i><i class="fa-brands fa-cc-apple-pay"></i></div></div></div></footer>
-<script>function setType(btn){btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}function setAmount(btn,val){btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(val)document.getElementById('donate-amount').value=val.replace('৳','').replace(',','');}function donate(){var a=document.getElementById('donate-amount').value;if(!a||a<=0){alert('Please enter a valid amount.');return;}alert('Thank you! Redirecting to secure payment for ৳'+parseInt(a).toLocaleString()+'...');}</script>
-</body></html>
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col brand-col">
+          <img alt="BRDT Logo" class="footer-logo" src="logo.png" />
+          <p>
+            Enriching rural lives through sustainable development, education,
+            and immediate relief to those in need.
+          </p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+              ><i class="fa-brands fa-facebook-f"></i></a
+            ><a href="https://x.com/brdtbd" target="_blank"
+              ><i class="fa-brands fa-twitter"></i></a
+            ><a href="https://www.instagram.com/brdtrust/" target="_blank"
+              ><i class="fa-brands fa-instagram"></i></a
+            ><a
+              href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+              target="_blank"
+              ><i class="fa-brands fa-linkedin-in"></i></a
+            ><a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Our Projects</a></li>
+            <li><a href="appeal-fitra.html">Fitra</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html#faqs">FAQ's</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Policies</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">100% Donation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter-col">
+          <h4>Newsletter</h4>
+          <p>Subscribe to our newsletter to get latest updates.</p>
+          <form class="newsletter-form">
+            <input
+              placeholder="Your Email Address"
+              required=""
+              type="email"
+            /><button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container inner-bottom">
+          <p>
+            © 2026 BRDT Charity. All Rights Reserved. Registered Charity Number:
+            1234567.
+          </p>
+          <div class="payment-methods">
+            <i class="fa-brands fa-cc-visa"></i
+            ><i class="fa-brands fa-cc-mastercard"></i
+            ><i class="fa-brands fa-cc-paypal"></i
+            ><i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function setType(btn) {
+        btn.parentElement
+          .querySelectorAll("button")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+      function setAmount(btn, val) {
+        btn.parentElement
+          .querySelectorAll("button")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        if (val)
+          document.getElementById("donate-amount").value = val
+            .replace("৳", "")
+            .replace(",", "");
+      }
+      function donate() {
+        var a = document.getElementById("donate-amount").value;
+        if (!a || a <= 0) {
+          alert("Please enter a valid amount.");
+          return;
+        }
+        alert(
+          "Thank you! Redirecting to secure payment for ৳" +
+            parseInt(a).toLocaleString() +
+            "...",
+        );
+      }
+    </script>
+  </body>
+</html>

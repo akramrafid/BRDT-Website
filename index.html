@@ -1,449 +1,656 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>BRDT - Belghar Rural Development Trust</title>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-</head>
-<body>
-<!-- Top Bar -->
-<div class="top-bar">
-<div class="container top-bar-inner">
-<div class="top-bar-left">
-<span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
-<span><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span>
-</div>
-<div class="top-bar-right">
-<a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-<a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-<a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</div>
-</div>
-<!-- Main Header -->
-<header class="main-header">
-<div class="container header-inner">
-<div class="logo">
-<a class="logo-link" href="index.html">
-<img alt="BRDT Logo" class="logo-img" src="logo.png"/>
-<div class="logo-text">
-<span class="logo-title">Belghar Rural Development Trust</span>
-<span class="logo-tagline">Enriching Rural Communities Lives</span>
-</div>
-</a>
-</div>
-<nav class="main-nav">
-<ul>
-<li><a href="projects.html">Projects</a></li>
-<li><a href="madrasah.html">Madrasah</a></li>
-<li><a href="ramadan.html">Ramadan</a></li>
-<li class="has-dropdown">
-<a href="#">Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i></a>
-<ul class="dropdown-menu">
-<li><a href="appeal-zakat.html"><i class="fa-solid fa-sack-dollar"></i> Zakat</a></li>
-<li><a href="appeal-fitra.html"><i class="fa-solid fa-wheat-awn"></i> Fitra</a></li>
-<li><a href="appeal-sadaqah.html"><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah Jariyah</a></li>
-<li><a href="appeal-flood.html"><i class="fa-solid fa-house-flood-water"></i> Flood</a></li>
-<li><a href="appeal-sponsor-hafiz.html"><i class="fa-solid fa-book-open-reader"></i> Sponsor a Hafiz</a></li>
-<li><a href="appeal-back-to-school.html"><i class="fa-solid fa-school"></i> Back to School</a></li>
-<li><a href="appeal-orphan.html"><i class="fa-solid fa-child-reaching"></i> Orphan Sponsorship</a></li>
-</ul>
-</li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-</ul>
-</nav>
-<div class="header-actions">
-<a class="login-link" href="login.html">Login/Register</a>
-<a class="btn-donate" href="#">Donate Now</a>
-</div>
-</div>
-</header>
-<!-- Hero Section -->
-<section class="hero-section">
-<div class="container hero-inner">
-<div class="hero-content">
-<span class="hero-subtitle">Saving Lives in Bangladesh</span>
-<h1 class="hero-title">Hope for the hopeless. <br/>Help for the helpless.</h1>
-<p class="hero-desc">Join us in making a difference today. Your donation can change a life forever.</p>
-<div class="hero-buttons">
-<a class="btn-primary" href="#">Donate Now</a>
-<a class="btn-secondary" href="#">Discover More</a>
-</div>
-</div>
-<div class="donation-widget">
-<div class="widget-header">
-<h3>Quick Donate</h3>
-</div>
-<div class="widget-body">
-<div class="donation-type">
-<button class="active">One-Off</button>
-<button>Monthly</button>
-</div>
-<div class="donation-amounts">
-<button>৳20</button>
-<button class="active">৳50</button>
-<button>৳100</button>
-<button>৳250</button>
-</div>
-<div class="custom-amount">
-<span>৳</span>
-<input placeholder="Other amount" type="number"/>
-</div>
-<select class="fund-select">
-<option value="most-needed">Where most needed</option>
-<option value="student-mentoring">Student Mentoring Support</option>
-<option value="winter-clothes">Winter Clothes &amp; Blanket Distribution</option>
-<option value="ramadan-iftar">Ramadan Sehri &amp; Iftar Program</option>
-<option value="eid-semai">Eid ul-Fitr Semai &amp; Sugar Distribution</option>
-<option value="korbani">Eid al-Adha Sacrificial Meat Distribution</option>
-<option value="disaster-relief">Disaster &amp; Emergency Relief</option>
-<option value="tree-planting">Tree &amp; Fruit Plant Initiative</option>
-<option value="marriage-assist">Marriage Assistance for Poor Families</option>
-</select>
-<button class="btn-primary w-100">Donate ৳50</button>
-</div>
-</div>
-</div>
-</section>
-<!-- Categories Row -->
-<section class="categories-section">
-<div class="container">
-<div class="categories-grid">
-<div class="category-card">
-<i class="fa-solid fa-graduation-cap"></i>
-<span>Poor Student Help</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-mitten"></i>
-<span>Winter Cloths</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-utensils"></i>
-<span>Suhur &amp; Iftar</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-bowl-rice"></i>
-<span>Semai-Chini</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-cow"></i>
-<span>Korbani</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-hand-holding-droplet"></i>
-<span>Disaster Relief</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-ring"></i>
-<span>Wedding Help</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-stethoscope"></i>
-<span>Treatment Help</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-people-group"></i>
-<span>Social Dev.</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-child"></i>
-<span>Orphan Fund</span>
-</div>
-<div class="category-card">
-<i class="fa-solid fa-sack-dollar"></i>
-<span>Zakat Fund</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Featured Project Section -->
-<section class="featured-project section-padding">
-<div class="container">
-<div class="project-wrapper">
-<div class="project-content">
-<span class="section-subtitle">Our Work</span>
-<h2 class="project-title">Provides mentoring and overall support to students</h2>
-<div class="project-text-content">
-<p><strong>Belghar Rural Development Trust (BRDT)</strong> plays a vital role in strengthening the educational foundation of students from underprivileged communities. The organization provides structured mentoring and ongoing support to young learners in both reading and writing, which helps build confidence and skills.</p>
-<p>Through individualized guidance, students receive mentoring sessions to meet their individual learning needs. This approach ensures that they do not fall behind, but are encouraged to progress at their own pace. The Trust's mentors often act not only as teachers but also as role models, creating a positive learning environment.</p>
-</div>
-<div class="highlight-box">
-<div class="highlight-icon">
-<i class="fa-solid fa-book-open-reader"></i>
-</div>
-<div class="highlight-text">
-<p>Overall, BRDT provides essential books, notebooks, pens, calculators, geometry boxes and shoulder bags to students from Kinder Garden to Class V, Class VI to Secondary School Certificate (SSC), From college to university level. We also provide financial assistance to those who need money to fill up forms.</p>
-</div>
-</div>
-<a class="btn-primary mt-4" href="projects.html">View All Projects</a>
-</div>
-<div class="project-gallery">
-<div class="gallery-main">
-<!-- Please rename your uploaded images to project-1.jpg, project-2.jpg etc. -->
-<img alt="Students with bags" class="gallery-img" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80'" src="images/Provides%20mentoring%20and%20overall%20support%20to%20students.jpg"/>
-</div>
-<div class="gallery-thumbs">
-<img alt="School supplies" class="gallery-img" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'" src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%282%29.jpg"/>
-<img alt="Notebooks" class="gallery-img" onerror="this.src='https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'" src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%283%29.jpg"/>
-<img alt="Distribution" class="gallery-img" onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'" src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%284%29.jpg"/>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Featured Ongoing Projects -->
-<section class="appeals-section section-padding">
-<div class="container">
-<div class="section-header">
-<h2>Our Ongoing <span>Projects</span></h2>
-<p>Explore our active humanitarian initiatives empowering and uplifting communities.</p>
-</div>
-<div class="appeals-grid">
-<!-- Card 1 -->
-<div class="appeal-card animate-fade-in-up delay-100">
-<div class="card-img">
-<img alt="Mentoring Students" src="images/Provides%20mentoring%20and%20overall%20support%20to%20students.jpg"/>
-</div>
-<div class="card-content">
-<h3>Student Mentoring Support</h3>
-<p>Providing essential educational supplies and dedicated mentoring for underprivileged students.</p>
-<div class="progress-wrapper">
-<div class="progress-stats">
-<span>Impacted: 500+ Students</span>
-<span>Goal: 1000+ Students</span>
-</div>
-<div class="progress-bar">
-<div class="progress-fill" style="width: 50%;"></div>
-</div>
-</div>
-<div class="card-actions">
-<a class="btn-outline" href="project-mentoring-support.html">Read More</a>
-<a class="btn-primary btn-sm" href="#">Support</a>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="appeal-card animate-fade-in-up delay-200">
-<div class="card-img">
-<img alt="Winter Clothes" src="images/Distribution%20of%20essential%20warm%20clothes%20and%20blankets%20to%20underprivileged%20people%20during%20winter.jpg"/>
-<span class="badge badge-urgent" style="background-color: #29AEE4;">Active</span>
-</div>
-<div class="card-content">
-<h3>Winter Blanket Distribution</h3>
-<p>Delivering warm clothes and blankets to help rural families survive the harsh winter conditions.</p>
-<div class="progress-wrapper">
-<div class="progress-stats">
-<span>Families Reached: 350</span>
-<span>Target: 500 Families</span>
-</div>
-<div class="progress-bar">
-<div class="progress-fill" style="width: 70%; background-color: #29AEE4;"></div>
-</div>
-</div>
-<div class="card-actions">
-<a class="btn-outline" href="project-winter-clothes.html">Read More</a>
-<a class="btn-primary btn-sm" href="#">Support</a>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="appeal-card animate-fade-in-up delay-300">
-<div class="card-img">
-<img alt="Disaster Relief" src="images/Providing%20timely%20assistance%20to%20people%20in%20need%20in%20various%20disasters%20and%20emergency%20situations.jpg"/>
-<span class="badge badge-urgent">Urgent</span>
-</div>
-<div class="card-content">
-<h3>Emergency Disaster Relief</h3>
-<p>Immediate response with food, water, and shelter for communities affected by natural disasters.</p>
-<div class="progress-wrapper">
-<div class="progress-stats">
-<span>Raised: ৳50,000</span>
-<span>Goal: ৳150,000</span>
-</div>
-<div class="progress-bar">
-<div class="progress-fill" style="width: 33%;"></div>
-</div>
-</div>
-<div class="card-actions">
-<a class="btn-outline" href="project-disaster-relief.html">Read More</a>
-<a class="btn-primary btn-sm" href="#">Donate</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Prophetic Quote Banner -->
-<section class="quote-banner">
-<div class="container">
-<div class="islamic-quote">
-<h4 class="quote-author">The Prophet Muhammad ﷺ said:</h4>
-<p class="quote-text">“Every day, two angels come down from Heaven. One of them says, ‘O Allah, compensate the one who spends (in charity),’ and the other says, ‘O Allah, destroy the wealth of the one who withholds.’”</p>
-<span class="quote-source">Sahih al-Bukhari</span>
-</div>
-</div>
-</section>
-<!-- Colorful Programs Grid Section -->
-<section class="programs-grid-wrapper">
-<div class="container">
-<div class="programs-grid">
-<a class="program-block bg-color-1" href="project-disaster-relief.html">
-<div class="program-block-info">
-<h3>Disaster Relief</h3>
-<p>Immediate Crisis Aid</p>
-</div>
-<i class="fa-solid fa-bell-concierge"></i>
-</a>
-<a class="program-block bg-color-2" href="project-ramadan-iftar.html">
-<div class="program-block-info">
-<h3>Suhur &amp; Iftar</h3>
-<p>Ramadan Meals Access</p>
-</div>
-<i class="fa-solid fa-hand-holding-water"></i>
-</a>
-<a class="program-block bg-color-3" href="project-marriage-assistance.html">
-<div class="program-block-info">
-<h3>Wedding Help</h3>
-<p>Marriage Support</p>
-</div>
-<i class="fa-solid fa-ring"></i>
-</a>
-<a class="program-block bg-color-4" href="project-korbani-meat.html">
-<div class="program-block-info">
-<h3>Korbani Program</h3>
-<p>Sacrificial Meat Distribution</p>
-</div>
-<i class="fa-solid fa-cow"></i>
-</a>
-<a class="program-block bg-color-5" href="projects.html">
-<div class="program-block-info">
-<h3>Orphan Fund</h3>
-<p>Support for Orphans</p>
-</div>
-<i class="fa-solid fa-children"></i>
-</a>
-<a class="program-block bg-color-6" href="projects.html">
-<div class="program-block-info">
-<h3>Zakat Fund</h3>
-<p>Ongoing Charity Gifts</p>
-</div>
-<i class="fa-solid fa-box-open"></i>
-</a>
-<a class="program-block bg-color-7" href="project-winter-clothes.html">
-<div class="program-block-info">
-<h3>Winter Cloths</h3>
-<p>Warmth for the Needy</p>
-</div>
-<i class="fa-solid fa-mitten"></i>
-</a>
-<a class="program-block bg-color-8" href="project-mentoring-support.html">
-<div class="program-block-info">
-<h3>Student Help</h3>
-<p>Education Mentoring</p>
-</div>
-<i class="fa-solid fa-book-open-reader"></i>
-</a>
-</div>
-</div>
-</section>
-<!-- Impact Stats -->
-<section class="impact-section">
-<div class="impact-overlay"></div>
-<div class="container impact-grid">
-<div class="stat-item">
-<div class="stat-icon"><i class="fa-solid fa-location-dot"></i></div>
-<h3 class="counter">50+</h3>
-<p>Villages Reached</p>
-</div>
-<div class="stat-item">
-<div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-<h3 class="counter">50K+</h3>
-<p>Lives Impacted</p>
-</div>
-<div class="stat-item">
-<div class="stat-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
-<h3 class="counter">10K+</h3>
-<p>Generous Donors</p>
-</div>
-<div class="stat-item">
-<div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-<h3 class="counter">500+</h3>
-<p>Students Supported</p>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="cta-section">
-<div class="container cta-inner">
-<h2>Ready to make a difference?</h2>
-<p>Every penny counts. Give your Zakat and Sadaqah today and change a life.</p>
-<div class="cta-actions">
-<a class="btn-white" href="#">Donate Now</a>
-<a class="btn-outline-white" href="#">Calculate Zakat</a>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<footer class="main-footer">
-<div class="container footer-grid">
-<div class="footer-col brand-col">
-<img alt="BRDT Logo" class="footer-logo" src="logo.png"/>
-<p>Enriching rural lives through sustainable development, education, and immediate relief to those in need.</p>
-<div class="social-links">
-<a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-<a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-<a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</div>
-<div class="footer-col">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="about.html">About Us</a></li>
-<li><a href="projects.html">Our Projects</a></li>
-<li><a href="#">Appeals</a></li>
-<li><a href="#">Zakat Calculator</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-<li><a href="contact.html#faqs">FAQ's</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4>Our Policies</h4>
-<ul>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms of Service</a></li>
-<li><a href="#">Refund Policy</a></li>
-<li><a href="#">100% Donation Policy</a></li>
-</ul>
-</div>
-<div class="footer-col newsletter-col">
-<h4>Newsletter</h4>
-<p>Subscribe to our newsletter to get latest updates.</p>
-<form class="newsletter-form">
-<input placeholder="Your Email Address" required="" type="email"/>
-<button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-</form>
-</div>
-</div>
-<div class="footer-bottom">
-<div class="container inner-bottom">
-<p>© 2026 BRDT Charity. All Rights Reserved. Contact: +44 7540 253384.</p>
-<div class="payment-methods">
-<i class="fa-brands fa-cc-visa"></i>
-<i class="fa-brands fa-cc-mastercard"></i>
-<i class="fa-brands fa-cc-paypal"></i>
-<i class="fa-brands fa-cc-apple-pay"></i>
-</div>
-</div>
-</div>
-</footer>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>BRDT - Belghar Rural Development Trust</title>
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
+          <span
+            ><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span
+          >
+        </div>
+        <div class="top-bar-right">
+          <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="https://x.com/brdtbd" target="_blank"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a href="https://www.instagram.com/brdtrust/" target="_blank"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+            target="_blank"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+          <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+            ><i class="fa-brands fa-tiktok"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="logo">
+          <a class="logo-link" href="index.html">
+            <img alt="BRDT Logo" class="logo-img" src="logo.png" />
+            <div class="logo-text">
+              <span class="logo-title">Belghar Rural Development Trust</span>
+              <span class="logo-tagline"
+                >Enriching Rural Communities Lives</span
+              >
+            </div>
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="madrasah.html">Madrasah</a></li>
+            <li><a href="ramadan.html">Ramadan</a></li>
+            <li class="has-dropdown">
+              <a href="#"
+                >Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="appeal-zakat.html"
+                    ><i class="fa-solid fa-sack-dollar"></i> Zakat</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-fitra.html"
+                    ><i class="fa-solid fa-wheat-awn"></i> Fitra</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sadaqah.html"
+                    ><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah
+                    Jariyah</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-flood.html"
+                    ><i class="fa-solid fa-house-flood-water"></i> Flood</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sponsor-hafiz.html"
+                    ><i class="fa-solid fa-book-open-reader"></i> Sponsor a
+                    Hafiz</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-back-to-school.html"
+                    ><i class="fa-solid fa-school"></i> Back to School</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-orphan.html"
+                    ><i class="fa-solid fa-child-reaching"></i> Orphan
+                    Sponsorship</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a class="login-link" href="login.html">Login/Register</a>
+          <a class="btn-donate" href="#">Donate Now</a>
+        </div>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <span class="hero-subtitle">Saving Lives in Bangladesh</span>
+          <h1 class="hero-title">
+            Hope for the hopeless. <br />Help for the helpless.
+          </h1>
+          <p class="hero-desc">
+            Join us in making a difference today. Your donation can change a
+            life forever.
+          </p>
+          <div class="hero-buttons">
+            <a class="btn-primary" href="#">Donate Now</a>
+            <a class="btn-secondary" href="#">Discover More</a>
+          </div>
+        </div>
+        <div class="donation-widget">
+          <div class="widget-header">
+            <h3>Quick Donate</h3>
+          </div>
+          <div class="widget-body">
+            <div class="donation-type">
+              <button class="active">One-Off</button>
+              <button>Monthly</button>
+            </div>
+            <div class="donation-amounts">
+              <button>৳20</button>
+              <button class="active">৳50</button>
+              <button>৳100</button>
+              <button>৳250</button>
+            </div>
+            <div class="custom-amount">
+              <span>৳</span>
+              <input placeholder="Other amount" type="number" />
+            </div>
+            <select class="fund-select">
+              <option value="most-needed">Where most needed</option>
+              <option value="student-mentoring">
+                Student Mentoring Support
+              </option>
+              <option value="winter-clothes">
+                Winter Clothes &amp; Blanket Distribution
+              </option>
+              <option value="ramadan-iftar">
+                Ramadan Sehri &amp; Iftar Program
+              </option>
+              <option value="eid-semai">
+                Eid ul-Fitr Semai &amp; Sugar Distribution
+              </option>
+              <option value="korbani">
+                Eid al-Adha Sacrificial Meat Distribution
+              </option>
+              <option value="disaster-relief">
+                Disaster &amp; Emergency Relief
+              </option>
+              <option value="tree-planting">
+                Tree &amp; Fruit Plant Initiative
+              </option>
+              <option value="marriage-assist">
+                Marriage Assistance for Poor Families
+              </option>
+            </select>
+            <button class="btn-primary w-100">Donate ৳50</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Categories Row -->
+    <section class="categories-section">
+      <div class="container">
+        <div class="categories-grid">
+          <div class="category-card">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Poor Student Help</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-mitten"></i>
+            <span>Winter Cloths</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Suhur &amp; Iftar</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-bowl-rice"></i>
+            <span>Semai-Chini</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-cow"></i>
+            <span>Korbani</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-hand-holding-droplet"></i>
+            <span>Disaster Relief</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-ring"></i>
+            <span>Wedding Help</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-stethoscope"></i>
+            <span>Treatment Help</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-people-group"></i>
+            <span>Social Dev.</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-child"></i>
+            <span>Orphan Fund</span>
+          </div>
+          <div class="category-card">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <span>Zakat Fund</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Featured Project Section -->
+    <section class="featured-project section-padding">
+      <div class="container">
+        <div class="project-wrapper">
+          <div class="project-content">
+            <span class="section-subtitle">Our Work</span>
+            <h2 class="project-title">
+              Provides mentoring and overall support to students
+            </h2>
+            <div class="project-text-content">
+              <p>
+                <strong>Belghar Rural Development Trust (BRDT)</strong> plays a
+                vital role in strengthening the educational foundation of
+                students from underprivileged communities. The organization
+                provides structured mentoring and ongoing support to young
+                learners in both reading and writing, which helps build
+                confidence and skills.
+              </p>
+              <p>
+                Through individualized guidance, students receive mentoring
+                sessions to meet their individual learning needs. This approach
+                ensures that they do not fall behind, but are encouraged to
+                progress at their own pace. The Trust's mentors often act not
+                only as teachers but also as role models, creating a positive
+                learning environment.
+              </p>
+            </div>
+            <div class="highlight-box">
+              <div class="highlight-icon">
+                <i class="fa-solid fa-book-open-reader"></i>
+              </div>
+              <div class="highlight-text">
+                <p>
+                  Overall, BRDT provides essential books, notebooks, pens,
+                  calculators, geometry boxes and shoulder bags to students from
+                  Kinder Garden to Class V, Class VI to Secondary School
+                  Certificate (SSC), From college to university level. We also
+                  provide financial assistance to those who need money to fill
+                  up forms.
+                </p>
+              </div>
+            </div>
+            <a class="btn-primary mt-4" href="projects.html"
+              >View All Projects</a
+            >
+          </div>
+          <div class="project-gallery">
+            <div class="gallery-main">
+              <!-- Please rename your uploaded images to project-1.jpg, project-2.jpg etc. -->
+              <img
+                alt="Students with bags"
+                class="gallery-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80'
+                "
+                src="images/Provides%20mentoring%20and%20overall%20support%20to%20students.jpg"
+              />
+            </div>
+            <div class="gallery-thumbs">
+              <img
+                alt="School supplies"
+                class="gallery-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
+                "
+                src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%282%29.jpg"
+              />
+              <img
+                alt="Notebooks"
+                class="gallery-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
+                "
+                src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%283%29.jpg"
+              />
+              <img
+                alt="Distribution"
+                class="gallery-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
+                "
+                src="images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%284%29.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Featured Ongoing Projects -->
+    <section class="appeals-section section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Ongoing <span>Projects</span></h2>
+          <p>
+            Explore our active humanitarian initiatives empowering and uplifting
+            communities.
+          </p>
+        </div>
+        <div class="appeals-grid">
+          <!-- Card 1 -->
+          <div class="appeal-card animate-fade-in-up delay-100">
+            <div class="card-img">
+              <img
+                alt="Mentoring Students"
+                src="images/Provides%20mentoring%20and%20overall%20support%20to%20students.jpg"
+              />
+            </div>
+            <div class="card-content">
+              <h3>Student Mentoring Support</h3>
+              <p>
+                Providing essential educational supplies and dedicated mentoring
+                for underprivileged students.
+              </p>
+              <div class="progress-wrapper">
+                <div class="progress-stats">
+                  <span>Impacted: 500+ Students</span>
+                  <span>Goal: 1000+ Students</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 50%"></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <a class="btn-outline" href="project-mentoring-support.html"
+                  >Read More</a
+                >
+                <a class="btn-primary btn-sm" href="#">Support</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="appeal-card animate-fade-in-up delay-200">
+            <div class="card-img">
+              <img
+                alt="Winter Clothes"
+                src="images/Distribution%20of%20essential%20warm%20clothes%20and%20blankets%20to%20underprivileged%20people%20during%20winter.jpg"
+              />
+              <span class="badge badge-urgent" style="background-color: #29aee4"
+                >Active</span
+              >
+            </div>
+            <div class="card-content">
+              <h3>Winter Blanket Distribution</h3>
+              <p>
+                Delivering warm clothes and blankets to help rural families
+                survive the harsh winter conditions.
+              </p>
+              <div class="progress-wrapper">
+                <div class="progress-stats">
+                  <span>Families Reached: 350</span>
+                  <span>Target: 500 Families</span>
+                </div>
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    style="width: 70%; background-color: #29aee4"
+                  ></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <a class="btn-outline" href="project-winter-clothes.html"
+                  >Read More</a
+                >
+                <a class="btn-primary btn-sm" href="#">Support</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="appeal-card animate-fade-in-up delay-300">
+            <div class="card-img">
+              <img
+                alt="Disaster Relief"
+                src="images/Providing%20timely%20assistance%20to%20people%20in%20need%20in%20various%20disasters%20and%20emergency%20situations.jpg"
+              />
+              <span class="badge badge-urgent">Urgent</span>
+            </div>
+            <div class="card-content">
+              <h3>Emergency Disaster Relief</h3>
+              <p>
+                Immediate response with food, water, and shelter for communities
+                affected by natural disasters.
+              </p>
+              <div class="progress-wrapper">
+                <div class="progress-stats">
+                  <span>Raised: ৳50,000</span>
+                  <span>Goal: ৳150,000</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 33%"></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <a class="btn-outline" href="project-disaster-relief.html"
+                  >Read More</a
+                >
+                <a class="btn-primary btn-sm" href="#">Donate</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Prophetic Quote Banner -->
+    <section class="quote-banner">
+      <div class="container">
+        <div class="islamic-quote">
+          <h4 class="quote-author">The Prophet Muhammad ﷺ said:</h4>
+          <p class="quote-text">
+            “Every day, two angels come down from Heaven. One of them says, ‘O
+            Allah, compensate the one who spends (in charity),’ and the other
+            says, ‘O Allah, destroy the wealth of the one who withholds.’”
+          </p>
+          <span class="quote-source">Sahih al-Bukhari</span>
+        </div>
+      </div>
+    </section>
+    <!-- Colorful Programs Grid Section -->
+    <section class="programs-grid-wrapper">
+      <div class="container">
+        <div class="programs-grid">
+          <a
+            class="program-block bg-color-1"
+            href="project-disaster-relief.html"
+          >
+            <div class="program-block-info">
+              <h3>Disaster Relief</h3>
+              <p>Immediate Crisis Aid</p>
+            </div>
+            <i class="fa-solid fa-bell-concierge"></i>
+          </a>
+          <a class="program-block bg-color-2" href="project-ramadan-iftar.html">
+            <div class="program-block-info">
+              <h3>Suhur &amp; Iftar</h3>
+              <p>Ramadan Meals Access</p>
+            </div>
+            <i class="fa-solid fa-hand-holding-water"></i>
+          </a>
+          <a
+            class="program-block bg-color-3"
+            href="project-marriage-assistance.html"
+          >
+            <div class="program-block-info">
+              <h3>Wedding Help</h3>
+              <p>Marriage Support</p>
+            </div>
+            <i class="fa-solid fa-ring"></i>
+          </a>
+          <a class="program-block bg-color-4" href="project-korbani-meat.html">
+            <div class="program-block-info">
+              <h3>Korbani Program</h3>
+              <p>Sacrificial Meat Distribution</p>
+            </div>
+            <i class="fa-solid fa-cow"></i>
+          </a>
+          <a class="program-block bg-color-5" href="projects.html">
+            <div class="program-block-info">
+              <h3>Orphan Fund</h3>
+              <p>Support for Orphans</p>
+            </div>
+            <i class="fa-solid fa-children"></i>
+          </a>
+          <a class="program-block bg-color-6" href="projects.html">
+            <div class="program-block-info">
+              <h3>Zakat Fund</h3>
+              <p>Ongoing Charity Gifts</p>
+            </div>
+            <i class="fa-solid fa-box-open"></i>
+          </a>
+          <a
+            class="program-block bg-color-7"
+            href="project-winter-clothes.html"
+          >
+            <div class="program-block-info">
+              <h3>Winter Cloths</h3>
+              <p>Warmth for the Needy</p>
+            </div>
+            <i class="fa-solid fa-mitten"></i>
+          </a>
+          <a
+            class="program-block bg-color-8"
+            href="project-mentoring-support.html"
+          >
+            <div class="program-block-info">
+              <h3>Student Help</h3>
+              <p>Education Mentoring</p>
+            </div>
+            <i class="fa-solid fa-book-open-reader"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Impact Stats -->
+    <section class="impact-section">
+      <div class="impact-overlay"></div>
+      <div class="container impact-grid">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <h3 class="counter">50+</h3>
+          <p>Villages Reached</p>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+          <h3 class="counter">50K+</h3>
+          <p>Lives Impacted</p>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+          </div>
+          <h3 class="counter">10K+</h3>
+          <p>Generous Donors</p>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="counter">500+</h3>
+          <p>Students Supported</p>
+        </div>
+      </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container cta-inner">
+        <h2>Ready to make a difference?</h2>
+        <p>
+          Every penny counts. Give your Zakat and Sadaqah today and change a
+          life.
+        </p>
+        <div class="cta-actions">
+          <a class="btn-white" href="#">Donate Now</a>
+          <a class="btn-outline-white" href="#">Calculate Zakat</a>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col brand-col">
+          <img alt="BRDT Logo" class="footer-logo" src="logo.png" />
+          <p>
+            Enriching rural lives through sustainable development, education,
+            and immediate relief to those in need.
+          </p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="https://x.com/brdtbd" target="_blank"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.instagram.com/brdtrust/" target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+              target="_blank"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="projects.html">Our Projects</a></li>
+            <li><a href="#">Appeals</a></li>
+            <li><a href="#">Zakat Calculator</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html#faqs">FAQ's</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Policies</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">100% Donation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter-col">
+          <h4>Newsletter</h4>
+          <p>Subscribe to our newsletter to get latest updates.</p>
+          <form class="newsletter-form">
+            <input placeholder="Your Email Address" required="" type="email" />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container inner-bottom">
+          <p>
+            © 2026 BRDT Charity. All Rights Reserved. Contact: +44 7540 253384.
+          </p>
+          <div class="payment-methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>

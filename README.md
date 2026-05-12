@@ -67,13 +67,13 @@ BRDT-Website/
 
 ## 🎨 Design System
 
-| Token | Value |
-|-------|-------|
-| Primary Purple | `#8c1d54` |
-| Dark Blue | `#1d3b82` |
-| Light Blue | `#29aee4` |
-| Font | `Outfit` (Google Fonts) |
-| Icons | Font Awesome 6.4.0 Free |
+| Token          | Value                   |
+| -------------- | ----------------------- |
+| Primary Purple | `#8c1d54`               |
+| Dark Blue      | `#1d3b82`               |
+| Light Blue     | `#29aee4`               |
+| Font           | `Outfit` (Google Fonts) |
+| Icons          | Font Awesome 6.4.0 Free |
 
 ---
 

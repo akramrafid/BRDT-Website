@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Madrasah - BRDT</title>
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* Inline styles for specific Madrasah page layout, to avoid bloating style.css */
+        .madrasah-row {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .madrasah-col {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .madrasah-img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+
+        .madrasah-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            transform: translateY(-5px);
+        }
+
+        .impact-quote {
+            background: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #1abc9c;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-bar-left">
+                <span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
+                <span><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container header-inner">
+            <div class="logo">
+                <a class="logo-link" href="index.html">
+                    <img alt="BRDT Logo" class="logo-img" src="logo.png" />
+                    <div class="logo-text">
+                        <span class="logo-title">Belghar Rural Development Trust</span>
+                        <span class="logo-tagline">Enriching Rural Communities Lives</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a class="active" href="madrasah.html">Madrasah</a></li>
+                    <li><a href="ramadan.html">Ramadan</a></li>
+                    <li class="has-dropdown">
+                        <a href="#">Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa-solid fa-sack-dollar"></i> Zakat</a></li>
+                            <li><a href="#"><i class="fa-solid fa-wheat-awn"></i> Fitra</a></li>
+                            <li><a href="#"><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah Jariyah</a></li>
+                            <li><a href="#"><i class="fa-solid fa-house-flood-water"></i> Flood</a></li>
+                            <li><a href="#"><i class="fa-solid fa-book-open-reader"></i> Sponsor a Hafiz</a></li>
+                            <li><a href="#"><i class="fa-solid fa-school"></i> Back to School</a></li>
+                            <li><a href="#"><i class="fa-solid fa-child-reaching"></i> Orphan Sponsorship</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a class="login-link" href="login.html">Login/Register</a>
+                <a class="btn-donate" href="#">Donate Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <section class="about-page-banner"
+        style="background: linear-gradient(rgba(0,30,60,0.8), rgba(0,30,60,0.8)), url('images/m1.jpeg') center/cover; background-color: #001e3c;">
+        <div class="container banner-content text-center">
+            <h1>Belghar Madinatul Ulum Madrasa</h1>
+            <p class="banner-desc">Shaping the future of underprivileged children with care, education, and moral
+                values.</p>
+            <p class="breadcrumbs"><a href="index.html" style="color: #fff;">Home</a> <span class="sep">&raquo;</span>
+                Madrasah</p>
+        </div>
+    </section>
+
+    <!-- Main Introduction -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="madrasah-row">
+                <div class="madrasah-col">
+                    <span class="section-subtitle">Our Institution</span>
+                    <h2 class="section-title">A Vital Role in Shaping the Future</h2>
+                    <p class="madrasah-text">
+                        Belghar Rural Development Trust is already playing a vital role in shaping the future of
+                        underprivileged children by renovating and running <strong>Belghar Madinatul Ulum Madrasa and
+                            Orphanage</strong>. Through this institution, the Trust provides a modern, age-appropriate,
+                        safe, caring and well-organized environment where children receive both academic and moral
+                        education.
+                    </p>
+                    <p class="madrasah-text">
+                        The Madrasa imparts quality education rooted in cultural and spiritual values, which will ensure
+                        that students grow up with strong character, discipline and a sense of purpose.
+                    </p>
+                </div>
+                <div class="madrasah-col">
+                    <img src="images/m3.jpeg" alt="Madrasa Students" class="madrasah-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orphanage Section -->
+    <section class="section-padding" style="background-color: #f8fbfa;">
+        <div class="container">
+            <div class="madrasah-row" style="flex-direction: row-reverse;">
+                <div class="madrasah-col">
+                    <span class="section-subtitle">The Orphanage</span>
+                    <h2 class="section-title">Compassion & Holistic Development</h2>
+                    <p class="madrasah-text">
+                        The orphanage, run with the same compassionate approach, provides shelter, food, healthcare and
+                        psychological support to children who have lost their parents’ affection. The Trust ensures that
+                        every child is treated with dignity and is given the opportunity to learn, grow and dream.
+                    </p>
+                    <p class="madrasah-text">
+                        Beyond basic needs, the organization focuses on holistic development - encouraging participation
+                        in extra-curricular activities, sports, travel, competitive skill-building programs and social
+                        engagement.
+                    </p>
+                    <ul class="feature-list"
+                        style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <li><i class="fa-solid fa-check"></i> Shelter & Food</li>
+                        <li><i class="fa-solid fa-check"></i> Healthcare Needs</li>
+                        <li><i class="fa-solid fa-check"></i> Psychological Support</li>
+                        <li><i class="fa-solid fa-check"></i> Extra-curriculars</li>
+                    </ul>
+                </div>
+                <div class="madrasah-col">
+                    <img src="images/m4.jpeg" alt="Orphanage Care" class="madrasah-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="impact-quote text-center" style="max-width: 900px; margin: 0 auto;">
+                <i class="fa-solid fa-quote-left" style="font-size: 3rem; color: #1abc9c; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 1.6rem; font-weight: 500; line-height: 1.6; color: #2c3e50; margin-bottom: 20px;">
+                    "Belghar Rural Development Trust, through its dedication and integrity in running Belghar Madinatul
+                    Ulum Madrasa and Orphanage, continues to transform the lives of children."
+                </h3>
+                <p style="font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto;">
+                    Its efforts not only lead to the personal development of children, but also strengthen the social
+                    fabric of the entire upazila and install hope and opportunity where it is needed most.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="section-padding" style="background-color: #2c3e50; color: #fff;">
+        <div class="container text-center">
+            <span class="section-subtitle" style="color: #1abc9c;">See Our Work</span>
+            <h2 class="section-title" style="color: #fff; margin-bottom: 50px;">A Glimpse into the Madrasa</h2>
+            <div class="video-container" id="video-player-container"
+                style="position: relative; display: block; cursor: pointer;" onclick="playVideo(this)">
+                <!-- Thumbnail overlay (shown before playing) -->
+                <img id="video-thumb" src="images/video-thumb.jpg" alt="Video Thumbnail"
+                    style="width: 100%; height: 100%; object-fit: cover; display: block;">
+
+                <div class="play-btn-overlay" id="play-btn"
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90px; height: 90px; background: rgba(255, 0, 0, 0.85); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 25px rgba(0,0,0,0.4); transition: transform 0.3s ease, background 0.3s ease;">
+                    <i class="fa-solid fa-play" style="color: #fff; font-size: 36px; margin-left: 5px;"></i>
+                </div>
+                <p id="play-label"
+                    style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.85rem; background: rgba(0,0,0,0.6); padding: 6px 18px; border-radius: 20px; white-space: nowrap;">
+                    <i class="fa-solid fa-play" style="margin-right: 6px;"></i>Click to Play
+                </p>
+
+                <!-- HTML5 Video (hidden until play is clicked) -->
+                <video id="madrasah-video"
+                    style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none;"
+                    controls preload="none" poster="images/video-thumb.jpg">
+                    <source src="images/madrasah_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <style>
+                    #video-player-container:hover .play-btn-overlay {
+                        transform: translate(-50%, -50%) scale(1.12);
+                        background: rgba(204, 0, 0, 0.95);
+                    }
+                </style>
+            </div>
+
+            <script>
+                function playVideo(container) {
+                    var video = document.getElementById('madrasah-video');
+                    var thumb = document.getElementById('video-thumb');
+                    var playBtn = document.getElementById('play-btn');
+                    var playLabel = document.getElementById('play-label');
+
+                    // Hide thumbnail and play button
+                    thumb.style.display = 'none';
+                    playBtn.style.display = 'none';
+                    playLabel.style.display = 'none';
+
+                    // Show and play the video
+                    video.style.display = 'block';
+                    video.play();
+
+                    // Remove the click handler
+                    container.style.cursor = 'default';
+                    container.onclick = null;
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <span class="section-subtitle">Gallery</span>
+                <h2 class="section-title">Madrasa & Orphanage Facilities</h2>
+            </div>
+            <div class="gallery-grid">
+                <img src="images/m5.jpeg" alt="Gallery 1" class="gallery-img">
+                <img src="images/m6.jpeg" alt="Gallery 2" class="gallery-img">
+                <img src="images/m7.jpeg" alt="Gallery 3" class="gallery-img">
+                <img src="images/m8.jpeg" alt="Gallery 4" class="gallery-img">
+                <img src="images/m9.jpeg" alt="Gallery 5" class="gallery-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <img alt="BRDT Logo" class="footer-logo" src="logo.png" />
+                <p>Enriching rural lives through sustainable development, education, and immediate relief to those in
+                    need.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/brdtrust/" target="_blank"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i
+                            class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i
+                            class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="projects.html">Our Projects</a></li>
+                    <li><a href="#">Appeals</a></li>
+                    <li><a href="#">Zakat Calculator</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.html#faqs">FAQ's</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Policies</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">100% Donation Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>Newsletter</h4>
+                <p>Subscribe to our newsletter to get latest updates.</p>
+                <form class="newsletter-form">
+                    <input placeholder="Your Email Address" required="" type="email" />
+                    <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container inner-bottom">
+                <p>© 2026 BRDT Charity. All Rights Reserved. Registered Charity Number: 1234567.</p>
+                <div class="payment-methods">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-paypal"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

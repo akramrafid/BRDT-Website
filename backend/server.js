@@ -73,6 +73,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Root Endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Welcome to the BRDT Charity API. The server is up and running successfully!',
+    healthCheck: '/api/health'
+  });
+});
+
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({

@@ -5,10 +5,16 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, '../../uploads/invoices');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
+// Use /tmp directory on serverless environments like Vercel
+const isVercel = process.env.VERCEL || process.env.AWS_REGION;
+const uploadsDir = isVercel ? '/tmp' : path.join(__dirname, '../../uploads/invoices');
+
+try {
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+} catch (error) {
+  console.warn('Could not create uploads directory (expected in some serverless environments):', error);
 }
 
 // Generate Invoice PDF

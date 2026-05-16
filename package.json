@@ -1,0 +1,33 @@
+{
+  "name": "brdt-charity-website",
+  "version": "1.0.0",
+  "description": "BRDT Charity Website - Complete Full-Stack Application",
+  "main": "server.js",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "start": "npm --prefix backend start",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend start",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "test": "npm --prefix backend run test",
+    "lint": "npm --prefix frontend run lint",
+    "migrate": "npm --prefix backend run migrate"
+  },
+  "keywords": [
+    "brdt",
+    "charity",
+    "donation",
+    "full-stack"
+  ],
+  "author": "BRDT",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

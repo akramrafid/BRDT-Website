@@ -1,0 +1,22 @@
+{
+  "name": "brdt-frontend",
+  "version": "1.0.0",
+  "description": "BRDT Charity Website Frontend - HTML/CSS/JavaScript",
+  "main": "public/index.html",
+  "scripts": {
+    "serve": "python -m http.server 8000 --directory public",
+    "dev": "npm run serve",
+    "build": "echo 'Frontend is static HTML - no build required'",
+    "lint": "echo 'Add ESLint for linting'",
+    "test": "echo 'Add testing framework'"
+  },
+  "keywords": [
+    "brdt",
+    "charity",
+    "website",
+    "frontend"
+  ],
+  "author": "BRDT",
+  "license": "MIT",
+  "devDependencies": {}
+}

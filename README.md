@@ -4,6 +4,9 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)](https://expressjs.com)
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com)
 
 > **Enriching Rural Communities Lives** — Belghar Rural Development Trust (BRDT) is a community-focused charity dedicated to sustainable development, education, healthcare and immediate relief for the rural communities of Belghar, Bangladesh.
 
@@ -11,39 +14,59 @@
 
 ## 📋 About the Project
 
-This repository contains the complete source code for the official BRDT charity website. The site showcases the organisation's humanitarian projects, appeal campaigns, Madrasah programme and Ramadan initiatives — providing donors with a seamless experience to learn about and contribute to BRDT's mission.
+A modern, full-stack charity website featuring:
+- **Frontend:** Static HTML/CSS/JS with responsive design (15 pages, 3,400+ lines of CSS)
+- **Backend:** Node.js/Express REST API with MySQL database
+- **Features:** User authentication, Stripe payment processing, automatic PDF invoices, dual-recipient email delivery
+
+The site showcases BRDT's humanitarian projects, appeal campaigns, Madrasah programme and Ramadan initiatives — providing donors with a seamless experience to learn about and contribute to BRDT's mission.
 
 **Contact:** +44 7540 253384  
 **Social:** [Facebook](https://www.facebook.com/share/1Cfr31FKAz/) | [Instagram](https://www.instagram.com/brdtrust/) | [LinkedIn](https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/) | [X (Twitter)](https://x.com/brdtbd) | [TikTok](https://www.tiktok.com/@brdtbd)
 
 ---
 
-## 🗂️ Site Structure
+## 🗂️ Project Structure
 
 ```
-BRDT-Website/
+BRDT-Charity v1/
 │
-├── index.html                  # Homepage with hero, donate widget & project overview
-├── about.html                  # About Us — mission, vision & team
-├── projects.html               # All 15 humanitarian initiatives
-├── madrasah.html               # Belghar Madinatul Ulum Madrasah & Orphanage
-├── ramadan.html                # Ramadan campaign page
-├── contact.html                # Contact form & FAQ
-├── login.html                  # Donor login (magic link + password)
-├── register.html               # Donor registration
+├── frontend/                   # Frontend application
+│   ├── public/                 # Static served files
+│   │   ├── *.html             # 15 HTML pages
+│   │   ├── logo.png           # Organization logo
+│   │   └── assets/
+│   │       ├── css/           # Stylesheets
+│   │       └── images/        # Project images
+│   ├── src/                   # JavaScript modules (future)
+│   ├── package.json
+│   └── README.md
 │
-├── appeal-zakat.html           # Zakat appeal page
-├── appeal-fitra.html           # Fitra (Zakat al-Fitr) appeal page
-├── appeal-sadaqah.html         # Sadaqah Jariyah appeal page
-├── appeal-flood.html           # Flood Relief appeal page
-├── appeal-sponsor-hafiz.html   # Sponsor a Hafiz appeal page
-├── appeal-back-to-school.html  # Back to School appeal page
-├── appeal-orphan.html          # Orphan Sponsorship appeal page
+├── backend/                    # Backend API
+│   ├── src/
+│   │   ├── api/               # Route handlers
+│   │   ├── services/          # Business logic
+│   │   ├── models/            # Database operations
+│   │   ├── middleware/        # Express middleware
+│   │   ├── config/            # Configuration
+│   │   └── utils/             # Utilities
+│   ├── uploads/               # Generated files (PDFs, etc)
+│   ├── server.js              # Express entry point
+│   ├── package.json
+│   └── README.md
 │
-├── style.css                   # Global stylesheet (3,400+ lines)
-├── logo.png                    # BRDT logo
-└── images/                     # Project & gallery images
+├── docs/                       # Project documentation
+│   ├── architecture/           # Architecture decisions
+│   ├── backend/               # Backend docs
+│   └── frontend/              # Frontend docs
+│
+├── config/                     # Configuration files
+├── ARCHITECTURE.md             # Complete architecture guide
+├── package.json                # Root workspace config
+└── .env.example               # Environment template
 ```
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed structure breakdown.
 
 ---
 

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - BRDT</title>
+    <meta
+      name="description"
+      content="Sign in to your BRDT account to manage donations and track your contributions to rural communities in Bangladesh."
+    />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fa-solid fa-heart"></i> 100% Donation Policy</span>
+          <span
+            ><i class="fa-solid fa-phone"></i> Contact : +44 7540 253384</span
+          >
+        </div>
+        <div class="top-bar-right">
+          <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="https://x.com/brdtbd" target="_blank"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a href="https://www.instagram.com/brdtrust/" target="_blank"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+            target="_blank"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+          <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+            ><i class="fa-brands fa-tiktok"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="container header-inner">
+        <div class="header-left" style="display: flex; align-items: center; gap: 50px;">
+        <div class="logo">
+          <a class="logo-link" href="index.html">
+            <img alt="BRDT Logo" class="logo-img" src="logo.png" />
+            <div class="logo-text">
+              <span class="logo-title">Belghar Rural Development Trust</span>
+              <span class="logo-tagline"
+                >Enriching Rural Communities Lives</span
+              >
+            </div>
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="madrasah.html">Madrasah</a></li>
+            <li><a href="ramadan.html">Ramadan</a></li>
+            <li class="has-dropdown">
+              <a href="#"
+                >Appeals <i class="fa-solid fa-chevron-down dropdown-icon"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="appeal-zakat.html"
+                    ><i class="fa-solid fa-sack-dollar"></i> Zakat</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-fitra.html"
+                    ><i class="fa-solid fa-wheat-awn"></i> Fitra</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sadaqah.html"
+                    ><i class="fa-solid fa-hand-holding-heart"></i> Sadaqah
+                    Jariyah</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-flood.html"
+                    ><i class="fa-solid fa-house-flood-water"></i> Flood</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-sponsor-hafiz.html"
+                    ><i class="fa-solid fa-book-open-reader"></i> Sponsor a
+                    Hafiz</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-back-to-school.html"
+                    ><i class="fa-solid fa-school"></i> Back to School</a
+                  >
+                </li>
+                <li>
+                  <a href="appeal-orphan.html"
+                    ><i class="fa-solid fa-child-reaching"></i> Orphan
+                    Sponsorship</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="who-we-are.html">Who We Are</a></li>
+              <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        </div>
+        <div class="header-actions">
+          <a class="login-link active" href="login.html">Login/Register</a>
+          <a class="btn-donate" href="#">Donate Now</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Login Form Section -->
+    <section class="auth-section">
+      <div class="auth-banner"></div>
+      <div class="container">
+        <div class="auth-card" id="login-card">
+          <h2 class="auth-title">Let's get you signed in</h2>
+          <p class="auth-subtitle">
+            Please enter the email address before making your donations
+          </p>
+
+          <!-- Email-only login view (default) -->
+          <div id="email-login-view">
+            <form class="auth-form" id="login-form-email">
+              <div class="form-group">
+                <label for="login-email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-auth-submit">
+                Get Login Link
+              </button>
+            </form>
+            <div class="auth-alt-action">
+              <a href="#" id="show-password-login" class="auth-link-underline"
+                >Use your email and password instead</a
+              >
+            </div>
+          </div>
+
+          <!-- Email + Password login view (hidden by default) -->
+          <div id="password-login-view" style="display: none">
+            <form class="auth-form" id="login-form-password">
+              <div class="form-group">
+                <label for="login-email-pw">Email</label>
+                <input
+                  type="email"
+                  id="login-email-pw"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="login-password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggle-login-pw"
+                  >
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="btn-auth-submit">Sign In</button>
+            </form>
+            <div class="auth-alt-action">
+              <a href="#" id="show-email-login" class="auth-link-underline"
+                >Use login link instead</a
+              >
+            </div>
+          </div>
+
+          <div class="auth-divider">
+            <span></span>
+          </div>
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="register.html" class="auth-link-bold">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <div class="container section-padding text-center">
+      <div class="newsletter-wrap">
+        <div class="newsletter-text">
+          <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
+          <p>Get notified about updates, news and events.</p>
+        </div>
+        <div class="newsletter-input">
+          <form class="d-flex">
+            <input type="email" placeholder="Email address" required />
+            <button type="submit" class="btn-primary">
+              Subscribe <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+          <p class="privacy-note mt-2">
+            Will be used in accordance with our <a href="#">Privacy Policy</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+            <footer class="main-footer">
+        <div class="container footer-grid">
+          <div class="footer-col brand-col">
+                        <div class="footer-brand-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+              <img alt="BRDT Logo" class="footer-logo" src="logo.png" style="margin-bottom: 0; width: 60px; height: auto;" />
+              <div class="footer-motto">
+                <h4 style="color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 4px; line-height: 1.2;">Belghar Rural Development Trust</h4>
+                <p style="color: #f472b6; font-weight: 600; font-size: 13px; margin-bottom: 0; line-height: 1.2;">Enriching Rural Communities Lives</p>
+              </div>
+            </div>
+            <h4 class="connect-title">CONNECT WITH US:</h4>
+            <div class="social-links">
+              <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a href="https://x.com/brdtbd" target="_blank"
+                ><i class="fa-brands fa-twitter"></i
+              ></a>
+              <a href="https://www.instagram.com/brdtrust/" target="_blank"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a
+                href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
+                target="_blank"
+                ><i class="fa-brands fa-linkedin-in"></i
+              ></a>
+              <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
+                ><i class="fa-brands fa-tiktok"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Projects</h4>
+            <ul>
+              <li><a href="ramadan.html">Ramadan</a></li>
+              <li><a href="madrasah.html">Madrasah</a></li>
+              <li><a href="projects.html">Cleanliness & Environment</a></li>
+              <li><a href="projects.html">Healthcare for Poor</a></li>
+              <li><a href="projects.html">Skills for Life</a></li>
+              <li><a href="projects.html">Empowering Community</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Appeals</h4>
+            <ul>
+              <li><a href="appeal-back-to-school.html">Back to School</a></li>
+              <li><a href="appeal-fitra.html">Fitra</a></li>
+              <li><a href="appeal-flood.html">Flood Relief</a></li>
+              <li><a href="appeal-orphan.html">Orphan Sponsorship</a></li>
+              <li><a href="appeal-sadaqah.html">Sadaqah</a></li>
+              <li><a href="appeal-sponsor-hafiz.html">Sponsor a Hafiz</a></li>
+              <li><a href="appeal-zakat.html">Zakat</a></li>
+            </ul>
+          </div>
+          <div class="footer-col links-col">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Zakat Calculator</a></li>
+              <li><a href="#">Policies</a></li>
+              <li><a href="annual-reports.html">Annual Reports</a></li>
+              <li><a href="#">Events</a></li>
+              <li><a href="#">Our Values</a></li>
+              <li><a href="contact.html#faqs">FAQ's</a></li>
+              <li><a href="#">Latest News</a></li>
+              <li><a href="#">Press Releases</a></li>
+            </ul>
+          </div>
+          <div class="footer-col address-col">
+            <h4>Belghar Rural Development Trust</h4>
+            <p>
+              Belghar Rural Development Trust<br/>
+              Village: Belghar; Union: Adra North<br/>
+              Upazilla: Nangalkot; Cumilla, Bangladesh
+            </p>
+            <br/>
+            <p>
+              Mobile: +44 (0)7540 253384<br/>
+              Email: brdtbd@gmail.com<br/>
+              Web: www.brdtrust.com
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+      // Toggle between email login and password login
+      document
+        .getElementById("show-password-login")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("email-login-view").style.display = "none";
+          document.getElementById("password-login-view").style.display =
+            "block";
+        });
+
+      document
+        .getElementById("show-email-login")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("password-login-view").style.display = "none";
+          document.getElementById("email-login-view").style.display = "block";
+        });
+
+      // Password visibility toggle
+      document
+        .getElementById("toggle-login-pw")
+        .addEventListener("click", function () {
+          const pwInput = document.getElementById("login-password");
+          const icon = this.querySelector("i");
+          if (pwInput.type === "password") {
+            pwInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            pwInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
+        });
+
+      // Form submissions (Real API connection)
+      document
+        .getElementById("login-form-password")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          
+          const email = document.getElementById("login-email-pw").value;
+          const password = document.getElementById("login-password").value;
+          const submitBtn = this.querySelector('button[type="submit"]');
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Signing In...';
+
+          try {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+              localStorage.setItem('brdt_token', data.data.token);
+              localStorage.setItem('brdt_user', JSON.stringify(data.data));
+              
+              alert("Login successful! Welcome back.");
+              window.location.href = 'index.html';
+            } else {
+              alert("Login failed: " + (data.message || 'Invalid credentials'));
+            }
+          } catch (error) {
+            console.error('Login Error:', error);
+            alert("Could not connect to server. Please ensure the backend is running.");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+          }
+        });
+
+      // Email link login (demo for now as backend email service needs config)
+      document
+        .getElementById("login-form-email")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Email login link is currently in demo mode. Please use the password login option.");
+        });
+    </script>
+  </body>
+</html>

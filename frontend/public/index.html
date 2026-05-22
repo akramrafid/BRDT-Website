@@ -88,7 +88,7 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-bg-slider">
-      <div class="hero-slide"
+      <div class="hero-slide active"
         style="background-image: url('assets/images/images/Hero%201.jpeg'); background-position: center 20%;"></div>
       <div class="hero-slide" style="background-image: url('assets/images/images/Hero%202.jpeg');"></div>
       <div class="hero-slide"
@@ -98,7 +98,7 @@
       <div class="hero-content">
         <span class="hero-subtitle">Saving Lives in Bangladesh</span>
         <h1 class="hero-title">
-          Hope for the hopeless. <br />Help for the helpless.
+          Provides mentoring and overall support to students.
         </h1>
         <p class="hero-desc">
           Join us in making a difference today. Your donation can change a
@@ -110,6 +110,10 @@
         </div>
       </div>
       <!-- Donation widget moved to Our Mission section -->
+    </div>
+    <div class="hero-slider-controls">
+      <button class="hero-slider-btn" id="prevSlide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-slider-btn" id="nextSlide"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </section>
   <!-- Categories Row -->
@@ -555,6 +559,47 @@
   </footer>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Hero Slider Logic
+      const slides = document.querySelectorAll('.hero-slide');
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      const heroTitle = document.querySelector('.hero-title');
+      let currentSlide = 0;
+
+      const slideTexts = [
+        "Provides mentoring and overall support to students.",
+        "Guiding Today’s Children, Shaping Tomorrow’s Leaders.",
+        "Hope for the hopeless. <br />Help for the helpless."
+      ];
+
+      function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        if (heroTitle) {
+          heroTitle.innerHTML = slideTexts[index];
+        }
+      }
+
+      function nextSlideFunc() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      function prevSlideFunc() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          prevSlideFunc();
+        });
+
+        nextBtn.addEventListener('click', () => {
+          nextSlideFunc();
+        });
+      }
+
       // Quick Donate Widget Logic
       const typeButtons = document.querySelectorAll('.donation-type button');
       const amountButtons = document.querySelectorAll('.donation-amounts button');

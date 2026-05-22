@@ -91,7 +91,6 @@ a {
 .logo {
   display: flex;
   align-items: center;
-  flex: 1;
 }
 
 .logo-link {
@@ -126,12 +125,6 @@ a {
 }
 
 /* Navigation Menu */
-.main-nav {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -246,8 +239,6 @@ a {
   display: flex;
   align-items: center;
   gap: 25px;
-  flex: 1;
-  justify-content: flex-end;
 }
 
 .login-link {

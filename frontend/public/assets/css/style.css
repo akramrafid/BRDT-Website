@@ -365,25 +365,49 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  animation: heroFade 15s infinite;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
 }
 
-.hero-slide:nth-child(1) {
-  animation-delay: 0s;
-}
-.hero-slide:nth-child(2) {
-  animation-delay: 5s;
-}
-.hero-slide:nth-child(3) {
-  animation-delay: 10s;
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
-@keyframes heroFade {
-  0% { opacity: 0; transform: scale(1.05); }
-  5% { opacity: 1; transform: scale(1); }
-  33% { opacity: 1; transform: scale(1); }
-  38% { opacity: 0; transform: scale(1.05); }
-  100% { opacity: 0; transform: scale(1.05); }
+.hero-slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-slider-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.hero-slider-btn:hover {
+  background: var(--light-blue);
+  border-color: var(--light-blue);
+  transform: scale(1.1);
 }
 
 .hero-section::before {
@@ -405,7 +429,7 @@ a {
   position: relative;
   z-index: 2;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
@@ -414,7 +438,9 @@ a {
 .hero-content {
   flex: 1;
   min-width: 300px;
-  max-width: 600px;
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .hero-subtitle {
@@ -440,11 +466,14 @@ a {
   font-size: 18px;
   margin-bottom: 35px;
   max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-buttons {
   display: flex;
   gap: 15px;
+  justify-content: center;
 }
 
 /* Donation Widget */

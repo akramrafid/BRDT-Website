@@ -91,6 +91,7 @@ a {
 .logo {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .logo-link {
@@ -125,6 +126,12 @@ a {
 }
 
 /* Navigation Menu */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -239,6 +246,8 @@ a {
   display: flex;
   align-items: center;
   gap: 25px;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .login-link {
@@ -338,11 +347,12 @@ a {
 /* Hero Section */
 .hero-section {
   width: 100%;
-  min-height: 600px;
+  min-height: 700px;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 60px 0 100px; /* Leave space at bottom for overlap */
+  justify-content: center;
+  padding: 150px 0;
   overflow: hidden;
 }
 

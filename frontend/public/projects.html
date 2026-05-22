@@ -49,7 +49,6 @@
     <!-- Main Header -->
     <header class="main-header">
       <div class="container header-inner">
-        <div class="header-left" style="display: flex; align-items: center; gap: 50px;">
         <div class="logo">
           <a class="logo-link" href="index.html">
             <img alt="BRDT Logo" class="logo-img" src="logo.png" />
@@ -116,27 +115,29 @@
             <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </nav>
-        </div>
         <div class="header-actions">
           <a class="login-link" href="login.html">Login/Register</a>
           <a class="btn-donate" href="#">Donate Now</a>
         </div>
       </div>
     </header>
-    <!-- Ramadan Hero Section (Page Header) -->
+    <!-- Page Header -->
     <section
-      class="ramadan-hero"
-      style="padding: 80px 0 60px; min-height: auto"
+      class="page-header"
+      style="
+        background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
+          url('assets/images/images/Hero%201.jpeg') center/cover;
+        padding: 100px 0;
+        text-align: center;
+        color: #fff;
+      "
     >
-      <div class="hero-bg-blobs"></div>
-      <div class="container ramadan-hero-inner">
-        <div class="ramadan-hero-content" style="margin-bottom: 0">
-          <h1 class="ramadan-hero-title">Our Ramadan <span>Projects</span></h1>
-          <p class="ramadan-hero-desc">
-            Discover the humanitarian initiatives we lead to empower and uplift
-            rural communities during the holy month.
-          </p>
-        </div>
+      <div class="container">
+        <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Our <span>Projects</span></h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: rgba(255, 255, 255, 0.9);">
+          Discover the humanitarian initiatives we lead to empower and uplift
+          rural communities.
+        </p>
       </div>
     </section>
     <!-- Project 1 -->
@@ -189,6 +190,7 @@
           <div class="project-gallery">
             <div class="gallery-main">
               <img
+                id="gallery-main-img"
                 alt="Project Main Image"
                 class="gallery-img"
                 onerror="
@@ -196,35 +198,42 @@
                     'https://images.unsplash.com/photo-1593113589914-07556012df1b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80'
                 "
                 src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students.jpg"
+                style="transition: opacity 0.3s ease;"
               />
             </div>
             <div class="gallery-thumbs">
               <img
                 alt="Gallery Image"
-                class="gallery-img"
+                class="gallery-img gallery-thumb"
+                data-src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%282%29.jpg"
                 onerror="
                   this.src =
                     'https://images.unsplash.com/photo-1531206715517-5c0ba140b4b8?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
                 "
                 src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%282%29.jpg"
+                style="cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s, transform 0.2s;"
               />
               <img
                 alt="Gallery Image"
-                class="gallery-img"
+                class="gallery-img gallery-thumb"
+                data-src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%283%29.jpg"
                 onerror="
                   this.src =
                     'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
                 "
                 src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%283%29.jpg"
+                style="cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s, transform 0.2s;"
               />
               <img
                 alt="Gallery Image"
-                class="gallery-img"
+                class="gallery-img gallery-thumb"
+                data-src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%284%29.jpg"
                 onerror="
                   this.src =
                     'https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80'
                 "
                 src="assets/images/images/Provides%20mentoring%20and%20overall%20support%20to%20students%20%284%29.jpg"
+                style="cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s, transform 0.2s;"
               />
             </div>
           </div>
@@ -1391,9 +1400,52 @@
           }
         });
       }
+
+      /* ── Interactive Image Gallery Logic ── */
+      document.addEventListener('DOMContentLoaded', function () {
+        const mainImg = document.getElementById('gallery-main-img');
+        const thumbs = document.querySelectorAll('.gallery-thumb');
+
+        if (mainImg && thumbs.length > 0) {
+          thumbs.forEach(function (thumb) {
+            thumb.addEventListener('click', function () {
+              const clickedSrc = thumb.getAttribute('data-src') || thumb.getAttribute('src');
+
+              // Get current main image src
+              const currentMainSrc = mainImg.getAttribute('src');
+
+              // Fade out main image
+              mainImg.style.opacity = '0';
+
+              setTimeout(function () {
+                // Swap: set thumb's data-src and src to the old main image
+                thumb.setAttribute('data-src', currentMainSrc);
+                thumb.setAttribute('src', currentMainSrc);
+
+                // Set main image to clicked thumbnail's src
+                mainImg.setAttribute('src', clickedSrc);
+                mainImg.style.opacity = '1';
+
+                // Highlight the selected thumb with a border
+                thumbs.forEach(t => t.style.border = '3px solid transparent');
+                thumb.style.border = '3px solid var(--primary-purple, #7c3aed)';
+              }, 200);
+            });
+
+            // Hover effect
+            thumb.addEventListener('mouseenter', function () {
+              thumb.style.transform = 'scale(1.04)';
+            });
+            thumb.addEventListener('mouseleave', function () {
+              thumb.style.transform = 'scale(1)';
+            });
+          });
+        }
+      });
     </script>
   </body>
 </html>
+
 
 
 

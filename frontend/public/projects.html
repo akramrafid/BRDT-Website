@@ -1285,10 +1285,10 @@
         <div class="container footer-grid">
           <div class="footer-col brand-col">
                         <div class="footer-brand-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-              <img alt="BRDT Logo" class="footer-logo" src="logo.png" style="margin-bottom: 0; width: 60px; height: auto;" />
+              <img alt="BRDT Logo" class="footer-logo" src="logo.png" style="margin-bottom: 0; width: 85px; height: auto;" />
               <div class="footer-motto">
                 <h4 style="color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 4px; line-height: 1.2;">Belghar Rural Development Trust</h4>
-                <p style="color: #f472b6; font-weight: 600; font-size: 13px; margin-bottom: 0; line-height: 1.2;">Enriching Rural Communities Lives</p>
+                <p style="color: #21ABEC; font-weight: 600; font-size: 13px; margin-bottom: 0; line-height: 1.2;">Enriching Rural Communities Lives</p>
               </div>
             </div>
             <h4 class="connect-title">CONNECT WITH US:</h4>
@@ -1403,48 +1403,66 @@
 
       /* ── Interactive Image Gallery Logic ── */
       document.addEventListener('DOMContentLoaded', function () {
-        const mainImg = document.getElementById('gallery-main-img');
-        const thumbs = document.querySelectorAll('.gallery-thumb');
+        const galleries = document.querySelectorAll('.project-gallery');
 
-        if (mainImg && thumbs.length > 0) {
-          thumbs.forEach(function (thumb) {
-            thumb.addEventListener('click', function () {
-              const clickedSrc = thumb.getAttribute('data-src') || thumb.getAttribute('src');
+        galleries.forEach(function (gallery) {
+          const mainImg = gallery.querySelector('.gallery-main img');
+          const thumbs = gallery.querySelectorAll('.gallery-thumbs img');
 
-              // Get current main image src
-              const currentMainSrc = mainImg.getAttribute('src');
+          if (mainImg && thumbs.length > 0) {
+            // Ensure main image has a transition for the fade effect
+            mainImg.style.transition = 'opacity 0.3s ease';
 
-              // Fade out main image
-              mainImg.style.opacity = '0';
+            thumbs.forEach(function (thumb) {
+              // Ensure thumbnails have the correct styles
+              thumb.style.cursor = 'pointer';
+              if (!thumb.style.border || thumb.style.border === '') {
+                thumb.style.border = '3px solid transparent';
+              }
+              thumb.style.transition = 'border-color 0.2s, transform 0.2s';
 
-              setTimeout(function () {
-                // Swap: set thumb's data-src and src to the old main image
-                thumb.setAttribute('data-src', currentMainSrc);
-                thumb.setAttribute('src', currentMainSrc);
+              thumb.addEventListener('click', function () {
+                // Get the source to swap to (checks data-src first, then fallback to src)
+                const clickedSrc = thumb.getAttribute('data-src') || thumb.getAttribute('src');
 
-                // Set main image to clicked thumbnail's src
-                mainImg.setAttribute('src', clickedSrc);
-                mainImg.style.opacity = '1';
+                // Get current main image src
+                const currentMainSrc = mainImg.getAttribute('src');
 
-                // Highlight the selected thumb with a border
-                thumbs.forEach(t => t.style.border = '3px solid transparent');
-                thumb.style.border = '3px solid var(--primary-purple, #7c3aed)';
-              }, 200);
+                // Fade out main image
+                mainImg.style.opacity = '0';
+
+                setTimeout(function () {
+                  // Swap: set thumb's data-src and src to the old main image
+                  thumb.setAttribute('data-src', currentMainSrc);
+                  thumb.setAttribute('src', currentMainSrc);
+
+                  // Set main image to clicked thumbnail's src
+                  mainImg.setAttribute('src', clickedSrc);
+                  mainImg.style.opacity = '1';
+
+                  // Highlight the selected thumb with a border
+                  thumbs.forEach(t => t.style.border = '3px solid transparent');
+                  thumb.style.border = '3px solid var(--primary-purple, #7c3aed)';
+                }, 200);
+              });
+
+              // Hover effect
+              thumb.addEventListener('mouseenter', function () {
+                thumb.style.transform = 'scale(1.04)';
+              });
+              thumb.addEventListener('mouseleave', function () {
+                thumb.style.transform = 'scale(1)';
+              });
             });
-
-            // Hover effect
-            thumb.addEventListener('mouseenter', function () {
-              thumb.style.transform = 'scale(1.04)';
-            });
-            thumb.addEventListener('mouseleave', function () {
-              thumb.style.transform = 'scale(1)';
-            });
-          });
-        }
+          }
+        });
       });
     </script>
   </body>
 </html>
+
+
+
 
 
 

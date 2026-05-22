@@ -64,6 +64,7 @@ a {
   color: var(--text-light);
   margin-left: 20px;
   opacity: 0.7;
+  font-size: 16px;
 }
 
 .top-bar-right a:hover {
@@ -1430,14 +1431,15 @@ a {
 }
 
 .social-links a {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
+  font-size: 20px;
   transition: all 0.3s;
 }
 

@@ -8,6 +8,46 @@
   --border-color: #e2e8f0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+/* Bengali Translation Styles */
+html.translated-ltr body,
+html.translated-ltr p,
+html.translated-ltr h1,
+html.translated-ltr h2,
+html.translated-ltr h3,
+html.translated-ltr h4,
+html.translated-ltr h5,
+html.translated-ltr h6,
+html.translated-ltr a,
+html.translated-ltr span,
+html.translated-ltr button,
+html.translated-ltr input,
+html.translated-ltr textarea,
+html.translated-ltr li {
+  font-family: 'Hind Siliguri', sans-serif !important;
+  font-size: 105% !important; /* Make Bengali text more visible */
+  line-height: 1.6 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Hide the Google Translate toolbar */
+.goog-te-banner-frame.skiptranslate,
+.skiptranslate > iframe.goog-te-banner-frame {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
+#goog-gt-tt,
+.goog-te-balloon-frame {
+    display: none !important;
+}
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
+
 * {
   margin: 0;
   padding: 0;

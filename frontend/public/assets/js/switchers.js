@@ -13,19 +13,58 @@ document.addEventListener('DOMContentLoaded', () => {
   const langSwitcherBtn = document.getElementById('langSwitcherBtn');
   const langSwitcherText = document.getElementById('langSwitcherText');
   
+  // Initialize from localStorage (crucial for local file:// access)
+  const currentLang = localStorage.getItem('siteLang') || (document.cookie.includes('googtrans=/en/bn') ? 'bn' : 'en');
+  
+  if (langSwitcherText) {
+    langSwitcherText.classList.add('notranslate'); // Prevent translation of button
+    langSwitcherText.innerText = currentLang === 'bn' ? 'BN' : 'EN';
+  }
+
+  // If Bengali is selected, wait for Google Translate widget to load, then trigger it
+  if (currentLang === 'bn') {
+    const checkWidget = setInterval(() => {
+      const translateSelect = document.querySelector('.goog-te-combo');
+      if (translateSelect) {
+        if (translateSelect.value !== 'bn') {
+          translateSelect.value = 'bn';
+          translateSelect.dispatchEvent(new Event('change'));
+        }
+        clearInterval(checkWidget);
+      }
+    }, 100);
+    setTimeout(() => clearInterval(checkWidget), 5000); // stop polling after 5s
+  }
+  
   if (langSwitcherBtn) {
     langSwitcherBtn.addEventListener('click', () => {
       const isEnglish = langSwitcherText.innerText === 'EN';
       const targetLang = isEnglish ? 'bn' : 'en';
       
-      // Update our button text
-      langSwitcherText.innerText = isEnglish ? 'BN' : 'EN';
+      // Update state
+      localStorage.setItem('siteLang', targetLang);
+      langSwitcherText.innerText = targetLang === 'bn' ? 'BN' : 'EN';
       
-      // Trigger Google Translate change
+      // Set the Google Translate cookie for persistence on actual servers
+      document.cookie = `googtrans=/en/${targetLang}; path=/`;
+      if (location.hostname) {
+        document.cookie = `googtrans=/en/${targetLang}; domain=.${location.hostname}; path=/`;
+      }
+      
+      // Trigger Google Translate change if available
       const translateSelect = document.querySelector('.goog-te-combo');
       if (translateSelect) {
-        translateSelect.value = targetLang;
-        translateSelect.dispatchEvent(new Event('change'));
+        if (targetLang === 'en') {
+          // Reverting to English natively is sometimes buggy in the widget, best to reload
+          document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.reload();
+        } else {
+          translateSelect.value = 'bn';
+          translateSelect.dispatchEvent(new Event('change'));
+        }
+      } else {
+        // Fallback: reload the page
+        window.location.reload();
       }
     });
   }

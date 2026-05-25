@@ -9,6 +9,24 @@ function googleTranslateElementInit() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Aggressively hide Google Translate Banner ---
+  setInterval(() => {
+    // Hide the iframe itself
+    const frames = document.querySelectorAll('.goog-te-banner-frame, .VIpgJd-Zvi9od-ORHb-OEVmcd');
+    frames.forEach(frame => {
+      frame.style.setProperty('display', 'none', 'important');
+    });
+    
+    // Fix body/html being pushed down
+    const resetPosition = (el) => {
+      if (el.style.top !== '0px') el.style.setProperty('top', '0px', 'important');
+      if (el.style.marginTop !== '0px') el.style.setProperty('margin-top', '0px', 'important');
+      if (el.style.paddingTop !== '0px') el.style.setProperty('padding-top', '0px', 'important');
+    };
+    resetPosition(document.documentElement);
+    resetPosition(document.body);
+  }, 50);
+
   // --- Language Switcher ---
   const langSwitcherBtn = document.getElementById('langSwitcherBtn');
   const langSwitcherText = document.getElementById('langSwitcherText');

@@ -45,12 +45,14 @@ html.translated-ltr .initiative-card-title { font-size: 20px !important; }
 html.translated-ltr .logo-title { font-size: 22px !important; }
 
 /* Hide the Google Translate toolbar */
+.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-.skiptranslate > iframe.goog-te-banner-frame {
+iframe.goog-te-banner-frame {
     display: none !important;
 }
-body {
+body, html {
     top: 0px !important;
+    position: static !important;
 }
 #goog-gt-tt,
 .goog-te-balloon-frame {

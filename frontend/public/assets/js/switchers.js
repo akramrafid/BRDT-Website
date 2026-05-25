@@ -55,9 +55,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const translateSelect = document.querySelector('.goog-te-combo');
       if (translateSelect) {
         if (targetLang === 'en') {
-          // Reverting to English natively is sometimes buggy in the widget, best to reload
+          // Attempt to restore instantly using the Google Translate restore button if accessible
+          const iframe = document.querySelector('.goog-te-banner-frame');
+          if (iframe) {
+            try {
+              const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+              const restoreBtn = innerDoc.getElementById(':1.restore');
+              if (restoreBtn) {
+                restoreBtn.click();
+                return;
+              }
+            } catch (e) { /* ignore cross-origin issues */ }
+          }
+          
+          // Fallback: clear cookies and attempt native dropdown reset
           document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          window.location.reload();
+          if (location.hostname) document.cookie = `googtrans=; domain=.${location.hostname}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+          
+          translateSelect.value = 'en';
+          translateSelect.dispatchEvent(new Event('change'));
+          
+          // Safety fallback: if it doesn't restore within 400ms, reload the page
+          setTimeout(() => {
+            if (document.documentElement.classList.contains('translated-ltr')) {
+              window.location.reload();
+            }
+          }, 400);
         } else {
           translateSelect.value = 'bn';
           translateSelect.dispatchEvent(new Event('change'));

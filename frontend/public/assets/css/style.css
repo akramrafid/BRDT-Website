@@ -39,7 +39,7 @@ a {
   background-color: #1e293b; /* Dark Slate */
   color: var(--text-light);
   padding: 10px 0;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.5px;
 }
 
@@ -64,7 +64,7 @@ a {
   color: var(--text-light);
   margin-left: 20px;
   opacity: 0.7;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .top-bar-right a:hover {
@@ -85,7 +85,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
+  padding: 24px 0 16px 0;
 }
 
 /* Logo Setup */
@@ -236,6 +236,46 @@ a {
 }
 
 /* Header Actions */
+.header-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.top-switchers {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 8px;
+}
+
+.switcher-btn {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.switcher-btn:hover {
+  border-color: var(--primary-purple);
+  color: var(--primary-purple);
+}
+
+.switcher-btn i {
+  font-size: 9px;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -267,6 +307,14 @@ a {
   box-shadow: 0 8px 25px rgba(140, 29, 84, 0.4);
   transform: translateY(-2px);
   color: #fff;
+}
+
+/* Hide default Google Translate widgets */
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon, .goog-te-gadget-simple img {
+  display: none !important;
+}
+body {
+  top: 0px !important;
 }
 
 /* Common Utils */

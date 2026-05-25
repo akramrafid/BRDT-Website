@@ -114,15 +114,21 @@
               </ul>
             </li>
             <li><a href="who-we-are.html">Who We Are</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
               
             <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </nav>
-        <div class="header-actions">
-          <a class="login-link active" href="login.html">Login/Register</a>
-          <a class="btn-donate" href="#">Donate Now</a>
+              <div class="header-right-container">
+        <div class="top-switchers">
+          <button class="switcher-btn" id="langSwitcherBtn"><span id="langSwitcherText">EN</span> <i class="fa-solid fa-chevron-down"></i></button>
+          <button class="switcher-btn" id="currencySwitcherBtn"><span id="currencySwitcherText">৳ (BDT)</span> <i class="fa-solid fa-chevron-down"></i></button>
         </div>
-      </div>
+        <div class="header-actions">
+          <a class="btn-donate" href="#">Donate Now</a>
+          <a class="login-link" href="login.html">Login/Register</a>
+        </div>
+      </div></div>
     </header>
 
     <!-- Register Form Section -->
@@ -500,7 +506,10 @@
           }
         });
     </script>
-  </body>
+    <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="assets/js/switchers.js"></script>
+</body>
 </html>
 
 

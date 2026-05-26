@@ -628,14 +628,37 @@
           </div>
 
           <!-- Instruction Box for Mobile Payments -->
-          <div class="instruction-box active" id="mobilePaymentInstruction">
-            <h4><i class="fa-solid fa-mobile-screen-button"></i> Mobile Banking Instruction</h4>
-            <p>To donate via <span id="selectedMethodText">bKash</span>, please send your donation amount to the
-              following number:</p>
-            <div class="number-highlight">01625050379</div>
-            <p>After sending the money, please enter the Transaction ID below to verify your payment.</p>
+          <div class="instruction-box active" id="mobilePaymentInstruction" style="background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 15px;">
+              <h4 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 16px; color: #475569;">
+                <i class="fa-solid fa-circle-dot" style="color: #2563eb;"></i> 
+                <span id="selectedMethodTextHeader">bKash</span>
+              </h4>
+              <i class="fa-solid fa-mobile-screen-button" style="color: #e11d48; font-size: 24px;"></i>
+            </div>
+            
+            <div id="methodSteps" style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 20px;">
+              01. Go to your bKash app or dial *247#.<br>
+              02. Choose "Send Money."<br>
+              03. Enter below bKash Account Number<br>
+              04. Enter total amount<br>
+              05. Now enter your bKash Account PIN to confirm the transaction<br>
+              06. Copy the transaction ID from the payment confirmation message and paste that Transaction ID below
+            </div>
+
+            <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span id="displayAmountFullDynamic">৳1000.00</span></h4>
+            
+            <p style="font-size: 14px; color: #475569; margin-bottom: 8px;">Account Type: <strong>Send Money/Cash In</strong></p>
+            <p style="font-size: 14px; color: #475569; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; margin-bottom: 15px;">Account Number: <strong>01625050379</strong></p>
+            
+            <div class="form-group" style="margin-bottom: 15px;">
+              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span class="method-name-span">bKash</span> Account Number</label>
+              <input type="text" id="senderAccount" placeholder="01XXXXXXXXX" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
+            </div>
+            
             <div class="form-group">
-              <input type="text" id="transactionId" placeholder="Enter Transaction ID (e.g., TrxID)">
+              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span class="method-name-span">bKash</span> Transaction ID</label>
+              <input type="text" id="transactionId" placeholder="2M7A5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
             </div>
           </div>
 
@@ -891,19 +914,26 @@
           // Add active class to clicked
           btn.classList.add('active');
 
-          if (btn.id === 'customAmountBtn') {
+          if (btn.textContent === 'Custom Amount') {
             customAmountRow.style.display = 'block';
+            customAmountInput.focus();
             if (customAmountInput.value) {
               displayAmount.textContent = customAmountInput.value;
+              const elem = document.getElementById('displayAmountFullDynamic');
+              if (elem) elem.textContent = currentSymbol + parseFloat(customAmountInput.value).toFixed(2);
               currentAmount = customAmountInput.value;
             } else {
               displayAmount.textContent = '0';
+              const elem = document.getElementById('displayAmountFullDynamic');
+              if (elem) elem.textContent = currentSymbol + '0.00';
               currentAmount = 0;
             }
           } else {
             customAmountRow.style.display = 'none';
-            const value = btn.textContent.replace(currentSymbol, '');
+            const value = btn.textContent.replace(currentSymbol, '').replace('£', '').replace('৳', '');
             displayAmount.textContent = value;
+            const elem = document.getElementById('displayAmountFullDynamic');
+            if (elem) elem.textContent = currentSymbol + parseFloat(value).toFixed(2);
             currentAmount = value;
           }
         });
@@ -913,9 +943,13 @@
         const val = e.target.value;
         if (val) {
           displayAmount.textContent = val;
+          const elem = document.getElementById('displayAmountFullDynamic');
+          if (elem) elem.textContent = currentSymbol + parseFloat(val).toFixed(2);
           currentAmount = val;
         } else {
           displayAmount.textContent = '0';
+          const elem = document.getElementById('displayAmountFullDynamic');
+          if (elem) elem.textContent = currentSymbol + '0.00';
           currentAmount = 0;
         }
       });
@@ -924,7 +958,6 @@
       const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
       const mobilePaymentInstruction = document.getElementById('mobilePaymentInstruction');
       const offlineInstruction = document.getElementById('offlineInstruction');
-      const selectedMethodText = document.getElementById('selectedMethodText');
 
       paymentRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -939,11 +972,27 @@
 
             // Capitalize method name for display
             let methodName = method;
-            if (method === 'bkash') methodName = 'bKash';
-            if (method === 'nogod') methodName = 'Nogod';
-            if (method === 'rocket') methodName = 'Rocket';
+            let ussd = '*247#';
+            if (method === 'bkash') { methodName = 'bKash'; ussd = '*247#'; }
+            if (method === 'nagad') { methodName = 'Nagad'; ussd = '*167#'; }
+            if (method === 'rocket') { methodName = 'Rocket'; ussd = '*322#'; }
 
-            selectedMethodText.textContent = methodName;
+            const headerElem = document.getElementById('selectedMethodTextHeader');
+            if(headerElem) headerElem.textContent = methodName;
+            
+            document.querySelectorAll('.method-name-span').forEach(el => el.textContent = methodName);
+            
+            const methodSteps = document.getElementById('methodSteps');
+            if(methodSteps) {
+              methodSteps.innerHTML = `
+                01. Go to your ${methodName} app or dial ${ussd}.<br>
+                02. Choose "Send Money."<br>
+                03. Enter below ${methodName} Account Number<br>
+                04. Enter total amount<br>
+                05. Now enter your ${methodName} Account PIN to confirm the transaction<br>
+                06. Copy the transaction ID from the payment confirmation message and paste that Transaction ID below
+              `;
+            }
           }
         });
       });

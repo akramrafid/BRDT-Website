@@ -628,15 +628,17 @@
           </div>
 
           <!-- Instruction Box for Mobile Payments -->
-          <div class="instruction-box active" id="mobilePaymentInstruction" style="background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 15px;">
+          <div class="instruction-box active" id="mobilePaymentInstruction"
+            style="background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 15px;">
               <h4 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 16px; color: #475569;">
-                <i class="fa-solid fa-circle-dot" style="color: #2563eb;"></i> 
+                <i class="fa-solid fa-circle-dot" style="color: #2563eb;"></i>
                 <span id="selectedMethodTextHeader">bKash</span>
               </h4>
               <i class="fa-solid fa-mobile-screen-button" style="color: #e11d48; font-size: 24px;"></i>
             </div>
-            
+
             <div id="methodSteps" style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 20px;">
               01. Go to your bKash app or dial *247#.<br>
               02. Choose "Send Money."<br>
@@ -646,19 +648,27 @@
               06. Copy the transaction ID from the payment confirmation message and paste that Transaction ID below
             </div>
 
-            <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span id="displayAmountFullDynamic">৳1000.00</span></h4>
-            
-            <p style="font-size: 14px; color: #475569; margin-bottom: 8px;">Account Type: <strong>Send Money/Cash In</strong></p>
-            <p style="font-size: 14px; color: #475569; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; margin-bottom: 15px;">Account Number: <strong>01625050379</strong></p>
-            
+            <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span
+                id="displayAmountFullDynamic">৳1000.00</span></h4>
+
+            <p style="font-size: 14px; color: #475569; margin-bottom: 8px;">Account Type: <strong>Send Money/Cash
+                In</strong></p>
+            <p
+              style="font-size: 14px; color: #475569; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; margin-bottom: 15px;">
+              Account Number: <strong>01625050379</strong></p>
+
             <div class="form-group" style="margin-bottom: 15px;">
-              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span class="method-name-span">bKash</span> Account Number</label>
-              <input type="text" id="senderAccount" placeholder="01XXXXXXXXX" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
+              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span
+                  class="method-name-span">bKash</span> Account Number</label>
+              <input type="text" id="senderAccount" placeholder="01XXXXXXXXX"
+                style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
             </div>
-            
+
             <div class="form-group">
-              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span class="method-name-span">bKash</span> Transaction ID</label>
-              <input type="text" id="transactionId" placeholder="2M7A5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
+              <label style="font-size: 13px; color: #475569; display: block; margin-bottom: 8px;">Your <span
+                  class="method-name-span">bKash</span> Transaction ID</label>
+              <input type="text" id="transactionId" placeholder="2M7A5"
+                style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 14px;">
             </div>
           </div>
 
@@ -978,12 +988,12 @@
             if (method === 'rocket') { methodName = 'Rocket'; ussd = '*322#'; }
 
             const headerElem = document.getElementById('selectedMethodTextHeader');
-            if(headerElem) headerElem.textContent = methodName;
-            
+            if (headerElem) headerElem.textContent = methodName;
+
             document.querySelectorAll('.method-name-span').forEach(el => el.textContent = methodName);
-            
+
             const methodSteps = document.getElementById('methodSteps');
-            if(methodSteps) {
+            if (methodSteps) {
               methodSteps.innerHTML = `
                 01. Go to your ${methodName} app or dial ${ussd}.<br>
                 02. Choose "Send Money."<br>

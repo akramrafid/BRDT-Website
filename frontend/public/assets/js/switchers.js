@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const langSwitcherText = document.getElementById('langSwitcherText');
   if (langSwitcherText) {
-    langSwitcherText.innerText = currentLang.toUpperCase();
+    langSwitcherText.innerText = 'EN';
     langSwitcherText.classList.add('notranslate');
   }
 
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     langSwitcherSelect.addEventListener('change', (e) => {
       const targetLang = e.target.value;
       
-      if (langSwitcherText) langSwitcherText.innerText = targetLang.toUpperCase();
+      if (langSwitcherText) langSwitcherText.innerText = 'EN';
       
       // Update state
       localStorage.setItem('siteLang', targetLang);

@@ -18,19 +18,25 @@ font {
     font-weight: inherit !important;
 }
 
+.skiptranslate iframe,
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-iframe.goog-te-banner-frame {
+iframe.goog-te-banner-frame,
+.VIpgJd-Zvi9od-ORHb-OEVmcd {
     display: none !important;
 }
 body, html {
     top: 0px !important;
     position: static !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
+
 #goog-gt-tt,
 .goog-te-balloon-frame {
     display: none !important;
 }
+
 .goog-text-highlight {
     background: none !important;
     box-shadow: none !important;

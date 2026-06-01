@@ -9,43 +9,15 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-@import url('mobile-fixes.css');
 
-/* Bengali Translation Styles */
-html.translated-ltr body,
-html.translated-ltr p,
-html.translated-ltr h1,
-html.translated-ltr h2,
-html.translated-ltr h3,
-html.translated-ltr h4,
-html.translated-ltr h5,
-html.translated-ltr h6,
-html.translated-ltr a,
-html.translated-ltr span,
-html.translated-ltr button,
-html.translated-ltr input,
-html.translated-ltr textarea,
-html.translated-ltr li {
-  font-family: 'Hind Siliguri', sans-serif !important;
+/* Prevent Google Translate from altering layout/font sizes */
+font {
+    font-size: inherit !important;
+    line-height: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
 }
 
-html.translated-ltr body { font-size: 19px !important; }
-
-/* Specific Font Size Overrides for Bengali (to match English visual weight) */
-html.translated-ltr .hero-title { font-size: 70px !important; }
-html.translated-ltr .hero-desc { font-size: 22px !important; }
-html.translated-ltr .mid-cta-title,
-html.translated-ltr .contact-page-title,
-html.translated-ltr .premium-faq-title,
-html.translated-ltr .premium-team-title { font-size: 52px !important; }
-html.translated-ltr .project-title { font-size: 48px !important; }
-html.translated-ltr .zakat-title { font-size: 40px !important; }
-html.translated-ltr .right-title { font-size: 35px !important; }
-html.translated-ltr .auth-title { font-size: 32px !important; }
-html.translated-ltr .initiative-card-title { font-size: 20px !important; }
-html.translated-ltr .logo-title { font-size: 22px !important; }
-
-/* Hide the Google Translate toolbar */
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
 iframe.goog-te-banner-frame {

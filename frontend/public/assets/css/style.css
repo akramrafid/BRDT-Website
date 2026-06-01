@@ -344,8 +344,24 @@ a {
 }
 
 .switcher-btn i {
-  font-size: 9px;
   font-size: 12px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.invisible-select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .header-actions {

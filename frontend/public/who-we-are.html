@@ -65,8 +65,23 @@
       </nav>
             <div class="header-right-container">
         <div class="top-switchers">
-          <button class="switcher-btn" id="langSwitcherBtn"><span id="langSwitcherText">EN</span> <i class="fa-solid fa-chevron-down"></i></button>
-          <button class="switcher-btn" id="currencySwitcherBtn"><span id="currencySwitcherText">৳ (BDT)</span> <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="custom-select-wrapper">
+            <button class="switcher-btn" id="langSwitcherBtn"><span id="langSwitcherText">EN</span> <i class="fa-solid fa-chevron-down"></i></button>
+            <select class="invisible-select" id="langSwitcherSelect">
+              <option value="en">EN</option>
+              <option value="bn">BN</option>
+              <option value="ar">AR</option>
+            </select>
+          </div>
+          <div class="custom-select-wrapper">
+            <button class="switcher-btn" id="currencySwitcherBtn"><span id="currencySwitcherText">৳ (BDT)</span> <i class="fa-solid fa-chevron-down"></i></button>
+            <select class="invisible-select" id="currencySwitcherSelect">
+              <option value="BDT">৳ (BDT)</option>
+              <option value="GBP">£ (GBP)</option>
+              <option value="USD">$ (USD)</option>
+              <option value="EUR">€ (EUR)</option>
+            </select>
+          </div>
         </div>
         <div class="header-actions">
           <a class="btn-donate" href="donate.html">Donate Now</a>
@@ -82,7 +97,7 @@
   <section class="page-header" style="background: var(--dark-blue); color: #fff; padding: 60px 0; text-align: center;">
     <div class="container">
       <h1 style="font-size: 40px; font-weight: 700; margin-bottom: 10px;">Who We Are</h1>
-      <p style="font-size: 18px; color: var(--light-blue);">Serving humanity with integrity and compassion</p>
+      <p style="font-size: 18px; color: var(--light-blue);">BRDT is a non-profit, non-political, and service organisation dedicated entirely to human welfare.</p>
     </div>
   </section>
 
@@ -97,7 +112,7 @@
           <p style="color: #000; font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
             It is with deep gratitude and pride that I share this message on behalf of BRDT. Over the past years, we
             have worked with sincerity, transparency, and a shared commitment to uplift our community. Together, we have
-            honoured the trust placed in us and continued to expand the impact of our mission.
+            honoured the trust placed in us and continued to expand the impact of our mission. 
           </p>
           <p style="color: #000; font-size: 15px; line-height: 1.6; margin-bottom: 0;">
             From the very beginning, our goal has been simple yet profound — to stand beside people, to listen to their

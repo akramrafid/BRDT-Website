@@ -87,8 +87,23 @@
         </nav>
               <div class="header-right-container">
         <div class="top-switchers">
-          <button class="switcher-btn" id="langSwitcherBtn"><span id="langSwitcherText">EN</span> <i class="fa-solid fa-chevron-down"></i></button>
-          <button class="switcher-btn" id="currencySwitcherBtn"><span id="currencySwitcherText">৳ (BDT)</span> <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="custom-select-wrapper">
+            <button class="switcher-btn" id="langSwitcherBtn"><span id="langSwitcherText">EN</span> <i class="fa-solid fa-chevron-down"></i></button>
+            <select class="invisible-select" id="langSwitcherSelect">
+              <option value="en">EN</option>
+              <option value="bn">BN</option>
+              <option value="ar">AR</option>
+            </select>
+          </div>
+          <div class="custom-select-wrapper">
+            <button class="switcher-btn" id="currencySwitcherBtn"><span id="currencySwitcherText">৳ (BDT)</span> <i class="fa-solid fa-chevron-down"></i></button>
+            <select class="invisible-select" id="currencySwitcherSelect">
+              <option value="BDT">৳ (BDT)</option>
+              <option value="GBP">£ (GBP)</option>
+              <option value="USD">$ (USD)</option>
+              <option value="EUR">€ (EUR)</option>
+            </select>
+          </div>
         </div>
         <div class="header-actions">
           <a class="btn-donate" href="donate.html">Donate Now</a>

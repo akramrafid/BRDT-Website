@@ -3,7 +3,7 @@
 // --- Google Translate Integration ---
 function googleTranslateElementInit() {
   new google.translate.TranslateElement(
-    { pageLanguage: 'en', includedLanguages: 'en,bn', autoDisplay: false },
+    { pageLanguage: 'en', includedLanguages: 'en,bn,ar', autoDisplay: false },
     'google_translate_element'
   );
 }
@@ -28,24 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 50);
 
   // --- Language Switcher ---
-  const langSwitcherBtn = document.getElementById('langSwitcherBtn');
+  const langSwitcherSelect = document.getElementById('langSwitcherSelect');
+  
+  // Initialize from localStorage
+  const getCookieLang = () => {
+    if (document.cookie.includes('googtrans=/en/bn')) return 'bn';
+    if (document.cookie.includes('googtrans=/en/ar')) return 'ar';
+    return 'en';
+  };
+  const currentLang = localStorage.getItem('siteLang') || getCookieLang();
+  
+  if (langSwitcherSelect) {
+    langSwitcherSelect.value = currentLang;
+  }
   const langSwitcherText = document.getElementById('langSwitcherText');
-  
-  // Initialize from localStorage (crucial for local file:// access)
-  const currentLang = localStorage.getItem('siteLang') || (document.cookie.includes('googtrans=/en/bn') ? 'bn' : 'en');
-  
   if (langSwitcherText) {
-    langSwitcherText.classList.add('notranslate'); // Prevent translation of button
-    langSwitcherText.innerText = currentLang === 'bn' ? 'BN' : 'EN';
+    langSwitcherText.innerText = currentLang.toUpperCase();
+    langSwitcherText.classList.add('notranslate');
   }
 
-  // If Bengali is selected, wait for Google Translate widget to load, then trigger it
-  if (currentLang === 'bn') {
+  // If Bengali or Arabic is selected, wait for Google Translate widget to load, then trigger it
+  if (currentLang !== 'en') {
     const checkWidget = setInterval(() => {
       const translateSelect = document.querySelector('.goog-te-combo');
       if (translateSelect) {
-        if (translateSelect.value !== 'bn') {
-          translateSelect.value = 'bn';
+        if (translateSelect.value !== currentLang) {
+          translateSelect.value = currentLang;
           translateSelect.dispatchEvent(new Event('change'));
         }
         clearInterval(checkWidget);
@@ -54,14 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => clearInterval(checkWidget), 5000); // stop polling after 5s
   }
   
-  if (langSwitcherBtn) {
-    langSwitcherBtn.addEventListener('click', () => {
-      const isEnglish = langSwitcherText.innerText === 'EN';
-      const targetLang = isEnglish ? 'bn' : 'en';
+  if (langSwitcherSelect) {
+    langSwitcherSelect.addEventListener('change', (e) => {
+      const targetLang = e.target.value;
+      
+      if (langSwitcherText) langSwitcherText.innerText = targetLang.toUpperCase();
       
       // Update state
       localStorage.setItem('siteLang', targetLang);
-      langSwitcherText.innerText = targetLang === 'bn' ? 'BN' : 'EN';
       
       // Set the Google Translate cookie for persistence on actual servers
       document.cookie = `googtrans=/en/${targetLang}; path=/`;
@@ -83,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 restoreBtn.click();
                 return;
               }
-            } catch (e) { /* ignore cross-origin issues */ }
+            } catch (err) { /* ignore cross-origin issues */ }
           }
           
           // Fallback: clear cookies and attempt native dropdown reset
@@ -95,12 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
           
           // Safety fallback: if it doesn't restore within 400ms, reload the page
           setTimeout(() => {
-            if (document.documentElement.classList.contains('translated-ltr')) {
+            if (document.documentElement.classList.contains('translated-ltr') || document.documentElement.classList.contains('translated-rtl')) {
               window.location.reload();
             }
           }, 400);
         } else {
-          translateSelect.value = 'bn';
+          translateSelect.value = targetLang;
           translateSelect.dispatchEvent(new Event('change'));
         }
       } else {
@@ -111,92 +119,139 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Currency Switcher ---
-  const currencySwitcherBtn = document.getElementById('currencySwitcherBtn');
-  const currencySwitcherText = document.getElementById('currencySwitcherText');
-  const EXCHANGE_RATE = 150; // 1 GBP = 150 BDT
+  const currencySwitcherSelect = document.getElementById('currencySwitcherSelect');
+  const EXCHANGE_RATES = {
+      'BDT': 1,
+      'GBP': 1 / 150,
+      'USD': 1 / 120,
+      'EUR': 1 / 130
+  };
   
   let currentCurrency = localStorage.getItem('currency') || 'BDT';
+  if (currencySwitcherSelect) {
+      currencySwitcherSelect.value = currentCurrency;
+  }
+  const currencySwitcherText = document.getElementById('currencySwitcherText');
+  if (currencySwitcherText) {
+    if (currentCurrency === 'BDT') currencySwitcherText.innerText = '৳ (BDT)';
+    else if (currentCurrency === 'GBP') currencySwitcherText.innerText = '£ (GBP)';
+    else if (currentCurrency === 'USD') currencySwitcherText.innerText = '$ (USD)';
+    else if (currentCurrency === 'EUR') currencySwitcherText.innerText = '€ (EUR)';
+  }
   
   function formatCurrency(amount, currency) {
     if (currency === 'GBP') {
-      const gbpAmount = (amount / EXCHANGE_RATE).toFixed(2);
-      // Remove trailing .00 if it's a whole number
-      return '£' + (gbpAmount.endsWith('.00') ? gbpAmount.slice(0, -3) : gbpAmount);
+      const formatted = amount.toFixed(2);
+      return '£' + (formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted);
+    } else if (currency === 'USD') {
+        const formatted = amount.toFixed(2);
+        return '$' + (formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted);
+    } else if (currency === 'EUR') {
+        const formatted = amount.toFixed(2);
+        return '€' + (formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted);
     }
-    return '৳' + amount;
+    return '৳' + Math.round(amount);
   }
   
   // Find all text nodes that contain currency values and convert them
   function updateCurrencyInDOM(targetCurrency) {
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
+    // Get the base currency we are coming from. This is tricky without storing original DOM values.
+    // Assuming BDT is base, we need a way to track the current state or just convert from BDT base.
+    // Instead of doing complex regex state tracking, let's reload the page on currency switch to keep logic simple and robust, OR we convert assuming BDT is base if we only allow single-hop conversion.
+    // A better approach for this simple charity site is to reload the page with the currency saved in local storage, but since we want to avoid reloads...
+    
+    // Actually, doing this dynamically is hard for 4 currencies without `data-amount` attributes. Let's just reload the page and format on load.
+    window.location.reload();
+  }
 
-    let node;
-    const regexBDT = /৳(\d+(?:,\d+)*(?:\.\d+)?)/g;
-    const regexGBP = /£(\d+(?:,\d+)*(?:\.\d+)?)/g;
+  function formatDOMOnLoad(targetCurrency) {
+      if (targetCurrency === 'BDT') return; // default HTML is BDT
 
-    const nodesToUpdate = [];
-    while ((node = walker.nextNode())) {
-      // Skip script and style tags
-      if (node.parentElement && ['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(node.parentElement.tagName)) continue;
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+  
+      let node;
+      const regexBDT = /৳(\d+(?:,\d+)*(?:\.\d+)?)/g;
+      const nodesToUpdate = [];
       
-      if (targetCurrency === 'GBP' && node.nodeValue.includes('৳')) {
-        nodesToUpdate.push({ node, type: 'toGBP' });
-      } else if (targetCurrency === 'BDT' && node.nodeValue.includes('£')) {
-        nodesToUpdate.push({ node, type: 'toBDT' });
+      while ((node = walker.nextNode())) {
+        if (node.parentElement && ['SCRIPT', 'STYLE', 'NOSCRIPT', 'OPTION'].includes(node.parentElement.tagName)) continue;
+        if (node.nodeValue.includes('৳')) {
+          nodesToUpdate.push(node);
+        }
       }
-    }
-    
-    nodesToUpdate.forEach(({ node, type }) => {
-      if (type === 'toGBP') {
-        node.nodeValue = node.nodeValue.replace(regexBDT, (match, p1) => {
-          const amount = parseFloat(p1.replace(/,/g, ''));
-          return formatCurrency(amount, 'GBP');
+      
+      nodesToUpdate.forEach(n => {
+          n.nodeValue = n.nodeValue.replace(regexBDT, (match, p1) => {
+            const amount = parseFloat(p1.replace(/,/g, ''));
+            const converted = amount * EXCHANGE_RATES[targetCurrency];
+            return formatCurrency(converted, targetCurrency);
+          });
+      });
+
+      const inputs = document.querySelectorAll('input[placeholder]');
+      inputs.forEach(input => {
+        if (input.placeholder.includes('৳')) {
+          input.placeholder = input.placeholder.replace(regexBDT, (match, p1) => {
+            const amount = parseFloat(p1.replace(/,/g, ''));
+            const converted = amount * EXCHANGE_RATES[targetCurrency];
+            return formatCurrency(converted, targetCurrency);
+          });
+        }
+      });
+  }
+
+  formatDOMOnLoad(currentCurrency);
+
+  if (currencySwitcherSelect) {
+    currencySwitcherSelect.addEventListener('change', (e) => {
+      const newCurrency = e.target.value;
+      if (newCurrency !== currentCurrency) {
+          localStorage.setItem('currency', newCurrency);
+          window.location.reload(); // Reload to ensure base BDT text is re-parsed cleanly.
+      }
+    });
+  }
+
+  // --- Custom Translation Overrides ---
+  // When Google Translate converts "Contact Us" to Bengali, it becomes "আমাদের সাথে যোগাযোগ করুন".
+  // The user requested it to be shortened to "যোগাযোগ করুন".
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach(mutation => {
+      if (mutation.type === 'characterData') {
+        if (mutation.target.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
+          mutation.target.nodeValue = 'যোগাযোগ করুন';
+        }
+      } else if (mutation.type === 'childList') {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE && node.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
+            node.nodeValue = 'যোগাযোগ করুন';
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const textNodes = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+            let tNode;
+            while (tNode = textNodes.nextNode()) {
+              if (tNode.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
+                tNode.nodeValue = 'যোগাযোগ করুন';
+              }
+            }
+          }
         });
-      } else {
-        node.nodeValue = node.nodeValue.replace(regexGBP, (match, p1) => {
-          const amount = parseFloat(p1.replace(/,/g, '')) * EXCHANGE_RATE;
-          return formatCurrency(amount, 'BDT');
-        });
       }
     });
-    
-    // Update input placeholders if any
-    const inputs = document.querySelectorAll('input[placeholder]');
-    inputs.forEach(input => {
-      if (targetCurrency === 'GBP' && input.placeholder.includes('৳')) {
-        input.placeholder = input.placeholder.replace(regexBDT, (match, p1) => formatCurrency(parseFloat(p1.replace(/,/g, '')), 'GBP'));
-      } else if (targetCurrency === 'BDT' && input.placeholder.includes('£')) {
-        input.placeholder = input.placeholder.replace(regexGBP, (match, p1) => formatCurrency(parseFloat(p1.replace(/,/g, '')) * EXCHANGE_RATE, 'BDT'));
-      }
-    });
-  }
+  });
 
-  function applyCurrency(currency) {
-    if (currency === 'GBP') {
-      if (currencySwitcherText) currencySwitcherText.innerText = '£ (GBP)';
-      updateCurrencyInDOM('GBP');
-    } else {
-      if (currencySwitcherText) currencySwitcherText.innerText = '৳ (BDT)';
-      // If switching back to BDT, convert £ back to ৳
-      updateCurrencyInDOM('BDT');
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+
+  // Initial check just in case
+  const textNodes = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  let tNode;
+  while (tNode = textNodes.nextNode()) {
+    if (tNode.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
+      tNode.nodeValue = 'যোগাযোগ করুন';
     }
-  }
-
-  // Initial apply
-  if (currentCurrency === 'GBP') {
-    applyCurrency('GBP');
-  }
-
-  if (currencySwitcherBtn) {
-    currencySwitcherBtn.addEventListener('click', () => {
-      currentCurrency = currentCurrency === 'BDT' ? 'GBP' : 'BDT';
-      localStorage.setItem('currency', currentCurrency);
-      applyCurrency(currentCurrency);
-    });
   }
 });

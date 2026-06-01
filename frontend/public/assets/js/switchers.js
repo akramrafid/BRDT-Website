@@ -218,24 +218,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Custom Translation Overrides ---
-  // When Google Translate converts "Contact Us" to Bengali, it becomes "আমাদের সাথে যোগাযোগ করুন".
-  // The user requested it to be shortened to "যোগাযোগ করুন".
+  const applyOverrides = (text) => {
+    if (!text) return text;
+    let newText = text;
+    if (newText === 'আমাদের সাথে যোগাযোগ করুন') {
+      newText = 'যোগাযোগ করুন';
+    } else if (newText.includes('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে।')) {
+      newText = newText.replace('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে।', 'শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান।');
+    } else if (newText.includes('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে')) {
+      newText = newText.replace('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে', 'শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান');
+    }
+    return newText;
+  };
+
   const observer = new MutationObserver((mutations) => {
     mutations.forEach(mutation => {
       if (mutation.type === 'characterData') {
-        if (mutation.target.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
-          mutation.target.nodeValue = 'যোগাযোগ করুন';
+        const newVal = applyOverrides(mutation.target.nodeValue);
+        if (newVal !== mutation.target.nodeValue) {
+          mutation.target.nodeValue = newVal;
         }
       } else if (mutation.type === 'childList') {
         mutation.addedNodes.forEach(node => {
-          if (node.nodeType === Node.TEXT_NODE && node.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
-            node.nodeValue = 'যোগাযোগ করুন';
+          if (node.nodeType === Node.TEXT_NODE) {
+            const newVal = applyOverrides(node.nodeValue);
+            if (newVal !== node.nodeValue) {
+              node.nodeValue = newVal;
+            }
           } else if (node.nodeType === Node.ELEMENT_NODE) {
             const textNodes = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
             let tNode;
             while (tNode = textNodes.nextNode()) {
-              if (tNode.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
-                tNode.nodeValue = 'যোগাযোগ করুন';
+              const newVal = applyOverrides(tNode.nodeValue);
+              if (newVal !== tNode.nodeValue) {
+                tNode.nodeValue = newVal;
               }
             }
           }
@@ -250,8 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const textNodes = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
   let tNode;
   while (tNode = textNodes.nextNode()) {
-    if (tNode.nodeValue === 'আমাদের সাথে যোগাযোগ করুন') {
-      tNode.nodeValue = 'যোগাযোগ করুন';
+    const newVal = applyOverrides(tNode.nodeValue);
+    if (newVal !== tNode.nodeValue) {
+      tNode.nodeValue = newVal;
     }
   }
 });

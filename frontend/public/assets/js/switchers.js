@@ -272,3 +272,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+
+// --- Custom Modern Dropdowns ---
+document.addEventListener('DOMContentLoaded', () => {
+  const wrappers = document.querySelectorAll('.custom-select-wrapper');
+  
+  wrappers.forEach(wrapper => {
+    const select = wrapper.querySelector('select.invisible-select');
+    const btn = wrapper.querySelector('.switcher-btn');
+    if (!select || !btn) return;
+    
+    // Hide native select completely since we're replacing it
+    select.style.display = 'none';
+    
+    // Create custom dropdown
+    const menu = document.createElement('ul');
+    menu.className = 'custom-dropdown-menu';
+    
+    Array.from(select.options).forEach(opt => {
+      const li = document.createElement('li');
+      li.innerText = opt.innerText;
+      li.dataset.value = opt.value;
+      if (opt.value === select.value) li.classList.add('selected');
+      
+      li.addEventListener('click', () => {
+        // Update select value and dispatch change event to trigger existing logic
+        select.value = opt.value;
+        select.dispatchEvent(new Event('change'));
+        
+        // Update selection styling
+        menu.querySelectorAll('li').forEach(el => el.classList.remove('selected'));
+        li.classList.add('selected');
+        
+        // Update button text using existing spans or innerText
+        const textSpan = btn.querySelector('span');
+        if (textSpan) textSpan.innerText = opt.innerText;
+        
+        menu.classList.remove('active');
+      });
+      menu.appendChild(li);
+    });
+    
+    wrapper.appendChild(menu);
+    
+    // Toggle on button click
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isActive = menu.classList.contains('active');
+      document.querySelectorAll('.custom-dropdown-menu').forEach(m => m.classList.remove('active'));
+      if (!isActive) menu.classList.add('active');
+    });
+  });
+  
+  // Close when clicking outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.custom-dropdown-menu').forEach(m => m.classList.remove('active'));
+  });
+});

@@ -4431,3 +4431,52 @@ body {
   background: rgba(140, 29, 84, 0.05);
   color: var(--primary-purple);
 }
+
+/* Contact Bar Animated Icons */
+.contact-icons {
+  display: inline-flex;
+  gap: 8px;
+  margin-left: 10px;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.contact-icons i, .contact-icons .imo-icon {
+  font-size: 16px;
+  cursor: pointer;
+  animation: pulse-icon 2.5s infinite;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+.contact-icons i:hover, .contact-icons .imo-icon:hover {
+  animation-play-state: paused;
+  transform: scale(1.2);
+}
+
+.imo-icon {
+  font-family: "Outfit", sans-serif;
+  font-size: 9px !important;
+  font-weight: 700;
+  color: #fff !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.contact-icons .fa-whatsapp { color: #25D366; animation-delay: 0s; }
+.contact-icons .fa-facebook-messenger { color: #00B2FF; animation-delay: 0.2s; }
+.contact-icons .fa-telegram { color: #0088cc; animation-delay: 0.4s; }
+.contact-icons .imo-icon { background-color: #0056b3; animation-delay: 0.6s; }
+.contact-icons .fa-viber { color: #59267c; animation-delay: 0.8s; }
+
+@keyframes pulse-icon {
+  0% { transform: scale(1); }
+  10% { transform: scale(1.2) rotate(5deg); }
+  20% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1); }
+}

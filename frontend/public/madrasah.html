@@ -350,8 +350,7 @@
         <div
           class="video-container"
           id="video-player-container"
-          style="position: relative; display: block; cursor: pointer"
-          onclick="playVideo(this)"
+          style="position: relative; cursor: pointer"
         >
           <!-- Thumbnail overlay (shown before playing) -->
           <img
@@ -406,23 +405,23 @@
             Play
           </p>
 
-          <!-- HTML5 Video (hidden until play is clicked) -->
+          <!-- Local HTML5 Video (hidden until play is clicked) -->
           <video
             id="madrasah-video"
             style="
               width: 100%;
               height: 100%;
-              object-fit: cover;
+              object-fit: contain;
               position: absolute;
               top: 0;
               left: 0;
               display: none;
+              background: #000;
             "
             controls
             preload="none"
-            poster="images/video-thumb.jpg"
           >
-            <source src="assets/images/images/madrasah_video.mp4" type="video/mp4" />
+            <source src="assets/videos/madrasah_video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
@@ -435,25 +434,25 @@
         </div>
 
         <script>
-          function playVideo(container) {
-            var video = document.getElementById("madrasah-video");
-            var thumb = document.getElementById("video-thumb");
-            var playBtn = document.getElementById("play-btn");
-            var playLabel = document.getElementById("play-label");
+          document.getElementById('video-player-container').addEventListener('click', function handler() {
+            var video = document.getElementById('madrasah-video');
+            var thumb = document.getElementById('video-thumb');
+            var playBtn = document.getElementById('play-btn');
+            var playLabel = document.getElementById('play-label');
 
             // Hide thumbnail and play button
-            thumb.style.display = "none";
-            playBtn.style.display = "none";
-            playLabel.style.display = "none";
+            thumb.style.display = 'none';
+            playBtn.style.display = 'none';
+            playLabel.style.display = 'none';
 
-            // Show and play the video
-            video.style.display = "block";
+            // Show and play the local video
+            video.style.display = 'block';
             video.play();
 
-            // Remove the click handler
-            container.style.cursor = "default";
-            container.onclick = null;
-          }
+            // Remove the click handler so controls work normally
+            this.style.cursor = 'default';
+            this.removeEventListener('click', handler);
+          });
         </script>
       </div>
     </section>

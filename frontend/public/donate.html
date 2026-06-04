@@ -649,7 +649,7 @@
               <input type="radio" name="paymentMethod" value="rocket"> Rocket
             </label>
             <label class="method-label">
-              <input type="radio" name="paymentMethod" value="offline"> Offline Donation
+              <input type="radio" name="paymentMethod" value="offline"> Bank Transfer
             </label>
           </div>
 
@@ -698,13 +698,56 @@
             </div>
           </div>
 
-          <!-- Instruction Box for Offline -->
+          <!-- Instruction Box for Bank Transfer / Offline Donation -->
           <div class="instruction-box" id="offlineInstruction">
-            <h4><i class="fa-solid fa-building-columns"></i> Offline Donation</h4>
-            <p>You can donate directly to our bank account or visit our office. After depositing, please provide the
-              receipt or reference number below.</p>
+            <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer / Offline Donation</h4>
+            <p>You can donate directly to our bank account via online banking or by visiting the branch in person. After depositing, please provide the receipt or reference number below.</p>
+
+            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 25px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #21ABEC;">
+                <i class="fa-solid fa-landmark" style="font-size: 28px; color: #21ABEC;"></i>
+                <div>
+                  <h5 style="margin: 0; font-size: 16px; color: var(--dark-blue); font-weight: 700;">Agrani Bank PLC</h5>
+                  <p style="margin: 0; font-size: 13px; color: #64748b;">Khila Bazar, Laksam, Cumilla</p>
+                </div>
+              </div>
+              <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500; width: 40%;"><i class="fa-solid fa-user" style="color: #21ABEC; margin-right: 8px;"></i>A/C Name</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 700;">Belghor Bepary Bari Youth Family</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500;"><i class="fa-solid fa-hashtag" style="color: #21ABEC; margin-right: 8px;"></i>A/C No</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 700; letter-spacing: 0.5px;">0200017174592
+                    <button onclick="navigator.clipboard.writeText('0200017174592'); this.textContent='Copied!'; setTimeout(()=>this.textContent='Copy', 2000);" style="margin-left: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; color: #64748b;">Copy</button>
+                  </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500;"><i class="fa-solid fa-building-columns" style="color: #21ABEC; margin-right: 8px;"></i>Bank Name</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 600;">Agrani Bank PLC</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500;"><i class="fa-solid fa-location-dot" style="color: #21ABEC; margin-right: 8px;"></i>Branch</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 600;">Khila Bazar, Laksam, Cumilla</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500;"><i class="fa-solid fa-route" style="color: #21ABEC; margin-right: 8px;"></i>Routing No</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 700; letter-spacing: 0.5px;">010192629</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #64748b; font-weight: 500;"><i class="fa-solid fa-globe" style="color: #21ABEC; margin-right: 8px;"></i>SWIFT Code</td>
+                  <td style="padding: 10px 0; color: #1e293b; font-weight: 700; letter-spacing: 1px;">AGBKBDDH</td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px;">
+              <i class="fa-solid fa-circle-info" style="color: #2563eb; margin-top: 3px;"></i>
+              <p style="margin: 0; font-size: 13px; color: #1e40af; line-height: 1.5;">After completing the bank transfer, please enter the deposit receipt number or transaction reference below so we can verify your donation.</p>
+            </div>
+
             <div class="form-group">
-              <input type="text" id="referenceNumber" placeholder="Enter Reference/Receipt Number">
+              <input type="text" id="referenceNumber" placeholder="Enter Bank Deposit Receipt / Reference Number">
             </div>
           </div>
 

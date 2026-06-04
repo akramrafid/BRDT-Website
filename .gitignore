@@ -3,6 +3,8 @@
 
 # Large video files (exceed GitHub 100MB limit — host on YouTube/Vimeo instead)
 frontend/public/assets/videos/Hafez.mp4
+frontend/public/assets/videos/madrasah_video.mp4
+frontend/public/assets/images/images/madrasah_video*.mp4
 *.m4a
 *.mov
 *.avi

@@ -1,13 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Clone Login/Register link to top bar for mobile view
-    const originalLogin = document.querySelector('.login-link');
-    const topBarRight = document.querySelector('.top-bar-right');
-    if (originalLogin && topBarRight && !document.querySelector('.top-bar-login')) {
-        const mobileLogin = originalLogin.cloneNode(true);
-        mobileLogin.classList.add('top-bar-login');
-        topBarRight.appendChild(mobileLogin);
-    }
-
     // 1. Create the mobile menu DOM structure
     const mobileOverlay = document.createElement('div');
     mobileOverlay.className = 'mobile-nav-overlay';

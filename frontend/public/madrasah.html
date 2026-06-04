@@ -347,96 +347,16 @@
         <h2 class="section-title" style="color: #fff; margin-bottom: 50px">
           A Glimpse into the madrasah
         </h2>
-        <div
-          class="video-container"
-          id="video-player-container"
-          style="position: relative; cursor: pointer"
-        >
-          <!-- Thumbnail overlay (shown before playing) -->
-          <img
-            id="video-thumb"
-            src="assets/images/Madrasah/Madrasah%20(3).jpeg"
-            alt="Video Thumbnail"
-            style="width: 100%; height: 100%; object-fit: cover; display: block"
-          />
-
-          <div
-            class="play-btn-overlay"
-            id="play-btn"
-            style="
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              width: 90px;
-              height: 90px;
-              background: rgba(255, 0, 0, 0.85);
-              border-radius: 18px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
-              transition:
-                transform 0.3s ease,
-                background 0.3s ease;
-            "
-          >
-            <i
-              class="fa-solid fa-play"
-              style="color: #fff; font-size: 36px; margin-left: 5px"
-            ></i>
-          </div>
-          <p
-            id="play-label"
-            style="
-              position: absolute;
-              bottom: 15px;
-              left: 50%;
-              transform: translateX(-50%);
-              color: #fff;
-              font-size: 0.85rem;
-              background: rgba(0, 0, 0, 0.6);
-              padding: 6px 18px;
-              border-radius: 20px;
-              white-space: nowrap;
-            "
-          >
-            <i class="fa-solid fa-play" style="margin-right: 6px"></i>Click to
-            Play
-          </p>
-
-          <style>
-            #video-player-container:hover .play-btn-overlay {
-              transform: translate(-50%, -50%) scale(1.12);
-              background: rgba(204, 0, 0, 0.95);
-            }
-          </style>
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/-UqHxa1sH5A?rel=0"
+            title="A Glimpse into the Madrasah"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width: 100%; height: 100%; border: none; border-radius: 12px;"
+          ></iframe>
         </div>
-
-        <script>
-          document.getElementById('video-player-container').addEventListener('click', function handler() {
-            var container = this;
-            var thumb = document.getElementById('video-thumb');
-            var playBtn = document.getElementById('play-btn');
-            var playLabel = document.getElementById('play-label');
-
-            thumb.style.display = 'none';
-            playBtn.style.display = 'none';
-            playLabel.style.display = 'none';
-
-            // Play via YouTube embed directly (zero bandwidth, plays instantly on Vercel)
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('src', 'https://www.youtube.com/embed/-UqHxa1sH5A?autoplay=1&rel=0');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('allowfullscreen', 'true');
-            iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:12px;z-index:10;';
-            container.appendChild(iframe);
-
-            this.style.cursor = 'default';
-            this.removeEventListener('click', handler);
-          });
-        </script>
       </div>
     </section>
 
@@ -459,93 +379,18 @@
           </div>
           <!-- Hafiz Video (YouTube Embed) -->
           <div class="madrasah-col" style="min-width: 300px;">
-            <div
-              class="video-container"
-              id="hafiz-video-container"
-              style="position: relative; cursor: pointer; height: 100%; aspect-ratio: 16/9;"
-            >
-              <!-- Thumbnail (shown before playing) -->
-              <img
-                id="hafiz-video-thumb"
-                src="assets/images/Madrasah/hafiz_video_thumb.jpg"
-                alt="Hafiz Video Thumbnail"
-                style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px;"
-              />
-
-              <div
-                class="play-btn-overlay"
-                id="hafiz-play-btn"
-                style="
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                  width: 80px;
-                  height: 80px;
-                  background: rgba(255, 0, 0, 0.85);
-                  border-radius: 18px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
-                  transition: transform 0.3s ease, background 0.3s ease;
-                "
-              >
-                <i class="fa-solid fa-play" style="color: #fff; font-size: 32px; margin-left: 4px;"></i>
-              </div>
-              <p
-                id="hafiz-play-label"
-                style="
-                  position: absolute;
-                  bottom: 15px;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  color: #fff;
-                  font-size: 0.85rem;
-                  background: rgba(0, 0, 0, 0.6);
-                  padding: 6px 18px;
-                  border-radius: 20px;
-                  white-space: nowrap;
-                "
-              >
-                <i class="fa-solid fa-play" style="margin-right: 6px;"></i>Click to Play
-              </p>
-
-              <style>
-                #hafiz-video-container:hover .play-btn-overlay {
-                  transform: translate(-50%, -50%) scale(1.12);
-                  background: rgba(204, 0, 0, 0.95);
-                }
-              </style>
+            <div class="video-container" style="height: 100%; aspect-ratio: 16/9;">
+              <iframe
+                src="https://www.youtube.com/embed/EUrpMRheUWM?rel=0"
+                title="Hafiz Students Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="width: 100%; height: 100%; border: none; border-radius: 12px;"
+              ></iframe>
             </div>
           </div>
         </div>
-
-        <script>
-          document.getElementById('hafiz-video-container').addEventListener('click', function handler() {
-            var container = this;
-            var thumb = document.getElementById('hafiz-video-thumb');
-            var playBtn = document.getElementById('hafiz-play-btn');
-            var playLabel = document.getElementById('hafiz-play-label');
-
-            // Hide overlay elements
-            thumb.style.display = 'none';
-            playBtn.style.display = 'none';
-            playLabel.style.display = 'none';
-
-            // Embed YouTube iframe (same approach as the main video)
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('src', 'https://www.youtube.com/embed/EUrpMRheUWM?autoplay=1&rel=0');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('allowfullscreen', 'true');
-            iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:12px;z-index:10;';
-            container.appendChild(iframe);
-
-            this.style.cursor = 'default';
-            this.removeEventListener('click', handler);
-          });
-        </script>
       </div>
     </section>
 

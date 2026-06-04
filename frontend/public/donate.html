@@ -154,7 +154,9 @@
               <select id="currencySelect"
                 style="width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 15px; outline: none; cursor: pointer;">
                 <option value="BDT">৳ (BDT)</option>
-                <option value="GBP">£ (Pound)</option>
+                <option value="GBP">£ (GBP)</option>
+                <option value="USD">$ (USD)</option>
+                <option value="EUR">€ (EUR)</option>
               </select>
             </div>
           </div>
@@ -501,11 +503,25 @@
 
       const amountsBDT = ['100', '500', '1000', '2000', '5000'];
       const amountsGBP = ['10', '50', '100', '200', '500'];
+      const amountsUSD = ['10', '50', '100', '200', '500'];
+      const amountsEUR = ['10', '50', '100', '200', '500'];
 
       currencySelect.addEventListener('change', (e) => {
-        const isGBP = e.target.value === 'GBP';
-        currentSymbol = isGBP ? '£' : '৳';
-        const amounts = isGBP ? amountsGBP : amountsBDT;
+        const val = e.target.value;
+        if (val === 'GBP') {
+          currentSymbol = '£';
+        } else if (val === 'USD') {
+          currentSymbol = '$';
+        } else if (val === 'EUR') {
+          currentSymbol = '€';
+        } else {
+          currentSymbol = '৳';
+        }
+
+        let amounts = amountsBDT;
+        if (val === 'GBP') amounts = amountsGBP;
+        if (val === 'USD') amounts = amountsUSD;
+        if (val === 'EUR') amounts = amountsEUR;
 
         currencySymbol.textContent = currentSymbol;
         customAmountInput.placeholder = `Enter Custom Amount (${currentSymbol})`;
@@ -547,7 +563,7 @@
             }
           } else {
             customAmountRow.style.display = 'none';
-            const value = btn.textContent.replace(currentSymbol, '').replace('£', '').replace('৳', '');
+            const value = btn.textContent.replace(currentSymbol, '').replace('£', '').replace('৳', '').replace('$', '').replace('€', '');
             displayAmount.textContent = value;
             const elem = document.getElementById('displayAmountFullDynamic');
             if (elem) elem.textContent = currentSymbol + parseFloat(value).toFixed(2);

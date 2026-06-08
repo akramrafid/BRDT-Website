@@ -250,17 +250,7 @@
               </div>
             </div>
 
-            <!-- Captcha placeholder -->
-            <div class="recaptcha-placeholder">
-              <div class="rc-left">
-                <input type="checkbox" id="rc-check-reg" required />
-                <label for="rc-check-reg">I'm not a robot</label>
-              </div>
-              <div class="rc-right">
-                <i class="fa-brands fa-google"></i>
-                <span>reCAPTCHA<br />Privacy - Terms</span>
-              </div>
-            </div>
+            <!-- Captcha placeholder removed -->
 
             <button type="submit" class="btn-auth-submit">Sign Up</button>
           </form>
@@ -480,45 +470,120 @@
         });
     </script>
   <script src="assets/js/countries.js"></script>
+  <style>
+    .custom-flag-select { position: relative; width: 100%; user-select: none; }
+    .country-code-select .custom-flag-select { height: 100%; }
+    .custom-flag-selected { border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 15px; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: #475569; height: 100%; }
+    .country-code-select .custom-flag-selected { border-right: none; border-top-right-radius: 0; border-bottom-right-radius: 0; background: #f8fafc; }
+    .custom-flag-selected img { width: 20px; margin-right: 8px; border-radius: 2px; }
+    .custom-flag-options { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; margin-top: 4px; max-height: 250px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-width: 100%; }
+    .custom-flag-options.open { display: block; }
+    .custom-flag-option { padding: 10px 15px; display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #475569; }
+    .custom-flag-option:hover { background: #f1f5f9; }
+    .custom-flag-option img { width: 20px; margin-right: 8px; border-radius: 2px; }
+  </style>
   <script>
+    function buildCustomSelect(selectId, optionsData, defaultValue, onChange) {
+      var selectElem = document.getElementById(selectId);
+      selectElem.style.display = 'none';
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'custom-flag-select';
+      
+      var selectedDiv = document.createElement('div');
+      selectedDiv.className = 'custom-flag-selected';
+      
+      var optionsDiv = document.createElement('div');
+      optionsDiv.className = 'custom-flag-options';
+
+      selectElem.updateCustomValue = function(newValue) {
+        optionsData.forEach(function(item) {
+          if (item.value === newValue) {
+            selectElem.value = item.value;
+            selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+          }
+        });
+      };
+
+      optionsData.forEach(function(item) {
+        var opt = document.createElement('div');
+        opt.className = 'custom-flag-option';
+        opt.innerHTML = '<img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.text + '</span>';
+        
+        var nativeOpt = document.createElement('option');
+        nativeOpt.value = item.value;
+        nativeOpt.textContent = item.text;
+        selectElem.appendChild(nativeOpt);
+
+        opt.addEventListener('click', function(e) {
+          e.stopPropagation();
+          selectElem.value = item.value;
+          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+          optionsDiv.classList.remove('open');
+          if (onChange) onChange(item.value);
+        });
+        optionsDiv.appendChild(opt);
+
+        if (item.value === defaultValue) {
+          selectElem.value = item.value;
+          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+        }
+      });
+
+      selectedDiv.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = optionsDiv.classList.contains('open');
+        document.querySelectorAll('.custom-flag-options').forEach(function(el) { el.classList.remove('open'); });
+        if (!isOpen) optionsDiv.classList.add('open');
+      });
+
+      wrapper.appendChild(selectedDiv);
+      wrapper.appendChild(optionsDiv);
+      selectElem.parentNode.insertBefore(wrapper, selectElem.nextSibling);
+    }
+
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.custom-flag-options').forEach(function(el) { el.classList.remove('open'); });
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof COUNTRIES !== 'undefined') {
         var codeSelect = document.getElementById('reg-country-code');
         var countrySelect = document.getElementById('reg-country');
-        
         codeSelect.innerHTML = '';
         countrySelect.innerHTML = '';
 
+        var codeOptions = [];
+        var countryOptions = [];
+        var addedCodes = {};
+        
+        var countryToDial = {};
+        var dialToCountry = {};
+
         COUNTRIES.forEach(function(c) {
-          // Phone dial codes
           if (c.dial) {
-            var codeOpt = document.createElement('option');
-            codeOpt.value = c.dial;
-            codeOpt.textContent = c.flag + ' ' + c.dial;
+            if (!dialToCountry[c.dial]) dialToCountry[c.dial] = c.code;
+            countryToDial[c.code] = c.dial;
             
-            // Avoid duplicate dial codes with same flag
-            var exists = false;
-            for (var i = 0; i < codeSelect.options.length; i++) {
-              if (codeSelect.options[i].textContent === codeOpt.textContent) {
-                exists = true;
-                break;
-              }
-            }
-            if (!exists) {
-               codeSelect.appendChild(codeOpt);
+            if (!addedCodes[c.dial + '_' + c.code]) {
+              addedCodes[c.dial + '_' + c.code] = true;
+              codeOptions.push({ value: c.dial, text: c.dial + ' (' + c.name + ')', displayValue: c.dial, code: c.code });
             }
           }
-
-          // Country list
-          var countryOpt = document.createElement('option');
-          countryOpt.value = c.code;
-          countryOpt.textContent = c.flag + ' ' + c.name + ' (' + c.code + ')';
-          countrySelect.appendChild(countryOpt);
+          countryOptions.push({ value: c.code, text: c.name + ' (' + c.code + ')', displayValue: c.name + ' (' + c.code + ')', code: c.code });
         });
 
-        // Set defaults
-        codeSelect.value = '+880';
-        countrySelect.value = 'BD';
+        buildCustomSelect('reg-country-code', codeOptions, '+880', function(val) {
+          if (dialToCountry[val] && countrySelect.updateCustomValue) {
+            countrySelect.updateCustomValue(dialToCountry[val]);
+          }
+        });
+        
+        buildCustomSelect('reg-country', countryOptions, 'BD', function(val) {
+          if (countryToDial[val] && codeSelect.updateCustomValue) {
+            codeSelect.updateCustomValue(countryToDial[val]);
+          }
+        });
       }
     });
   </script>

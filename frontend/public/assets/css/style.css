@@ -3215,7 +3215,7 @@ body {
   gap: 0;
   border: 1.5px solid #d1d5db;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
@@ -3231,6 +3231,8 @@ body {
   border-right: 1.5px solid #d1d5db;
   display: flex;
   align-items: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .country-code-select select {
@@ -3247,7 +3249,7 @@ body {
 
 .phone-input-wrapper input {
   border: none;
-  border-radius: 0;
+  border-radius: 0 5px 5px 0;
   flex: 1;
 }
 

@@ -185,17 +185,8 @@
               >
               <div class="phone-input-wrapper">
                 <div class="country-code-select">
-                  <select id="reg-country-code">
+                  <select id="reg-country-code" required>
                     <option value="+880">🇧🇩 +880</option>
-                    <option value="+44">🇬🇧 +44</option>
-                    <option value="+1">🇺🇸 +1</option>
-                    <option value="+91">🇮🇳 +91</option>
-                    <option value="+966">🇸🇦 +966</option>
-                    <option value="+971">🇦🇪 +971</option>
-                    <option value="+61">🇦🇺 +61</option>
-                    <option value="+49">🇩🇪 +49</option>
-                    <option value="+33">🇫🇷 +33</option>
-                    <option value="+81">🇯🇵 +81</option>
                   </select>
                 </div>
                 <input
@@ -214,15 +205,6 @@
               >
               <select id="reg-country" required>
                 <option value="BD">Bangladesh (BD)</option>
-                <option value="GB">United Kingdom (UK)</option>
-                <option value="US">United States (US)</option>
-                <option value="IN">India (IN)</option>
-                <option value="SA">Saudi Arabia (SA)</option>
-                <option value="AE">United Arab Emirates (AE)</option>
-                <option value="AU">Australia (AU)</option>
-                <option value="DE">Germany (DE)</option>
-                <option value="FR">France (FR)</option>
-                <option value="JP">Japan (JP)</option>
               </select>
             </div>
 
@@ -345,14 +327,14 @@
             </div>
           </div>
           <div class="footer-col">
-            <h4>Projects</h4>
+                        <h4>Projects</h4>
             <ul>
-              
               <li><a href="madrasah.html">Madrasah</a></li>
-              <li><a href="projects.html">Cleanliness & Environment</a></li>
-              <li><a href="projects.html">Healthcare for Poor</a></li>
-              <li><a href="projects.html">Skills for Life</a></li>
-              <li><a href="projects.html">Empowering Community</a></li>
+              <li><a href="projects.html#initiative-10">Cleanliness & Environment</a></li>
+              <li><a href="projects.html#initiative-09">Healthcare for Poor</a></li>
+              <li><a href="projects.html#initiative-11">Skills for Life</a></li>
+              <li><a href="projects.html#initiative-12">Empowering Community</a></li>
+              <li><a href="projects.html#initiative-14">Education & Cultural Centres</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -385,7 +367,7 @@
           Village: Belghar; Union: Adra North, Upazilla: Nangalkot; Cumilla, Bangladesh
         </p>
         <p style="margin-top: 15px;">
-          Mobile: +44 (0)7540 253384<br />
+          Mobile: +44 7540 253384<br />
           Email: brdtbd@gmail.com<br />
           Web: www.brdtrust.com
         </p>
@@ -497,6 +479,49 @@
           }
         });
     </script>
+  <script src="assets/js/countries.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof COUNTRIES !== 'undefined') {
+        var codeSelect = document.getElementById('reg-country-code');
+        var countrySelect = document.getElementById('reg-country');
+        
+        codeSelect.innerHTML = '';
+        countrySelect.innerHTML = '';
+
+        COUNTRIES.forEach(function(c) {
+          // Phone dial codes
+          if (c.dial) {
+            var codeOpt = document.createElement('option');
+            codeOpt.value = c.dial;
+            codeOpt.textContent = c.flag + ' ' + c.dial;
+            
+            // Avoid duplicate dial codes with same flag
+            var exists = false;
+            for (var i = 0; i < codeSelect.options.length; i++) {
+              if (codeSelect.options[i].textContent === codeOpt.textContent) {
+                exists = true;
+                break;
+              }
+            }
+            if (!exists) {
+               codeSelect.appendChild(codeOpt);
+            }
+          }
+
+          // Country list
+          var countryOpt = document.createElement('option');
+          countryOpt.value = c.code;
+          countryOpt.textContent = c.flag + ' ' + c.name + ' (' + c.code + ')';
+          countrySelect.appendChild(countryOpt);
+        });
+
+        // Set defaults
+        codeSelect.value = '+880';
+        countrySelect.value = 'BD';
+      }
+    });
+  </script>
     <div id="google_translate_element" style="display:none;"></div>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <script src="assets/js/switchers.js"></script>

@@ -164,7 +164,7 @@
             <div class="contact-detail-item">
               <i class="fa-solid fa-phone"></i>
               <div>
-                <h4>+44 (0)7540 253384</h4>
+                <h4>+44 7540 253384</h4>
                 <p>Our hours are weekdays from 9:00 AM to 5:00 PM.</p>
               </div>
             </div>
@@ -231,11 +231,13 @@
 
               <div class="input-group textarea-group">
                 <textarea
+                  id="contactMessage"
                   placeholder="Please let us know what's on your mind. Have a question for us? Ask away."
                   rows="5"
                   required
+                  maxlength="500"
                 ></textarea>
-                <div class="char-count">0 of 500 max characters</div>
+                <div id="charCount" class="char-count">0 of 500 max characters</div>
               </div>
 
 
@@ -482,14 +484,14 @@
             </div>
           </div>
           <div class="footer-col">
-            <h4>Projects</h4>
+                        <h4>Projects</h4>
             <ul>
-              
               <li><a href="madrasah.html">Madrasah</a></li>
-              <li><a href="projects.html">Cleanliness & Environment</a></li>
-              <li><a href="projects.html">Healthcare for Poor</a></li>
-              <li><a href="projects.html">Skills for Life</a></li>
-              <li><a href="projects.html">Empowering Community</a></li>
+              <li><a href="projects.html#initiative-10">Cleanliness & Environment</a></li>
+              <li><a href="projects.html#initiative-09">Healthcare for Poor</a></li>
+              <li><a href="projects.html#initiative-11">Skills for Life</a></li>
+              <li><a href="projects.html#initiative-12">Empowering Community</a></li>
+              <li><a href="projects.html#initiative-14">Education & Cultural Centres</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -523,7 +525,7 @@
           Upazilla: Nangalkot; Cumilla, Bangladesh
         </p>
         <p style="margin-top: 15px;">
-          Mobile: +44 (0)7540 253384<br />
+          Mobile: +44 7540 253384<br />
           Email: brdtbd@gmail.com<br />
           Web: www.brdtrust.com
         </p>
@@ -535,6 +537,18 @@
   <script src="assets/js/switchers.js"></script>
 
   <script src="assets/js/mobile-menu.js?v=2"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var textarea = document.getElementById('contactMessage');
+      var charCount = document.getElementById('charCount');
+      if (textarea && charCount) {
+        textarea.addEventListener('input', function() {
+          var currentLength = this.value.length;
+          charCount.textContent = currentLength + ' of 500 max characters';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
 

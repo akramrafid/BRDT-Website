@@ -204,22 +204,22 @@
               like to make a gift, please send us an email using the form below.
             </p>
 
-            <form class="main-contact-form">
+            <form class="main-contact-form" id="mainContactForm">
               <div class="input-group">
                 <i class="fa-regular fa-user"></i>
-                <input type="text" placeholder="Your name" required />
+                <input type="text" id="contactName" placeholder="Your name" required />
               </div>
               <div class="input-group">
                 <i class="fa-regular fa-envelope"></i>
-                <input type="email" placeholder="Your email" required />
+                <input type="email" id="contactEmail" placeholder="Your email" required />
               </div>
               <div class="input-group">
                 <i class="fa-solid fa-phone-flip"></i>
-                <input type="tel" placeholder="Your phone number" />
+                <input type="tel" id="contactPhone" placeholder="Your phone number" />
               </div>
 
               <div class="input-group select-group">
-                <select required>
+                <select id="contactReason" required>
                   <option value="" disabled selected>Reason for Contact</option>
                   <option value="donation">Donation Inquiry</option>
                   <option value="volunteer">Volunteering</option>
@@ -545,6 +545,46 @@
         textarea.addEventListener('input', function() {
           var currentLength = this.value.length;
           charCount.textContent = currentLength + ' of 500 max characters';
+        });
+      }
+
+      var contactForm = document.getElementById('mainContactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const name = document.getElementById('contactName').value;
+          const email = document.getElementById('contactEmail').value;
+          const phoneNumber = document.getElementById('contactPhone').value;
+          const reasonForContact = document.getElementById('contactReason').value;
+          const message = document.getElementById('contactMessage').value;
+
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Submitting...';
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch('http://localhost:5000/api/contact/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, email, phoneNumber, reasonForContact, message })
+            });
+
+            const data = await response.json();
+            if (data.status === 'success') {
+              alert(data.message);
+              contactForm.reset();
+              if (charCount) charCount.textContent = '0 of 500 max characters';
+            } else {
+              alert("Error: " + (data.message || 'Submission failed'));
+            }
+          } catch (error) {
+            console.error('Contact error:', error);
+            alert("Could not connect to server. Please try again later.");
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
         });
       }
     });

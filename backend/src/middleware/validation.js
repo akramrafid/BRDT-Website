@@ -4,12 +4,21 @@ export const validateDonation = [
   body('amount')
     .isFloat({ min: 1 })
     .withMessage('Amount must be greater than 0'),
-  body('donationType')
-    .isIn(['one-off', 'monthly', 'annual'])
-    .withMessage('Invalid donation type'),
-  body('appealType')
+  body('segment')
     .notEmpty()
-    .withMessage('Appeal type is required'),
+    .withMessage('Segment is required'),
+  body('paymentMethod')
+    .notEmpty()
+    .withMessage('Payment method is required'),
+  body('firstName')
+    .notEmpty()
+    .withMessage('First name is required'),
+  body('lastName')
+    .notEmpty()
+    .withMessage('Last name is required'),
+  body('email')
+    .isEmail()
+    .withMessage('Invalid email address'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -30,9 +39,12 @@ export const validateUser = [
   body('password')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters'),
-  body('fullName')
+  body('firstName')
     .notEmpty()
-    .withMessage('Full name is required'),
+    .withMessage('First name is required'),
+  body('lastName')
+    .notEmpty()
+    .withMessage('Last name is required'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -53,9 +65,6 @@ export const validateContact = [
   body('email')
     .isEmail()
     .withMessage('Invalid email address'),
-  body('subject')
-    .notEmpty()
-    .withMessage('Subject is required'),
   body('message')
     .isLength({ min: 10 })
     .withMessage('Message must be at least 10 characters'),

@@ -1,186 +1,55 @@
 import express from 'express';
 import { validateDonation } from '../middleware/validation.js';
 import { authenticate, optional } from '../middleware/auth.js';
-import { createDonation, getDonationById, getUserDonations, updateDonationStatus, getDonationsByAppeal } from '../models/Donation.js';
-import { createInvoice, markInvoiceAsSent } from '../models/Invoice.js';
-import { getUserById } from '../models/User.js';
-import { generateInvoicePDF, getInvoiceURL } from '../services/pdfService.js';
-import { sendDonationConfirmation, sendInvoiceToAdmin } from '../services/emailService.js';
-import { createPaymentIntent, confirmPaymentIntent } from '../services/paymentService.js';
+import { createDonation, getDonationById, getUserDonations, updateDonationStatus, getDonationsBySegment } from '../models/Donation.js';
 import { generateId, createResponse } from '../utils/helpers.js';
 
 const router = express.Router();
 
-// ==================== POST: Create Donation ====================
-router.post('/create', optional, validateDonation, async (req, res, next) => {
+// ==================== POST: Submit Donation Form ====================
+router.post('/submit', optional, validateDonation, async (req, res, next) => {
   try {
-    const { amount, donationType, appealType, paymentMethod = 'stripe', isAnonymous = false } = req.body;
-    const userId = req.user?.userId || generateId();
+    const { 
+      segment, 
+      specificCause, 
+      amount, 
+      paymentMethod, 
+      senderAccountNumber, 
+      transactionId, 
+      firstName, 
+      lastName, 
+      email, 
+      phoneNumber 
+    } = req.body;
+    
+    const userId = req.user?.userId || null; // If user is logged in, attach their ID
 
-    // Create donation record
+    // Create donation record. Status is 'pending' by default.
     const donationResult = await createDonation({
       userId,
+      segment,
+      specificCause,
       amount,
-      donationType,
-      appealType,
       paymentMethod,
-      paymentStatus: 'pending',
-      isAnonymous
+      senderAccountNumber,
+      transactionId,
+      firstName,
+      lastName,
+      email,
+      phoneNumber
     });
 
     if (!donationResult.success) {
       return res.status(400).json(createResponse('error', donationResult.error));
     }
 
-    // Create payment intent
-    const paymentResult = await createPaymentIntent(amount, 'gbp', {
-      donationId: donationResult.donationId,
-      appealType,
-      donationType
-    });
+    // TODO: In a production app, if payment method is Stripe, we would return a clientSecret here.
+    // For manual methods like bKash/Nagad, we just return success and an admin will verify the transactionId.
 
-    if (!paymentResult.success) {
-      return res.status(400).json(createResponse('error', paymentResult.error));
-    }
-
-    return res.status(201).json(createResponse('success', 'Donation created', {
+    return res.status(201).json(createResponse('success', 'Donation submitted successfully. We will verify your transaction shortly.', {
       donationId: donationResult.donationId,
-      clientSecret: paymentResult.clientSecret,
-      intentId: paymentResult.intentId,
       amount,
-      currency: 'GBP'
-    }));
-  } catch (error) {
-    next(error);
-  }
-});
-
-// ==================== POST: Process Donation Payment ====================
-router.post('/process', async (req, res, next) => {
-  try {
-    const { donationId, intentId } = req.body;
-
-    if (!donationId || !intentId) {
-      return res.status(400).json(createResponse('error', 'Missing required fields'));
-    }
-
-    // Get donation
-    const donationResult = await getDonationById(donationId);
-    if (!donationResult.success) {
-      return res.status(404).json(createResponse('error', 'Donation not found'));
-    }
-
-    // Confirm payment
-    const paymentResult = await confirmPaymentIntent(intentId);
-    if (!paymentResult.success) {
-      await updateDonationStatus(donationId, 'failed', intentId);
-      return res.status(400).json(createResponse('error', 'Payment processing failed'));
-    }
-
-    // Update donation status
-    await updateDonationStatus(donationId, paymentResult.status, intentId);
-
-    if (paymentResult.status !== 'completed') {
-      return res.status(202).json(createResponse('success', 'Payment processing', { status: paymentResult.status }));
-    }
-
-    // Get donor info
-    const userResult = await getUserById(donationResult.donation.user_id);
-    if (!userResult.success) {
-      return res.status(400).json(createResponse('error', 'Donor not found'));
-    }
-
-    const donation = donationResult.donation;
-    const donor = userResult.user;
-
-    // Generate Invoice
-    const invoiceResult = await createInvoice({
-      donationId,
-      userId: donation.user_id,
-      amount: donation.amount,
-      currency: donation.currency,
-      appealType: donation.appeal_type,
-      status: 'generated'
-    });
-
-    if (!invoiceResult.success) {
-      console.error('Invoice creation failed:', invoiceResult.error);
-      // Continue anyway, invoice can be generated later
-    }
-
-    // Generate PDF
-    const invoiceNumber = invoiceResult.invoiceNumber || `INV-${Date.now()}`;
-    let pdfPath = null;
-
-    try {
-      pdfPath = await generateInvoicePDF({
-        invoiceNumber,
-        invoiceDate: new Date(),
-        donorName: donor.full_name,
-        donorEmail: donor.email,
-        donorPhone: donor.phone,
-        donorAddress: donor.address,
-        donorCountry: donor.country,
-        amount: donation.amount,
-        donationType: donation.donation_type,
-        appealType: donation.appeal_type,
-        paymentStatus: 'completed',
-        transactionId: intentId,
-        status: 'PAID'
-      });
-    } catch (pdfError) {
-      console.error('PDF generation failed:', pdfError);
-    }
-
-    // Send emails
-    const emailPromises = [];
-
-    // Send to donor
-    emailPromises.push(
-      sendDonationConfirmation(
-        { email: donor.email, fullName: donor.full_name },
-        {
-          donationId,
-          amount: donation.amount,
-          donationType: donation.donation_type,
-          appealType: donation.appeal_type,
-          dateDonated: donation.created_at,
-          receiptNumber: invoiceNumber
-        },
-        pdfPath
-      )
-    );
-
-    // Send to admin
-    emailPromises.push(
-      sendInvoiceToAdmin(
-        {
-          receiptNumber: invoiceNumber,
-          donorName: donor.full_name,
-          donorEmail: donor.email,
-          amount: donation.amount,
-          donationType: donation.donation_type,
-          appealType: donation.appeal_type,
-          paymentStatus: 'completed',
-          transactionId: intentId,
-          dateDonated: donation.created_at
-        },
-        pdfPath
-      )
-    );
-
-    await Promise.all(emailPromises);
-
-    // Mark invoice as sent
-    if (invoiceResult.success) {
-      await markInvoiceAsSent(invoiceResult.invoiceId);
-    }
-
-    return res.status(200).json(createResponse('success', 'Donation completed and invoices sent', {
-      donationId,
-      invoiceNumber,
-      amount: donation.amount,
-      status: 'completed'
+      status: 'pending'
     }));
   } catch (error) {
     next(error);
@@ -220,22 +89,6 @@ router.get('/:donationId', async (req, res, next) => {
     }
 
     return res.status(200).json(createResponse('success', 'Donation retrieved', result.donation));
-  } catch (error) {
-    next(error);
-  }
-});
-
-// ==================== GET: Appeal Statistics ====================
-router.get('/appeal/:appealType/stats', async (req, res, next) => {
-  try {
-    const { appealType } = req.params;
-
-    const result = await getDonationsByAppeal(appealType);
-    if (!result.success) {
-      return res.status(400).json(createResponse('error', result.error));
-    }
-
-    return res.status(200).json(createResponse('success', 'Appeal statistics', result.data));
   } catch (error) {
     next(error);
   }

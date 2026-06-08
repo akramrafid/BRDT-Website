@@ -1,9 +1,10 @@
 import pool from '../config/database.js';
 import bcrypt from 'bcryptjs';
 import { generateId } from '../utils/helpers.js';
+import crypto from 'crypto';
 
 // Create User
-export const createUser = async (email, password, fullName, phone = null, address = null, country = null) => {
+export const createUser = async (email, password, firstName, lastName, phoneNumber = null, address = null, country = null) => {
   try {
     const conn = await pool.getConnection();
     
@@ -14,16 +15,19 @@ export const createUser = async (email, password, fullName, phone = null, addres
       return { success: false, error: 'Email already registered' };
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    // Hash password (if provided)
+    let passwordHash = null;
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      passwordHash = await bcrypt.hash(password, salt);
+    }
 
     const userId = generateId();
     const now = new Date();
 
     await conn.query(
-      'INSERT INTO users (user_id, email, password_hash, full_name, phone, address, country, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [userId, email, passwordHash, fullName, phone, address, country, now, now]
+      'INSERT INTO users (user_id, email, password_hash, first_name, last_name, phone_number, address, country, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [userId, email, passwordHash, firstName, lastName, phoneNumber, address, country, now, now]
     );
 
     conn.release();
@@ -71,6 +75,61 @@ export const getUserById = async (userId) => {
   }
 };
 
+// Create Magic Link Token
+export const createMagicLink = async (email) => {
+  try {
+    const userResult = await getUserByEmail(email);
+    if (!userResult.success) {
+      return { success: false, error: 'User not found' };
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiry
+
+    const conn = await pool.getConnection();
+    await conn.query(
+      'UPDATE users SET magic_link_token = ?, magic_link_expires = ?, updated_at = NOW() WHERE email = ?',
+      [token, expiresAt, email]
+    );
+    conn.release();
+
+    return { success: true, token };
+  } catch (error) {
+    console.error('❌ Error creating magic link:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+// Verify Magic Link Token
+export const verifyMagicLink = async (email, token) => {
+  try {
+    const conn = await pool.getConnection();
+    const [rows] = await conn.query(
+      'SELECT * FROM users WHERE email = ? AND magic_link_token = ? AND magic_link_expires > NOW()',
+      [email, token]
+    );
+
+    if (rows.length === 0) {
+      conn.release();
+      return { success: false, error: 'Invalid or expired magic link' };
+    }
+
+    const user = rows[0];
+
+    // Clear token after successful use
+    await conn.query(
+      'UPDATE users SET magic_link_token = NULL, magic_link_expires = NULL, updated_at = NOW() WHERE email = ?',
+      [email]
+    );
+
+    conn.release();
+    return { success: true, user };
+  } catch (error) {
+    console.error('❌ Error verifying magic link:', error);
+    return { success: false, error: error.message };
+  }
+};
+
 // Update User
 export const updateUser = async (userId, updates) => {
   try {
@@ -81,7 +140,7 @@ export const updateUser = async (userId, updates) => {
     const updateValues = [];
 
     for (const [key, value] of Object.entries(updates)) {
-      if (['email', 'full_name', 'phone', 'address', 'country', 'newsletter_subscribed'].includes(key)) {
+      if (['email', 'first_name', 'last_name', 'phone_number', 'address', 'country', 'newsletter_subscribed'].includes(key)) {
         updateFields.push(`${key} = ?`);
         updateValues.push(value);
       }
@@ -106,6 +165,7 @@ export const updateUser = async (userId, updates) => {
 // Verify Password
 export const verifyPassword = async (plainPassword, hashedPassword) => {
   try {
+    if (!hashedPassword) return false;
     return await bcrypt.compare(plainPassword, hashedPassword);
   } catch (error) {
     console.error('❌ Error verifying password:', error);

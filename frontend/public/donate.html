@@ -8,7 +8,13 @@
   <link href="assets/css/style.css?v=6" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  </head>
+  <script>
+    // Auth Guard for Donate Page
+    if (!localStorage.getItem('brdt_token')) {
+      window.location.href = 'login.html?redirect=donate.html';
+    }
+  </script>
+</head>
 
 <body>
   <!-- Top Bar -->
@@ -298,18 +304,18 @@
           <h3 class="section-title">Personal Info</h3>
           <div class="form-row">
             <div class="form-group">
-              <input type="text" placeholder="First Name" required>
+              <input type="text" id="donorFirstName" placeholder="First Name" required>
             </div>
             <div class="form-group">
-              <input type="text" placeholder="Last Name" required>
+              <input type="text" id="donorLastName" placeholder="Last Name" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <input type="email" placeholder="Email Address" required>
+              <input type="email" id="donorEmail" placeholder="Email Address" required>
             </div>
             <div class="form-group">
-              <input type="tel" placeholder="Phone Number" required>
+              <input type="tel" id="donorPhone" placeholder="Phone Number" required>
             </div>
           </div>
 
@@ -632,7 +638,7 @@
 
       // Submit Donation
       const submitDonation = document.getElementById('submitDonation');
-      submitDonation.addEventListener('click', (e) => {
+      submitDonation.addEventListener('click', async (e) => {
         e.preventDefault();
 
         const method = document.querySelector('input[name="paymentMethod"]:checked').value;
@@ -642,14 +648,81 @@
           return;
         }
 
-        let segmentName = donationSegment.options[donationSegment.selectedIndex].text;
+        let specificCause = null;
         if (donationSegment.value === 'appeals' || donationSegment.value === 'project') {
           const subDonationSegment = document.getElementById('subDonationSegment');
           if (subDonationSegment && subDonationSegment.options.length > 0) {
-            segmentName += " - " + subDonationSegment.options[subDonationSegment.selectedIndex].text;
+            specificCause = subDonationSegment.value;
           }
         }
-        alert(`Thank you for choosing to donate ${currentSymbol}${currentAmount} for ${segmentName} via ${method}. In a real application, you would now be redirected or your transaction verified.`);
+
+        const firstName = document.getElementById('donorFirstName').value;
+        const lastName = document.getElementById('donorLastName').value;
+        const email = document.getElementById('donorEmail').value;
+        const phoneNumber = document.getElementById('donorPhone').value;
+
+        if (!firstName || !lastName || !email) {
+          alert("Please fill in your Personal Info.");
+          return;
+        }
+
+        let senderAccountNumber = null;
+        let transactionId = null;
+
+        if (method !== 'offline') {
+          senderAccountNumber = document.getElementById('senderAccount').value;
+          transactionId = document.getElementById('transactionId').value;
+          if (!transactionId) {
+             alert("Please enter your transaction ID.");
+             return;
+          }
+        } else {
+          transactionId = document.getElementById('referenceNumber').value;
+          if (!transactionId) {
+             alert("Please enter the Bank Deposit Receipt / Reference Number.");
+             return;
+          }
+        }
+
+        const payload = {
+          segment: donationSegment.value,
+          specificCause,
+          amount: currentAmount,
+          paymentMethod: method,
+          senderAccountNumber,
+          transactionId,
+          firstName,
+          lastName,
+          email,
+          phoneNumber
+        };
+
+        const originalText = submitDonation.innerHTML;
+        submitDonation.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+        submitDonation.disabled = true;
+
+        try {
+          const response = await fetch('http://localhost:5000/api/donations/submit', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          const data = await response.json();
+          if (data.status === 'success') {
+            alert(data.message);
+            window.location.reload();
+          } else {
+            alert("Error: " + (data.message || "Failed to submit donation."));
+          }
+        } catch (error) {
+          console.error("Donation submission error:", error);
+          alert("Could not connect to server.");
+        } finally {
+          submitDonation.innerHTML = originalText;
+          submitDonation.disabled = false;
+        }
       });
 
       // Campaign Slider

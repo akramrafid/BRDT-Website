@@ -441,8 +441,9 @@
               body: JSON.stringify({
                 email,
                 password,
-                fullName: `${firstName} ${lastName}`,
-                phone: `${countryCode}${phone}`,
+                firstName,
+                lastName,
+                phoneNumber: `${countryCode}${phone}`,
                 address,
                 country
               }),
@@ -455,8 +456,11 @@
               localStorage.setItem('brdt_token', data.data.token);
               localStorage.setItem('brdt_user', JSON.stringify(data.data));
               
-              alert("Account created successfully! Redirecting to home...");
-              window.location.href = 'index.html';
+              const urlParams = new URLSearchParams(window.location.search);
+              const redirect = urlParams.get('redirect') || 'index.html';
+              
+              alert("Account created successfully! Redirecting...");
+              window.location.href = redirect;
             } else {
               alert("Error: " + (data.message || 'Registration failed'));
             }
@@ -468,6 +472,16 @@
             submitBtn.textContent = 'Sign Up';
           }
         });
+
+      // Preserve redirect param on Log In link
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect');
+      if (redirect) {
+        const loginLink = document.querySelector('.auth-switch a');
+        if (loginLink) {
+          loginLink.href = `login.html?redirect=${redirect}`;
+        }
+      }
     </script>
   <script src="assets/js/countries.js"></script>
   <style>

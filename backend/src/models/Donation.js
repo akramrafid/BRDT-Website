@@ -1,5 +1,5 @@
 import pool from '../config/database.js';
-import { generateId, generateInvoiceNumber } from '../utils/helpers.js';
+import { generateId } from '../utils/helpers.js';
 
 // Create Donation
 export const createDonation = async (donationData) => {
@@ -9,23 +9,29 @@ export const createDonation = async (donationData) => {
     const now = new Date();
 
     const {
-      userId,
+      userId = null,
+      segment,
+      specificCause = null,
       amount,
       currency = 'BDT',
-      donationType,
-      appealType,
+      donationType = 'one-off',
       paymentMethod,
       paymentStatus = 'pending',
+      senderAccountNumber = null,
       transactionId = null,
+      firstName,
+      lastName,
+      email,
+      phoneNumber = null,
       isAnonymous = false,
       notes = null
     } = donationData;
 
     await conn.query(
       `INSERT INTO donations 
-       (donation_id, user_id, amount, currency, donation_type, appeal_type, payment_method, payment_status, transaction_id, is_anonymous, notes, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [donationId, userId, amount, currency, donationType, appealType, paymentMethod, paymentStatus, transactionId, isAnonymous, notes, now, now]
+       (donation_id, user_id, segment, specific_cause, amount, currency, donation_type, payment_method, payment_status, sender_account_number, transaction_id, first_name, last_name, email, phone_number, is_anonymous, notes, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [donationId, userId, segment, specificCause, amount, currency, donationType, paymentMethod, paymentStatus, senderAccountNumber, transactionId, firstName, lastName, email, phoneNumber, isAnonymous, notes, now, now]
     );
 
     conn.release();
@@ -78,10 +84,15 @@ export const updateDonationStatus = async (donationId, status, transactionId = n
     const conn = await pool.getConnection();
     const now = new Date();
 
-    await conn.query(
-      'UPDATE donations SET payment_status = ?, transaction_id = ?, updated_at = ? WHERE donation_id = ?',
-      [status, transactionId, now, donationId]
-    );
+    const query = transactionId 
+      ? 'UPDATE donations SET payment_status = ?, transaction_id = ?, updated_at = ? WHERE donation_id = ?'
+      : 'UPDATE donations SET payment_status = ?, updated_at = ? WHERE donation_id = ?';
+    
+    const params = transactionId 
+      ? [status, transactionId, now, donationId]
+      : [status, now, donationId];
+
+    await conn.query(query, params);
 
     conn.release();
     console.log('✅ Donation status updated:', donationId);
@@ -92,13 +103,13 @@ export const updateDonationStatus = async (donationId, status, transactionId = n
   }
 };
 
-// Get Total Donations by Appeal
-export const getDonationsByAppeal = async (appealType) => {
+// Get Total Donations by Segment
+export const getDonationsBySegment = async (segment) => {
   try {
     const conn = await pool.getConnection();
     const [rows] = await conn.query(
-      'SELECT COUNT(*) as count, SUM(amount) as total FROM donations WHERE appeal_type = ? AND payment_status = "completed"',
-      [appealType]
+      'SELECT COUNT(*) as count, SUM(amount) as total FROM donations WHERE segment = ? AND payment_status = "completed"',
+      [segment]
     );
     conn.release();
 

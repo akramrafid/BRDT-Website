@@ -376,7 +376,9 @@
               localStorage.setItem('brdt_user', JSON.stringify(data.data));
               
               alert("Login successful! Welcome back.");
-              window.location.href = 'index.html';
+              const urlParams = new URLSearchParams(window.location.search);
+              const redirect = urlParams.get('redirect') || 'index.html';
+              window.location.href = redirect;
             } else {
               alert("Login failed: " + (data.message || 'Invalid credentials'));
             }
@@ -389,13 +391,52 @@
           }
         });
 
-      // Email link login (demo for now as backend email service needs config)
+      // Email link login (Real API connection)
       document
         .getElementById("login-form-email")
-        .addEventListener("submit", function (e) {
+        .addEventListener("submit", async function (e) {
           e.preventDefault();
-          alert("Email login link is currently in demo mode. Please use the password login option.");
+          
+          const email = document.getElementById("login-email").value;
+          const submitBtn = this.querySelector('button[type="submit"]');
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending Link...';
+
+          try {
+            const response = await fetch('http://localhost:5000/api/auth/magic-link-request', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+              alert(data.message);
+            } else {
+              alert("Error: " + (data.message || 'Something went wrong'));
+            }
+          } catch (error) {
+            console.error('Magic Link Error:', error);
+            alert("Could not connect to server. Please ensure the backend is running.");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Get Login Link';
+          }
         });
+
+      // Preserve redirect param on Sign Up link
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect');
+      if (redirect) {
+        const signupLink = document.querySelector('.auth-switch a');
+        if (signupLink) {
+          signupLink.href = `register.html?redirect=${redirect}`;
+        }
+      }
     </script>
     <div id="google_translate_element" style="display:none;"></div>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

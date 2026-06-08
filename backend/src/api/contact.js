@@ -9,7 +9,7 @@ const router = express.Router();
 // ==================== POST: Submit Contact Form ====================
 router.post('/submit', validateContact, async (req, res, next) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, phoneNumber, reasonForContact, message } = req.body;
     const submissionId = generateId();
     const now = new Date();
 
@@ -17,15 +17,15 @@ router.post('/submit', validateContact, async (req, res, next) => {
 
     // Save submission to database
     await conn.query(
-      'INSERT INTO contact_submissions (submission_id, name, email, subject, message, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [submissionId, name, email, subject, message, now, now]
+      'INSERT INTO contact_submissions (submission_id, name, email, phone_number, reason_for_contact, message, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [submissionId, name, email, phoneNumber, reasonForContact, message, now, now]
     );
 
     // Send confirmation email to user
     const userEmailResult = await sendEmail(
       email,
       'We received your message',
-      `<p>Hi ${name},</p><p>Thank you for contacting BRDT. We have received your message and will respond within 24-48 hours.</p><p>Best regards,<br>BRDT Team</p>`
+      `<p>Hi ${name},</p><p>Thank you for contacting BRDT. We have received your message regarding "${reasonForContact}" and will respond within 24-48 hours.</p><p>Best regards,<br>BRDT Team</p>`
     );
 
     // Send notification to admin
@@ -36,7 +36,8 @@ router.post('/submit', validateContact, async (req, res, next) => {
         <h3>New Contact Form Submission</h3>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Phone:</strong> ${phoneNumber}</p>
+        <p><strong>Reason:</strong> ${reasonForContact}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `

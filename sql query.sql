@@ -1,4 +1,3 @@
-USE brdt_charity;
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS email_verification_tokens;

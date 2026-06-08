@@ -45,3 +45,15 @@ export const optional = (req, res, next) => {
     next();
   }
 };
+
+export const adminOnly = (req, res, next) => {
+  // Must be used AFTER authenticate middleware
+  const ADMIN_EMAIL = 'brdtbd@gmail.com';
+  if (!req.user || req.user.email !== ADMIN_EMAIL) {
+    return res.status(403).json({
+      status: 'error',
+      message: 'Access denied. Admin only.'
+    });
+  }
+  next();
+};

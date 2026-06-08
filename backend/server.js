@@ -14,6 +14,8 @@ import donationRoutes from './src/api/donations.js';
 import invoiceRoutes from './src/api/invoices.js';
 import contactRoutes from './src/api/contact.js';
 import userRoutes from './src/api/users.js';
+import adminRoutes from './src/api/admin.js';
+import volunteerRoutes from './src/api/volunteers.js';
 
 // Import middleware
 import { errorHandler } from './src/middleware/errorHandler.js';
@@ -31,7 +33,9 @@ const corsOptions = {
   origin: [
     process.env.FRONTEND_URL || 'http://localhost:8000',
     'http://localhost:3000',
-    'http://localhost:5000'
+    'http://localhost:5000',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1:5500'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -62,6 +66,8 @@ app.use('/api/donations', donationRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/volunteers', volunteerRoutes);
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {

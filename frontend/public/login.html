@@ -375,10 +375,16 @@
               localStorage.setItem('brdt_token', data.data.token);
               localStorage.setItem('brdt_user', JSON.stringify(data.data));
               
-              alert("Login successful! Welcome back.");
-              const urlParams = new URLSearchParams(window.location.search);
-              const redirect = urlParams.get('redirect') || 'index.html';
-              window.location.href = redirect;
+              // Check if admin
+              if (data.data.email === 'brdtbd@gmail.com') {
+                alert("Welcome back, Admin!");
+                window.location.href = 'admin-dashboard.html';
+              } else {
+                alert("Login successful! Welcome back.");
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirect = urlParams.get('redirect') || 'index.html';
+                window.location.href = redirect;
+              }
             } else {
               alert("Login failed: " + (data.message || 'Invalid credentials'));
             }

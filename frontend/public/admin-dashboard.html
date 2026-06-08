@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Admin Dashboard - BRDT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script>
+    // Auth Guard — admin only
+    const token = localStorage.getItem('brdt_token');
+    const user = JSON.parse(localStorage.getItem('brdt_user') || '{}');
+    if (!token || user.email !== 'brdtbd@gmail.com') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <style>
+    :root {
+      --primary-purple: #8c1d54;
+      --dark-blue: #1d3b82;
+      --light-blue: #29aee4;
+      --text-dark: #1e293b;
+      --text-light: #ffffff;
+      --bg-light: #f8fafc;
+      --border-color: #e2e8f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg-light); color: var(--text-dark); min-height: 100vh; }
+
+    /* Sidebar */
+    .admin-sidebar {
+      position: fixed; top: 0; left: 0; width: 260px; height: 100vh;
+      background: var(--dark-blue);
+      box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+      padding: 30px 20px; z-index: 100; display: flex; flex-direction: column;
+    }
+    .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding: 0 5px; }
+    .sidebar-brand img { width: 42px; height: 42px; border-radius: 10px; background: #fff; padding: 2px; }
+    .sidebar-brand h3 { font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .sidebar-brand span { font-size: 11px; color: var(--light-blue); font-weight: 500; }
+
+    .nav-section { margin-bottom: 25px; }
+    .nav-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 10px; padding: 0 12px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 11px 14px;
+      border-radius: 10px; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; text-decoration: none; margin-bottom: 3px;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .nav-item.active { background: linear-gradient(135deg, var(--primary-purple), #6a1640); color: #fff; box-shadow: 0 4px 15px rgba(140,29,84,0.4); }
+    .nav-item i { width: 20px; text-align: center; font-size: 15px; }
+    .nav-badge { margin-left: auto; background: #ef4444; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+    .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-footer a { display: flex; align-items: center; gap: 10px; color: #fca5a5; font-size: 14px; text-decoration: none; padding: 10px 12px; border-radius: 8px; transition: background 0.2s; }
+    .sidebar-footer a:hover { background: rgba(239,68,68,0.2); color: #fff; }
+
+    /* Main Content */
+    .admin-main { margin-left: 260px; padding: 30px 35px; min-height: 100vh; }
+
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .admin-header h1 { font-size: 26px; font-weight: 700; color: var(--dark-blue); }
+    .admin-header h1 span { color: var(--primary-purple); }
+    .admin-header-right { display: flex; align-items: center; gap: 15px; }
+    .admin-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-purple), var(--dark-blue)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff; box-shadow: 0 4px 10px rgba(29,59,130,0.2); }
+
+    /* Stats Cards */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color); border-radius: 16px;
+      padding: 24px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(29,59,130,0.08); }
+    .stat-card .stat-icon {
+      width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 16px;
+    }
+    .stat-card .stat-icon.blue { background: rgba(41,174,228,0.15); color: var(--light-blue); }
+    .stat-card .stat-icon.green { background: rgba(34,197,94,0.15); color: #16a34a; }
+    .stat-card .stat-icon.purple { background: rgba(140,29,84,0.15); color: var(--primary-purple); }
+    .stat-card .stat-icon.orange { background: rgba(249,115,22,0.15); color: #ea580c; }
+    .stat-card .stat-value { font-size: 28px; font-weight: 700; color: var(--dark-blue); margin-bottom: 4px; }
+    .stat-card .stat-label { font-size: 13px; color: #64748b; font-weight: 500; }
+    .stat-card .stat-glow { position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; border-radius: 50%; opacity: 0.05; }
+    .stat-card .stat-glow.blue { background: var(--light-blue); }
+    .stat-card .stat-glow.green { background: #22c55e; }
+    .stat-card .stat-glow.purple { background: var(--primary-purple); }
+    .stat-card .stat-glow.orange { background: #f97316; }
+
+    /* Data Section */
+    .data-section {
+      background: #ffffff;
+      border: 1px solid var(--border-color); border-radius: 16px; padding: 0; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .data-tabs { display: flex; border-bottom: 1px solid var(--border-color); background: #fcfcfc; }
+    .data-tab {
+      padding: 16px 24px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer;
+      border-bottom: 2px solid transparent; transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+    }
+    .data-tab:hover { color: var(--dark-blue); background: #f8fafc; }
+    .data-tab.active { color: var(--primary-purple); border-bottom-color: var(--primary-purple); background: #fff; }
+    .data-tab .tab-count { background: rgba(140,29,84,0.1); color: var(--primary-purple); font-size: 11px; padding: 2px 8px; border-radius: 8px; }
+
+    .data-content { padding: 0; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th {
+      text-align: left; padding: 14px 20px; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.8px; color: #64748b; font-weight: 600; background: #f8fafc;
+      border-bottom: 1px solid var(--border-color); position: sticky; top: 0;
+    }
+    .data-table td {
+      padding: 14px 20px; font-size: 13px; color: #334155;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .data-table tr:hover td { background: #f8fafc; }
+    .data-table .status-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    }
+    .status-badge.pending { background: rgba(234,179,8,0.15); color: #ca8a04; }
+    .status-badge.completed { background: rgba(34,197,94,0.15); color: #16a34a; }
+    .status-badge.failed { background: rgba(239,68,68,0.15); color: #dc2626; }
+    .status-badge.approved { background: rgba(34,197,94,0.15); color: #16a34a; }
+    .status-badge.unread { background: rgba(249,115,22,0.15); color: #ea580c; }
+    .status-badge.read { background: rgba(100,116,139,0.15); color: #475569; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
+    .empty-state i { font-size: 48px; margin-bottom: 15px; opacity: 0.3; color: var(--dark-blue); }
+    .empty-state p { font-size: 15px; }
+
+    .table-scroll { max-height: 500px; overflow-y: auto; }
+    .table-scroll::-webkit-scrollbar { width: 6px; }
+    .table-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .table-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+    .loading-spinner { display: flex; justify-content: center; align-items: center; padding: 60px; }
+    .loading-spinner::after {
+      content: ''; width: 36px; height: 36px; border: 3px solid rgba(140,29,84,0.2);
+      border-top-color: var(--primary-purple); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .admin-sidebar { display: none; }
+      .admin-main { margin-left: 0; padding: 20px; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-brand">
+      <img src="logo.png" alt="BRDT" />
+      <div>
+        <h3>BRDT Admin</h3>
+        <span>Dashboard</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Main</div>
+      <a class="nav-item active" data-tab="overview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+      <a class="nav-item" data-tab="users"><i class="fa-solid fa-users"></i> Users</a>
+      <a class="nav-item" data-tab="donations"><i class="fa-solid fa-hand-holding-dollar"></i> Donations</a>
+      <a class="nav-item" data-tab="volunteers"><i class="fa-solid fa-people-group"></i> Volunteers</a>
+      <a class="nav-item" data-tab="contacts"><i class="fa-solid fa-envelope"></i> Messages <span class="nav-badge" id="unreadBadge">0</span></a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Quick Links</div>
+      <a class="nav-item" href="index.html"><i class="fa-solid fa-globe"></i> View Website</a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Welcome, <span>Admin</span></h1>
+      <div class="admin-header-right">
+        <span style="font-size: 13px; color: #64748b;" id="currentDate"></span>
+        <div class="admin-avatar">A</div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-glow blue"></div>
+        <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-value" id="statUsers">—</div>
+        <div class="stat-label">Registered Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow green"></div>
+        <div class="stat-icon green"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        <div class="stat-value" id="statDonations">—</div>
+        <div class="stat-label">Total Donations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow purple"></div>
+        <div class="stat-icon purple"><i class="fa-solid fa-people-group"></i></div>
+        <div class="stat-value" id="statVolunteers">—</div>
+        <div class="stat-label">Volunteers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow orange"></div>
+        <div class="stat-icon orange"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <div class="stat-value" id="statContacts">—</div>
+        <div class="stat-label">Contact Queries</div>
+      </div>
+    </div>
+
+    <!-- Data Tables Section -->
+    <div class="data-section">
+      <div class="data-tabs">
+        <div class="data-tab active" data-panel="usersPanel"><i class="fa-solid fa-users"></i> Users <span class="tab-count" id="usersCount">0</span></div>
+        <div class="data-tab" data-panel="donationsPanel"><i class="fa-solid fa-hand-holding-dollar"></i> Donations <span class="tab-count" id="donationsCount">0</span></div>
+        <div class="data-tab" data-panel="volunteersPanel"><i class="fa-solid fa-people-group"></i> Volunteers <span class="tab-count" id="volunteersCount">0</span></div>
+        <div class="data-tab" data-panel="contactsPanel"><i class="fa-solid fa-envelope"></i> Messages <span class="tab-count" id="contactsCount">0</span></div>
+      </div>
+
+      <div class="data-content">
+        <!-- Users Panel -->
+        <div class="tab-panel active" id="usersPanel">
+          <div class="loading-spinner" id="usersLoading"></div>
+          <div class="table-scroll" id="usersTable" style="display:none;"></div>
+        </div>
+        <!-- Donations Panel -->
+        <div class="tab-panel" id="donationsPanel">
+          <div class="loading-spinner" id="donationsLoading"></div>
+          <div class="table-scroll" id="donationsTable" style="display:none;"></div>
+        </div>
+        <!-- Volunteers Panel -->
+        <div class="tab-panel" id="volunteersPanel">
+          <div class="loading-spinner" id="volunteersLoading"></div>
+          <div class="table-scroll" id="volunteersTable" style="display:none;"></div>
+        </div>
+        <!-- Contacts Panel -->
+        <div class="tab-panel" id="contactsPanel">
+          <div class="loading-spinner" id="contactsLoading"></div>
+          <div class="table-scroll" id="contactsTable" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = 'http://localhost:5000/api';
+    const TOKEN = localStorage.getItem('brdt_token');
+    const headers = { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' };
+
+    // Date
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('brdt_token');
+      localStorage.removeItem('brdt_user');
+      window.location.href = 'login.html';
+    });
+
+    // Tab Switching
+    document.querySelectorAll('.data-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.data-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+      });
+    });
+
+    // Sidebar nav switching
+    document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+        const tabName = item.dataset.tab;
+        if (tabName === 'overview') return; // stay on overview
+        const tabBtn = document.querySelector(`.data-tab[data-panel="${tabName}Panel"]`);
+        if (tabBtn) tabBtn.click();
+      });
+    });
+
+    function formatDate(d) {
+      return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function emptyState(msg) {
+      return `<div class="empty-state"><i class="fa-solid fa-inbox"></i><p>${msg}</p></div>`;
+    }
+
+    // ==================== LOAD STATS ====================
+    async function loadStats() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/stats`, { headers });
+        const json = await res.json();
+        if (json.status === 'success') {
+          const d = json.data;
+          document.getElementById('statUsers').textContent = d.totalUsers;
+          document.getElementById('statDonations').textContent = d.totalDonations;
+          document.getElementById('statVolunteers').textContent = d.totalVolunteers;
+          document.getElementById('statContacts').textContent = d.totalContacts;
+          document.getElementById('unreadBadge').textContent = d.unreadContacts;
+          if (d.unreadContacts === 0) document.getElementById('unreadBadge').style.display = 'none';
+        }
+      } catch (e) { console.error('Stats error:', e); }
+    }
+
+    // ==================== LOAD USERS ====================
+    async function loadUsers() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/users`, { headers });
+        const json = await res.json();
+        document.getElementById('usersLoading').style.display = 'none';
+        const container = document.getElementById('usersTable');
+        container.style.display = 'block';
+
+        if (!json.data || json.data.length === 0) {
+          container.innerHTML = emptyState('No registered users yet.');
+          document.getElementById('usersCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('usersCount').textContent = json.data.length;
+        let html = `<table class="data-table"><thead><tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Joined</th><th>Status</th>
+        </tr></thead><tbody>`;
+        json.data.forEach(u => {
+          html += `<tr>
+            <td>${u.first_name} ${u.last_name}</td>
+            <td>${u.email}</td>
+            <td>${u.phone_number || '—'}</td>
+            <td>${u.country || '—'}</td>
+            <td>${formatDate(u.created_at)}</td>
+            <td><span class="status-badge ${u.is_active ? 'completed' : 'failed'}">${u.is_active ? 'Active' : 'Inactive'}</span></td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (e) { console.error('Users error:', e); }
+    }
+
+    // ==================== LOAD DONATIONS ====================
+    async function loadDonations() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/donations`, { headers });
+        const json = await res.json();
+        document.getElementById('donationsLoading').style.display = 'none';
+        const container = document.getElementById('donationsTable');
+        container.style.display = 'block';
+
+        if (!json.data || json.data.length === 0) {
+          container.innerHTML = emptyState('No donations received yet.');
+          document.getElementById('donationsCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('donationsCount').textContent = json.data.length;
+        let html = `<table class="data-table"><thead><tr>
+          <th>Donor</th><th>Email</th><th>Segment</th><th>Amount</th><th>Method</th><th>TXN ID</th><th>Status</th><th>Date</th>
+        </tr></thead><tbody>`;
+        json.data.forEach(d => {
+          html += `<tr>
+            <td>${d.first_name} ${d.last_name}</td>
+            <td>${d.email}</td>
+            <td>${d.segment}${d.specific_cause ? ' — ' + d.specific_cause : ''}</td>
+            <td style="font-weight:600;color:#4ade80;">${d.currency} ${d.amount}</td>
+            <td>${d.payment_method}</td>
+            <td style="font-size:12px;">${d.transaction_id || '—'}</td>
+            <td><span class="status-badge ${d.payment_status}">${d.payment_status}</span></td>
+            <td>${formatDate(d.created_at)}</td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (e) { console.error('Donations error:', e); }
+    }
+
+    // ==================== LOAD VOLUNTEERS ====================
+    async function loadVolunteers() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/volunteers`, { headers });
+        const json = await res.json();
+        document.getElementById('volunteersLoading').style.display = 'none';
+        const container = document.getElementById('volunteersTable');
+        container.style.display = 'block';
+
+        if (!json.data || json.data.length === 0) {
+          container.innerHTML = emptyState('No volunteer registrations yet.');
+          document.getElementById('volunteersCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('volunteersCount').textContent = json.data.length;
+        let html = `<table class="data-table"><thead><tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Skills</th><th>Availability</th><th>Status</th><th>Date</th>
+        </tr></thead><tbody>`;
+        json.data.forEach(v => {
+          html += `<tr>
+            <td>${v.full_name}</td>
+            <td>${v.email}</td>
+            <td>${v.phone_number || '—'}</td>
+            <td>${v.skills || '—'}</td>
+            <td>${v.availability || '—'}</td>
+            <td><span class="status-badge ${v.status}">${v.status}</span></td>
+            <td>${formatDate(v.created_at)}</td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (e) { console.error('Volunteers error:', e); }
+    }
+
+    // ==================== LOAD CONTACTS ====================
+    async function loadContacts() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/contacts`, { headers });
+        const json = await res.json();
+        document.getElementById('contactsLoading').style.display = 'none';
+        const container = document.getElementById('contactsTable');
+        container.style.display = 'block';
+
+        if (!json.data || json.data.length === 0) {
+          container.innerHTML = emptyState('No contact messages yet.');
+          document.getElementById('contactsCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('contactsCount').textContent = json.data.length;
+        let html = `<table class="data-table"><thead><tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Reason</th><th>Message</th><th>Status</th><th>Date</th>
+        </tr></thead><tbody>`;
+        json.data.forEach(c => {
+          const statusClass = c.is_read ? 'read' : 'unread';
+          const statusText = c.is_resolved ? 'Resolved' : (c.is_read ? 'Read' : 'New');
+          html += `<tr>
+            <td style="font-weight:600;">${c.name}</td>
+            <td>${c.email}</td>
+            <td>${c.phone_number || '—'}</td>
+            <td>${c.reason_for_contact || '—'}</td>
+            <td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${(c.message || '').replace(/"/g, '&quot;')}">${c.message || '—'}</td>
+            <td><span class="status-badge ${c.is_resolved ? 'completed' : statusClass}">${statusText}</span></td>
+            <td>${formatDate(c.created_at)}</td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (e) { console.error('Contacts error:', e); }
+    }
+
+    // Initialize
+    loadStats();
+    loadUsers();
+    loadDonations();
+    loadVolunteers();
+    loadContacts();
+  </script>
+</body>
+</html>

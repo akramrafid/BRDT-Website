@@ -4,6 +4,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS email_verification_tokens;
 DROP TABLE IF EXISTS password_reset_tokens;
 DROP TABLE IF EXISTS email_logs;
+DROP TABLE IF EXISTS volunteers;
 DROP TABLE IF EXISTS newsletter_subscriptions;
 DROP TABLE IF EXISTS contact_submissions;
 DROP TABLE IF EXISTS invoices;
@@ -23,6 +24,7 @@ CREATE TABLE users (
   country VARCHAR(100),
   magic_link_token VARCHAR(255) UNIQUE,
   magic_link_expires TIMESTAMP NULL,
+  role ENUM('user', 'admin') DEFAULT 'user',
   is_active BOOLEAN DEFAULT TRUE,
   email_verified BOOLEAN DEFAULT FALSE,
   newsletter_subscribed BOOLEAN DEFAULT TRUE,
@@ -109,4 +111,20 @@ CREATE TABLE contact_submissions (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_email (email),
   INDEX idx_is_resolved (is_resolved)
+) ENGINE=InnoDB;
+
+CREATE TABLE volunteers (
+  volunteer_id VARCHAR(36) PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone_number VARCHAR(50),
+  address TEXT,
+  skills TEXT,
+  availability VARCHAR(100),
+  motivation TEXT,
+  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_email (email),
+  INDEX idx_status (status)
 ) ENGINE=InnoDB;

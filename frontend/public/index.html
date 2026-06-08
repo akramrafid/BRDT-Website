@@ -697,9 +697,7 @@
           return;
         }
 
-        alert(`Proceeding to donate: ৳${amount} for ${fundSelect.options[fundSelect.selectedIndex].text} (${selectedType})`);
-        // You can redirect to your actual checkout page here, e.g.:
-        // window.location.href = `checkout.html?amount=${amount}&type=${selectedType}&fund=${fund}`;
+        window.location.href = 'donate.html';
       });
     });
   </script>

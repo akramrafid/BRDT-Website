@@ -4,40 +4,74 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-// Resolve the correct .env path (works on both local and cPanel)
+// Resolve paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const backendRoot = path.resolve(__dirname, '../..');
 
-// Prefer .env.production if it exists (cPanel), otherwise use .env (local dev)
+// ============================================================
+// BULLETPROOF ENV LOADING
+// cPanel sets env vars via its UI which OVERRIDE dotenv.
+// So we manually parse .env.production to get the REAL values.
+// ============================================================
+function parseEnvFile(filePath) {
+  const vars = {};
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    for (const line of content.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eqIndex = trimmed.indexOf('=');
+      if (eqIndex === -1) continue;
+      const key = trimmed.substring(0, eqIndex).trim();
+      const value = trimmed.substring(eqIndex + 1).trim();
+      vars[key] = value;
+    }
+  } catch (err) {
+    console.error('Could not read env file:', filePath, err.message);
+  }
+  return vars;
+}
+
+// Try .env.production first, then .env
 const prodEnvPath = path.join(backendRoot, '.env.production');
 const devEnvPath = path.join(backendRoot, '.env');
-const envPath = fs.existsSync(prodEnvPath) ? prodEnvPath : devEnvPath;
-console.log('Loading env from:', envPath);
-dotenv.config({ path: envPath });
+let envVars = {};
 
-// Clean helper: strip all whitespace, quotes, and invisible characters
-const clean = (val) => (val || '').replace(/[\s'"]+/g, '');
+if (fs.existsSync(prodEnvPath)) {
+  console.log('✅ Loading from .env.production');
+  envVars = parseEnvFile(prodEnvPath);
+} else if (fs.existsSync(devEnvPath)) {
+  console.log('📁 Loading from .env (dev mode)');
+  envVars = parseEnvFile(devEnvPath);
+} else {
+  console.log('⚠️  No .env file found, using process.env only');
+}
 
-// Read and clean database config
-const dbConfig = {
-  host: clean(process.env.DB_HOST) || 'localhost',
-  user: clean(process.env.DB_USER) || 'root',
-  password: (process.env.DB_PASSWORD || '').trim(),
-  database: clean(process.env.DB_NAME) || 'brdt_charity',
-  port: parseInt(process.env.DB_PORT, 10) || 3306,
+// Also load into process.env for other modules (with override!)
+dotenv.config({ path: fs.existsSync(prodEnvPath) ? prodEnvPath : devEnvPath, override: true });
+
+// Helper: get value from our parsed file FIRST, then process.env as fallback
+const getEnv = (key, fallback = '') => {
+  return (envVars[key] || process.env[key] || fallback).trim();
 };
 
-// === CRITICAL DEBUG LOG ===
-// This will show in stderr.log on cPanel so we can see exactly what's happening
-console.log('========== DATABASE CONFIG DEBUG ==========');
-console.log('ENV Path:', envPath);
-console.log('DB_HOST env raw:', JSON.stringify(process.env.DB_HOST));
-console.log('DB_USER env raw:', JSON.stringify(process.env.DB_USER));
-console.log('DB_NAME env raw:', JSON.stringify(process.env.DB_NAME));
-console.log('DB_PASSWORD env exists:', !!process.env.DB_PASSWORD);
-console.log('Cleaned config:', JSON.stringify({ ...dbConfig, password: '***' }));
-console.log('===========================================');
+// Build database config — values come from our own parser, NOT cPanel's env
+const dbConfig = {
+  host: getEnv('DB_HOST', 'localhost'),
+  user: getEnv('DB_USER', 'root'),
+  password: getEnv('DB_PASSWORD', ''),
+  database: getEnv('DB_NAME', 'brdt_charity'),
+  port: parseInt(getEnv('DB_PORT', '3306'), 10),
+};
+
+// Debug log (visible in cPanel stderr.log)
+console.log('========== DATABASE CONFIG ==========');
+console.log('DB Host:', dbConfig.host);
+console.log('DB User:', dbConfig.user);
+console.log('DB Name:', JSON.stringify(dbConfig.database));
+console.log('DB Password exists:', dbConfig.password.length > 0);
+console.log('=====================================');
 
 // Create Connection Pool
 const pool = mysql.createPool({

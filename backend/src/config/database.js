@@ -1,77 +1,40 @@
 import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-
-// Resolve paths
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const backendRoot = path.resolve(__dirname, '../..');
+import os from 'os';
 
 // ============================================================
-// BULLETPROOF ENV LOADING
-// cPanel sets env vars via its UI which OVERRIDE dotenv.
-// So we manually parse .env.production to get the REAL values.
+// PRODUCTION DATABASE CONFIG - HARDCODED
 // ============================================================
-function parseEnvFile(filePath) {
-  const vars = {};
-  try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    for (const line of content.split('\n')) {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) continue;
-      const eqIndex = trimmed.indexOf('=');
-      if (eqIndex === -1) continue;
-      const key = trimmed.substring(0, eqIndex).trim();
-      const value = trimmed.substring(eqIndex + 1).trim();
-      vars[key] = value;
-    }
-  } catch (err) {
-    console.error('Could not read env file:', filePath, err.message);
-  }
-  return vars;
-}
+// Why hardcoded? cPanel's LiteSpeed environment corrupts env
+// variables with invisible spaces. After extensive debugging,
+// hardcoding is the only 100% reliable approach on this host.
+// ============================================================
 
-// Try .env.production first, then .env
-const prodEnvPath = path.join(backendRoot, '.env.production');
-const devEnvPath = path.join(backendRoot, '.env');
-let envVars = {};
+const isProduction = os.hostname() !== 'MSI' && !process.env.VITE_ENVIRONMENT;
 
-if (fs.existsSync(prodEnvPath)) {
-  console.log('✅ Loading from .env.production');
-  envVars = parseEnvFile(prodEnvPath);
-} else if (fs.existsSync(devEnvPath)) {
-  console.log('📁 Loading from .env (dev mode)');
-  envVars = parseEnvFile(devEnvPath);
-} else {
-  console.log('⚠️  No .env file found, using process.env only');
-}
-
-// Also load into process.env for other modules (with override!)
-dotenv.config({ path: fs.existsSync(prodEnvPath) ? prodEnvPath : devEnvPath, override: true });
-
-// Helper: get value from our parsed file FIRST, then process.env as fallback
-const getEnv = (key, fallback = '') => {
-  return (envVars[key] || process.env[key] || fallback).trim();
+const PRODUCTION_DB = {
+  host: 'localhost',
+  user: 'brdtrust_admin',
+  password: 'rahatfahim4949',
+  database: 'brdtrust_charity',
+  port: 3306,
 };
 
-// Build database config — values come from our own parser, NOT cPanel's env
-const dbConfig = {
-  host: getEnv('DB_HOST', 'localhost'),
-  user: getEnv('DB_USER', 'root'),
-  password: getEnv('DB_PASSWORD', ''),
-  database: getEnv('DB_NAME', 'brdt_charity'),
-  port: parseInt(getEnv('DB_PORT', '3306'), 10),
+const DEVELOPMENT_DB = {
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || 'rahatfahim4949',
+  database: process.env.DB_NAME || 'brdt_charity',
+  port: parseInt(process.env.DB_PORT, 10) || 3306,
 };
 
-// Debug log (visible in cPanel stderr.log)
-console.log('========== DATABASE CONFIG ==========');
-console.log('DB Host:', dbConfig.host);
-console.log('DB User:', dbConfig.user);
-console.log('DB Name:', JSON.stringify(dbConfig.database));
-console.log('DB Password exists:', dbConfig.password.length > 0);
-console.log('=====================================');
+// Use production values on server, dev values locally
+const dbConfig = isProduction ? PRODUCTION_DB : DEVELOPMENT_DB;
+
+console.log(`[DB] Mode: ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'}`);
+console.log(`[DB] Host: ${dbConfig.host}`);
+console.log(`[DB] User: ${dbConfig.user}`);
+console.log(`[DB] Database: "${dbConfig.database}"`);
+console.log(`[DB] Password: ${'*'.repeat(dbConfig.password.length)}`);
 
 // Create Connection Pool
 const pool = mysql.createPool({
@@ -98,8 +61,5 @@ export const testConnection = async () => {
   }
 };
 
-// Export config for debug endpoint
 export { dbConfig };
-
 export default pool;
-

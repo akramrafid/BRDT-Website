@@ -625,7 +625,20 @@
             }
           } catch (error) {
             console.error('Contact error:', error);
-            alert("Could not connect to server. Please try again later.");
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+            overlay.innerHTML = `
+              <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                <div style="width:70px;height:70px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                  <i class="fa-solid fa-triangle-exclamation" style="color:white;font-size:32px;"></i>
+                </div>
+                <h2 style="color:#0f172a;font-size:24px;margin-bottom:10px;font-family:'Outfit',sans-serif;font-weight:700;">Connection Error</h2>
+                <p style="color:#475569;font-size:15px;margin-bottom:25px;line-height:1.5;">Could not connect to server. Please try again later.</p>
+                <button id="contact-conn-error-close" style="background:#ef4444;color:white;border:none;padding:12px 30px;border-radius:6px;font-weight:600;cursor:pointer;font-size:15px;width:100%;">Close</button>
+              </div>
+            `;
+            document.body.appendChild(overlay);
+            document.getElementById('contact-conn-error-close').addEventListener('click', () => overlay.remove());
           } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;

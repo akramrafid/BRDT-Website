@@ -108,4 +108,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==================== AUTH STATE (Login/Dashboard Button) ====================
+    const loginLink = document.querySelector('.login-link');
+    if (loginLink) {
+        const storedUser = localStorage.getItem('brdt_user');
+        if (storedUser) {
+            try {
+                const user = JSON.parse(storedUser);
+                if (user.email === 'brdtbd@gmail.com') {
+                    // Admin
+                    loginLink.innerHTML = '<i class="fa-solid fa-circle-user" style="margin-right: 5px;"></i> Admin Dashboard';
+                    loginLink.href = 'admin-dashboard.html';
+                } else {
+                    // Normal User
+                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user" style="margin-right: 5px;"></i> ${user.first_name || 'My Account'}`;
+                    loginLink.href = '#';
+                    
+                    // Simple logout for normal users
+                    loginLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (confirm('Are you sure you want to log out?')) {
+                            localStorage.removeItem('brdt_token');
+                            localStorage.removeItem('brdt_user');
+                            window.location.reload();
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error('Error parsing user data', e);
+            }
+        }
+    }
 });

@@ -23,13 +23,27 @@ router.post('/magic-link-request', async (req, res, next) => {
       return res.status(200).json(createResponse('success', 'If the email exists, a login link has been sent.'));
     }
 
-    // TODO: Send Email using NodeMailer / SendGrid here
-    // For now, log the token to the console for testing
-    console.log(`\n================================`);
-    console.log(`📧 MAGIC LINK FOR ${email}:`);
-    console.log(`Token: ${result.token}`);
-    console.log(`Link: http://localhost:5000/api/auth/magic-link-verify?email=${email}&token=${result.token}`);
-    console.log(`================================\n`);
+    const magicLink = `${process.env.FRONTEND_URL || 'http://localhost:5000'}/api/auth/magic-link-verify?email=${encodeURIComponent(email)}&token=${result.token}`;
+
+    const emailHtml = `
+      <h2>Login to BRDT</h2>
+      <p>You requested a magic login link. Click the button below to instantly securely log into your account.</p>
+      <br>
+      <a href="${magicLink}" style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Sign In Instantly</a>
+      <br><br>
+      <p>If the button doesn't work, copy and paste this link into your browser:</p>
+      <p><a href="${magicLink}">${magicLink}</a></p>
+      <p>This link will expire in 15 minutes.</p>
+    `;
+
+    try {
+      // Import inline to avoid circular dependencies if needed, or assume it's imported at top
+      const { sendEmail } = await import('../services/emailService.js');
+      await sendEmail(email, 'Your BRDT Magic Login Link', emailHtml);
+    } catch (emailErr) {
+      console.error('Failed to send magic link email:', emailErr);
+      // We still return success to not leak email existence, but log the error
+    }
 
     return res.status(200).json(createResponse('success', 'Magic link generated successfully. Please check your email.'));
   } catch (error) {

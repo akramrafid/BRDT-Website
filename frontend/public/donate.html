@@ -667,19 +667,32 @@
           alert("Please fill in your Personal Info.");
           return;
         }
-
-        let senderAccountNumber = null;
+        let senderAccountNumber = null;
         let transactionId = null;
 
         if (method !== 'offline') {
-          senderAccountNumber = document.getElementById('senderAccount').value;
-          transactionId = document.getElementById('transactionId').value;
+          senderAccountNumber = document.getElementById('senderAccount').value.trim();
+          transactionId = document.getElementById('transactionId').value.trim();
           if (!transactionId) {
              alert("Please enter your transaction ID.");
              return;
           }
+
+          // Validate transaction ID length based on method
+          if (method === 'bkash' && transactionId.length !== 11) {
+             alert("bKash Transaction ID must be exactly 11 characters.");
+             return;
+          }
+          if (method === 'nagad' && transactionId.length !== 8) {
+             alert("Nagad Transaction ID must be exactly 8 characters.");
+             return;
+          }
+          if (method === 'rocket' && transactionId.length !== 10) {
+             alert("Rocket Transaction ID must be exactly 10 characters.");
+             return;
+          }
         } else {
-          transactionId = document.getElementById('referenceNumber').value;
+          transactionId = document.getElementById('referenceNumber').value.trim();
           if (!transactionId) {
              alert("Please enter the Bank Deposit Receipt / Reference Number.");
              return;

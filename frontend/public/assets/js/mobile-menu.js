@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
 
             try {
-                const response = await fetch('http://localhost:5000/api/contact/subscribe', {
+                const response = await fetch('/api/contact/subscribe', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -94,14 +94,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 
                 if (data.status === 'success') {
-                    alert(data.message || 'Successfully subscribed!');
-                    emailInput.value = '';
+                    const overlay = document.createElement('div');
+                    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+                    overlay.innerHTML = `
+                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                        <div style="width:70px;height:70px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                          <i class="fa-solid fa-check" style="color:white;font-size:32px;"></i>
+                        </div>
+                        <h2 style="color:#0f172a;font-size:24px;margin-bottom:10px;font-family:'Outfit',sans-serif;font-weight:700;">Subscribed!</h2>
+                        <p style="color:#475569;font-size:15px;margin-bottom:25px;line-height:1.5;">${data.message || 'Successfully subscribed!'}</p>
+                        <button id="nl-success-close-btn" style="background:#2563eb;color:white;border:none;padding:12px 30px;border-radius:6px;font-weight:600;cursor:pointer;font-size:15px;width:100%;">Continue</button>
+                      </div>
+                      <style>@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }</style>
+                    `;
+                    document.body.appendChild(overlay);
+
+                    document.getElementById('nl-success-close-btn').addEventListener('click', () => {
+                      overlay.remove();
+                      emailInput.value = '';
+                    });
                 } else {
-                    alert('Error: ' + data.message);
+                    const overlay = document.createElement('div');
+                    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+                    overlay.innerHTML = `
+                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                        <div style="width:70px;height:70px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                          <i class="fa-solid fa-xmark" style="color:white;font-size:32px;"></i>
+                        </div>
+                        <h2 style="color:#0f172a;font-size:24px;margin-bottom:10px;font-family:'Outfit',sans-serif;font-weight:700;">Subscription Error</h2>
+                        <p style="color:#475569;font-size:15px;margin-bottom:25px;line-height:1.5;">${data.message}</p>
+                        <button id="nl-error-close-btn" style="background:#ef4444;color:white;border:none;padding:12px 30px;border-radius:6px;font-weight:600;cursor:pointer;font-size:15px;width:100%;">Try Again</button>
+                      </div>
+                    `;
+                    document.body.appendChild(overlay);
+
+                    document.getElementById('nl-error-close-btn').addEventListener('click', () => {
+                      overlay.remove();
+                    });
                 }
             } catch (error) {
                 console.error('Subscription Error:', error);
-                alert('Could not connect to server. Please ensure the backend is running.');
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+                overlay.innerHTML = `
+                  <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                    <div style="width:70px;height:70px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                      <i class="fa-solid fa-triangle-exclamation" style="color:white;font-size:32px;"></i>
+                    </div>
+                    <h2 style="color:#0f172a;font-size:24px;margin-bottom:10px;font-family:'Outfit',sans-serif;font-weight:700;">Connection Error</h2>
+                    <p style="color:#475569;font-size:15px;margin-bottom:25px;line-height:1.5;">Could not connect to server.</p>
+                    <button id="nl-conn-error-close" style="background:#ef4444;color:white;border:none;padding:12px 30px;border-radius:6px;font-weight:600;cursor:pointer;font-size:15px;width:100%;">Close</button>
+                  </div>
+                `;
+                document.body.appendChild(overlay);
+                document.getElementById('nl-conn-error-close').addEventListener('click', () => overlay.remove());
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;

@@ -66,8 +66,8 @@ export const validateContact = [
     .isEmail()
     .withMessage('Invalid email address'),
   body('message')
-    .isLength({ min: 10 })
-    .withMessage('Message must be at least 10 characters'),
+    .isLength({ min: 2 })
+    .withMessage('Message must be at least 2 characters'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

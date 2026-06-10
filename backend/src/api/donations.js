@@ -3,6 +3,7 @@ import { validateDonation } from '../middleware/validation.js';
 import { authenticate, optional } from '../middleware/auth.js';
 import { createDonation, getDonationById, getUserDonations, updateDonationStatus, getDonationsBySegment } from '../models/Donation.js';
 import { generateId, createResponse } from '../utils/helpers.js';
+import { sendDonationConfirmation, sendInvoiceToAdmin } from '../services/emailService.js';
 
 const router = express.Router();
 
@@ -43,10 +44,30 @@ router.post('/submit', optional, validateDonation, async (req, res, next) => {
       return res.status(400).json(createResponse('error', donationResult.error));
     }
 
-    // TODO: In a production app, if payment method is Stripe, we would return a clientSecret here.
-    // For manual methods like bKash/Nagad, we just return success and an admin will verify the transactionId.
+    // Prepare details for email
+    const donationDetails = {
+      donationId: donationResult.donationId,
+      amount,
+      donationType: segment,
+      appealType: specificCause || 'General Fund',
+      receiptNumber: donationResult.donationId.substring(0, 8).toUpperCase(),
+      dateDonated: new Date(),
+      paymentStatus: 'Pending Verification',
+      transactionId: transactionId || 'N/A',
+      donorName: `${firstName} ${lastName}`,
+      donorEmail: email
+    };
 
-    return res.status(201).json(createResponse('success', 'Donation submitted successfully. We will verify your transaction shortly.', {
+    const donor = {
+      fullName: `${firstName} ${lastName}`,
+      email
+    };
+
+    // Send emails asynchronously (don't await so the response is fast)
+    sendDonationConfirmation(donor, donationDetails, null).catch(console.error);
+    sendInvoiceToAdmin(donationDetails, null).catch(console.error);
+
+    return res.status(201).json(createResponse('success', 'Donation submitted successfully. We will verify your transaction shortly and you will receive an email receipt.', {
       donationId: donationResult.donationId,
       amount,
       status: 'pending'

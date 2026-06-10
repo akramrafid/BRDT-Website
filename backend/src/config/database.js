@@ -14,7 +14,7 @@ const isProduction = os.hostname() !== 'MSI' && !process.env.VITE_ENVIRONMENT;
 const PRODUCTION_DB = {
   host: 'localhost',
   user: 'brdtrust_admin',
-  password: 'Brdt@2026Secure!',
+  password: 'BrdtAdmin2026',
   database: 'brdtrust_charity',
   port: 3306,
 };

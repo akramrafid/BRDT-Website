@@ -33,3 +33,5 @@ desktop.ini
 # Node (if ever added)
 node_modules/
 npm-debug.log*
+package-lock.json
+install_log.txt

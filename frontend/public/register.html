@@ -533,7 +533,7 @@
         optionsData.forEach(function(item) {
           if (item.value === newValue) {
             selectElem.value = item.value;
-            selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+            selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img loading="lazy" src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
           }
         });
       };
@@ -541,7 +541,7 @@
       optionsData.forEach(function(item) {
         var opt = document.createElement('div');
         opt.className = 'custom-flag-option';
-        opt.innerHTML = '<img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.text + '</span>';
+        opt.innerHTML = '<img loading="lazy" src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.text + '</span>';
         
         var nativeOpt = document.createElement('option');
         nativeOpt.value = item.value;
@@ -551,7 +551,7 @@
         opt.addEventListener('click', function(e) {
           e.stopPropagation();
           selectElem.value = item.value;
-          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img loading="lazy" src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
           optionsDiv.classList.remove('open');
           if (onChange) onChange(item.value);
         });
@@ -559,7 +559,7 @@
 
         if (item.value === defaultValue) {
           selectElem.value = item.value;
-          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
+          selectedDiv.innerHTML = '<div style="display:flex;align-items:center;"><img loading="lazy" src="https://flagcdn.com/w20/' + item.code.toLowerCase() + '.png" alt="' + item.code + '"> <span>' + item.displayValue + '</span></div> <i class="fa-solid fa-chevron-down" style="font-size:12px;margin-left:8px;"></i>';
         }
       });
 

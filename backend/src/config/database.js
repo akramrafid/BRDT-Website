@@ -5,10 +5,10 @@ dotenv.config();
 
 // Create Connection Pool
 const pool = mysql.createPool({
-  host: (process.env.DB_HOST || 'localhost').trim(),
-  user: (process.env.DB_USER || 'root').trim(),
+  host: (process.env.DB_HOST || 'localhost').replace(/['"\s]+/g, ''),
+  user: (process.env.DB_USER || 'root').replace(/['"\s]+/g, ''),
   password: (process.env.DB_PASSWORD || '').trim(),
-  database: (process.env.DB_NAME || 'brdt_charity').trim(),
+  database: (process.env.DB_NAME || 'brdt_charity').replace(/['"\s]+/g, ''),
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,

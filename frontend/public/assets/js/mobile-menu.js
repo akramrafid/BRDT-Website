@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
 
             try {
-                const response = await fetch('/api/contact/subscribe', {
+                const response = await fetch('https://api.brdtrust.com/api/contact/subscribe', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -113,4 +113,19 @@ router.patch('/contacts/:id/read', async (req, res, next) => {
   }
 });
 
+// ==================== GET: All Subscribers ====================
+router.get('/subscribers', async (req, res, next) => {
+  try {
+    const conn = await pool.getConnection();
+    const [rows] = await conn.query(
+      'SELECT subscription_id, email, is_active, created_at FROM newsletter_subscriptions ORDER BY created_at DESC'
+    );
+    conn.release();
+
+    return res.status(200).json(createResponse('success', 'Subscribers list', rows));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

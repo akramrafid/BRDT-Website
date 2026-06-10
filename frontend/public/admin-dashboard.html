@@ -178,6 +178,7 @@
       <a class="nav-item" data-tab="donations"><i class="fa-solid fa-hand-holding-dollar"></i> Donations</a>
       <a class="nav-item" data-tab="volunteers"><i class="fa-solid fa-people-group"></i> Volunteers</a>
       <a class="nav-item" data-tab="contacts"><i class="fa-solid fa-envelope"></i> Messages <span class="nav-badge" id="unreadBadge">0</span></a>
+      <a class="nav-item" data-tab="subscribers"><i class="fa-solid fa-paper-plane"></i> Subscribers</a>
     </div>
 
     <div class="nav-section">
@@ -235,6 +236,7 @@
         <div class="data-tab" data-panel="donationsPanel"><i class="fa-solid fa-hand-holding-dollar"></i> Donations <span class="tab-count" id="donationsCount">0</span></div>
         <div class="data-tab" data-panel="volunteersPanel"><i class="fa-solid fa-people-group"></i> Volunteers <span class="tab-count" id="volunteersCount">0</span></div>
         <div class="data-tab" data-panel="contactsPanel"><i class="fa-solid fa-envelope"></i> Messages <span class="tab-count" id="contactsCount">0</span></div>
+        <div class="data-tab" data-panel="subscribersPanel"><i class="fa-solid fa-paper-plane"></i> Subscribers <span class="tab-count" id="subscribersCount">0</span></div>
       </div>
 
       <div class="data-content">
@@ -257,6 +259,11 @@
         <div class="tab-panel" id="contactsPanel">
           <div class="loading-spinner" id="contactsLoading"></div>
           <div class="table-scroll" id="contactsTable" style="display:none;"></div>
+        </div>
+        <!-- Subscribers Panel -->
+        <div class="tab-panel" id="subscribersPanel">
+          <div class="loading-spinner" id="subscribersLoading"></div>
+          <div class="table-scroll" id="subscribersTable" style="display:none;"></div>
         </div>
       </div>
     </div>
@@ -467,12 +474,44 @@
       } catch (e) { console.error('Contacts error:', e); }
     }
 
+    // ==================== LOAD SUBSCRIBERS ====================
+    async function loadSubscribers() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/subscribers`, { headers });
+        const json = await res.json();
+        document.getElementById('subscribersLoading').style.display = 'none';
+        const container = document.getElementById('subscribersTable');
+        container.style.display = 'block';
+
+        if (!json.data || json.data.length === 0) {
+          container.innerHTML = emptyState('No subscribers yet.');
+          document.getElementById('subscribersCount').textContent = '0';
+          return;
+        }
+
+        document.getElementById('subscribersCount').textContent = json.data.length;
+        let html = `<table class="data-table"><thead><tr>
+          <th>Email</th><th>Status</th><th>Date Subscribed</th>
+        </tr></thead><tbody>`;
+        json.data.forEach(s => {
+          html += `<tr>
+            <td style="font-weight:600;">${s.email}</td>
+            <td><span class="status-badge ${s.is_active ? 'completed' : 'unread'}">${s.is_active ? 'Active' : 'Inactive'}</span></td>
+            <td>${formatDate(s.created_at)}</td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (e) { console.error('Subscribers error:', e); }
+    }
+
     // Initialize
     loadStats();
     loadUsers();
     loadDonations();
     loadVolunteers();
     loadContacts();
+    loadSubscribers();
   </script>
 </body>
 </html>

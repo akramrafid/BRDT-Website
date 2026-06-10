@@ -66,4 +66,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==================== NEWSLETTER SUBSCRIPTION ====================
+    const newsletterForms = document.querySelectorAll('.newsletter-input form');
+    newsletterForms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = form.querySelector('input[type="email"]');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const email = emailInput.value;
+
+            if (!email) return;
+
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/contact/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    alert(data.message || 'Successfully subscribed!');
+                    emailInput.value = '';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Subscription Error:', error);
+                alert('Could not connect to server. Please ensure the backend is running.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    });
 });

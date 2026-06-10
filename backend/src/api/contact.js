@@ -96,4 +96,37 @@ router.post('/respond/:submissionId', async (req, res, next) => {
   }
 });
 
+// ==================== POST: Subscribe to Newsletter ====================
+router.post('/subscribe', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json(createResponse('error', 'Email is required'));
+    }
+
+    const conn = await pool.getConnection();
+
+    // Check if already subscribed
+    const [existing] = await conn.query('SELECT email FROM newsletter_subscriptions WHERE email = ?', [email]);
+    
+    if (existing.length > 0) {
+      conn.release();
+      return res.status(400).json(createResponse('error', 'This email is already subscribed!'));
+    }
+
+    const subscriptionId = generateId();
+    await conn.query(
+      'INSERT INTO newsletter_subscriptions (subscription_id, email, is_active, created_at, updated_at) VALUES (?, ?, TRUE, NOW(), NOW())',
+      [subscriptionId, email]
+    );
+
+    conn.release();
+
+    return res.status(201).json(createResponse('success', 'Successfully subscribed! Thank you for getting involved.'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

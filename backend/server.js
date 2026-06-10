@@ -75,6 +75,38 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database Debug Endpoint (TEMPORARY - remove after fixing)
+app.get('/api/debug/db', async (req, res) => {
+  try {
+    const { dbConfig, testConnection } = await import('./src/config/database.js');
+    const safeConfig = { ...dbConfig, password: '***HIDDEN***' };
+    
+    let connectionResult = 'untested';
+    try {
+      const connected = await testConnection();
+      connectionResult = connected ? 'SUCCESS' : 'FAILED';
+    } catch (err) {
+      connectionResult = 'ERROR: ' + err.message;
+    }
+
+    res.json({
+      envFile: {
+        DB_HOST_raw: process.env.DB_HOST,
+        DB_USER_raw: process.env.DB_USER,
+        DB_NAME_raw: process.env.DB_NAME,
+        DB_PASSWORD_exists: !!process.env.DB_PASSWORD,
+        DB_PORT_raw: process.env.DB_PORT,
+      },
+      cleanedConfig: safeConfig,
+      connectionResult,
+      nodeEnv: process.env.NODE_ENV,
+      cwd: process.cwd(),
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({

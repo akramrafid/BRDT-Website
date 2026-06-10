@@ -1,12 +1,19 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 // Resolve the correct .env path (works on both local and cPanel)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const envPath = path.resolve(__dirname, '../../.env');
+const backendRoot = path.resolve(__dirname, '../..');
+
+// Prefer .env.production if it exists (cPanel), otherwise use .env (local dev)
+const prodEnvPath = path.join(backendRoot, '.env.production');
+const devEnvPath = path.join(backendRoot, '.env');
+const envPath = fs.existsSync(prodEnvPath) ? prodEnvPath : devEnvPath;
+console.log('Loading env from:', envPath);
 dotenv.config({ path: envPath });
 
 // Clean helper: strip all whitespace, quotes, and invisible characters

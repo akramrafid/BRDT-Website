@@ -75,43 +75,45 @@ export const getUserById = async (userId) => {
   }
 };
 
-// Create Magic Link Token
-export const createMagicLink = async (email) => {
+// Create Password Reset Code
+export const createPasswordResetCode = async (email) => {
   try {
     const userResult = await getUserByEmail(email);
     if (!userResult.success) {
       return { success: false, error: 'User not found' };
     }
 
-    const token = crypto.randomBytes(32).toString('hex');
+    // Generate a 6-digit numeric code for easy typing
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiry
 
     const conn = await pool.getConnection();
+    // Reusing the magic_link_token column for the reset code to avoid DB schema changes
     await conn.query(
       'UPDATE users SET magic_link_token = ?, magic_link_expires = ?, updated_at = NOW() WHERE email = ?',
-      [token, expiresAt, email]
+      [code, expiresAt, email]
     );
     conn.release();
 
-    return { success: true, token };
+    return { success: true, code };
   } catch (error) {
-    console.error('❌ Error creating magic link:', error);
+    console.error('❌ Error creating reset code:', error);
     return { success: false, error: error.message };
   }
 };
 
-// Verify Magic Link Token
-export const verifyMagicLink = async (email, token) => {
+// Verify Password Reset Code
+export const verifyPasswordResetCode = async (email, code) => {
   try {
     const conn = await pool.getConnection();
     const [rows] = await conn.query(
       'SELECT * FROM users WHERE email = ? AND magic_link_token = ? AND magic_link_expires > NOW()',
-      [email, token]
+      [email, code]
     );
 
     if (rows.length === 0) {
       conn.release();
-      return { success: false, error: 'Invalid or expired magic link' };
+      return { success: false, error: 'Invalid or expired reset code' };
     }
 
     const user = rows[0];
@@ -125,7 +127,7 @@ export const verifyMagicLink = async (email, token) => {
     conn.release();
     return { success: true, user };
   } catch (error) {
-    console.error('❌ Error verifying magic link:', error);
+    console.error('❌ Error verifying reset code:', error);
     return { success: false, error: error.message };
   }
 };

@@ -131,76 +131,27 @@
       <div class="auth-banner"></div>
       <div class="container">
         <div class="auth-card" id="login-card">
-          <h2 class="auth-title">Let's get you signed in</h2>
-          <p class="auth-subtitle">
-            Please enter the email address before making your donations
-          </p>
+          <h2 class="auth-title">Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to your account to continue</p>
 
-          <!-- Email-only login view (default) -->
-          <div id="email-login-view">
-            <form class="auth-form" id="login-form-email">
-              <div class="form-group">
-                <label for="login-email">Email</label>
-                <input
-                  type="email"
-                  id="login-email"
-                  placeholder="Enter your email address"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn-auth-submit">
-                Get Login Link
-              </button>
-            </form>
-            <div class="auth-alt-action">
-              <a href="#" id="show-password-login" class="auth-link-underline"
-                >Use your email and password instead</a
-              >
+          <form class="auth-form" id="login-form-password">
+            <div class="form-group">
+              <label for="login-email-pw">Email</label>
+              <input type="email" id="login-email-pw" placeholder="Enter your email address" required />
             </div>
-          </div>
-
-          <!-- Email + Password login view (hidden by default) -->
-          <div id="password-login-view" style="display: none">
-            <form class="auth-form" id="login-form-password">
-              <div class="form-group">
-                <label for="login-email-pw">Email</label>
-                <input
-                  type="email"
-                  id="login-email-pw"
-                  placeholder="Enter your email address"
-                  required
-                />
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="login-password" placeholder="Enter your password" required />
+                <button type="button" class="password-toggle" id="toggle-login-pw">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
               </div>
-              <div class="form-group">
-                <label for="login-password">Password</label>
-                <div class="password-input-wrapper">
-                  <input
-                    type="password"
-                    id="login-password"
-                    placeholder="Enter your password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    class="password-toggle"
-                    id="toggle-login-pw"
-                  >
-                    <i class="fa-regular fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-              <button type="submit" class="btn-auth-submit">Sign In</button>
-            </form>
-            <div class="auth-alt-action">
-              <a href="#" id="show-email-login" class="auth-link-underline"
-                >Use login link instead</a
-              >
             </div>
-          </div>
+            <button type="submit" class="btn-auth-submit" style="margin-top: 15px;">Sign In</button>
+          </form>
 
-          <div class="auth-divider">
-            <span></span>
-          </div>
+          <div class="auth-divider"><span></span></div>
           <p class="auth-switch">
             Don't have an account?
             <a href="register.html" class="auth-link-bold">Sign up</a>
@@ -231,230 +182,133 @@
     </div>
 
     <!-- Footer -->
-            <footer class="main-footer">
-        <div class="container footer-grid">
-          <div class="footer-col brand-col">
-                        <div class="footer-brand-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-              <img alt="BRDT Logo" class="footer-logo" src="logo.png" style="margin-bottom: 0; width: 85px; height: auto;" />
-              <div class="footer-motto">
-                <h4 style="color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 4px; line-height: 1.2;">Belghar Rural Development Trust</h4>
-                <p style="color: #21ABEC; font-weight: 600; font-size: 13px; margin-bottom: 0; line-height: 1.2;">Enriching Rural Communities Lives</p>
-              </div>
-            </div>
-            <h4 class="connect-title">CONNECT WITH US:</h4>
-            <div class="social-links">
-              <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"
-                ><i class="fa-brands fa-facebook-f"></i
-              ></a>
-              <a href="https://x.com/brdtbd" target="_blank"
-                ><i class="fa-brands fa-twitter"></i
-              ></a>
-              <a href="https://www.instagram.com/brdtrust/" target="_blank"
-                ><i class="fa-brands fa-instagram"></i
-              ></a>
-              <a
-                href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/"
-                target="_blank"
-                ><i class="fa-brands fa-linkedin-in"></i
-              ></a>
-              <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"
-                ><i class="fa-brands fa-tiktok"></i
-              ></a>
+    <footer class="main-footer">
+      <div class="container footer-grid">
+        <div class="footer-col brand-col">
+          <div class="footer-brand-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <img alt="BRDT Logo" class="footer-logo" src="logo.png" style="margin-bottom: 0; width: 85px; height: auto;" />
+            <div class="footer-motto">
+              <h4 style="color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 4px; line-height: 1.2;">Belghar Rural Development Trust</h4>
+              <p style="color: #21ABEC; font-weight: 600; font-size: 13px; margin-bottom: 0; line-height: 1.2;">Enriching Rural Communities Lives</p>
             </div>
           </div>
-          <div class="footer-col">
-                        <h4>Projects</h4>
-            <ul>
-              <li><a href="madrasah.html">Madrasah</a></li>
-              <li><a href="projects.html#initiative-10">Cleanliness & Environment</a></li>
-              <li><a href="projects.html#initiative-09">Healthcare for Poor</a></li>
-              <li><a href="projects.html#initiative-11">Skills for Life</a></li>
-              <li><a href="projects.html#initiative-12">Empowering Community</a></li>
-              <li><a href="projects.html#initiative-14">Education & Cultural Centres</a></li>
-            </ul>
+          <h4 class="connect-title">CONNECT WITH US:</h4>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1Cfr31FKAz/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://x.com/brdtbd" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/brdtrust/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/belghar-rural-development-trust-7437a0409/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.tiktok.com/@brdtbd?lang=en" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
           </div>
-          <div class="footer-col">
-            <h4>Appeals</h4>
-            <ul>
-          <li><a href="appeal-fitra.html">Fitra</a></li>
-          <li><a href="appeal-zakat.html">Zakat</a></li>
-          <li><a href="appeal-sadaqah.html">Sadaqah</a></li>
-          <li><a href="appeal-flood.html">Flood Relief</a></li>
-          <li><a href="appeal-back-to-school.html">Back to School</a></li>
-          <li><a href="appeal-sponsor-hafiz.html">Sponsor a Hafiz</a></li>
-          <li><a href="appeal-orphan.html">Orphan Sponsorship</a></li>
-        </ul>
-          </div>
-          <div class="footer-col links-col">
-            <h4>Useful Links</h4>
-        <ul>
-          <li><a href="contact.html#faqs">FAQ's</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="policies.html">Policies</a></li>
-          <li><a href="latest-news.html">Latest News</a></li>
-          <li><a href="annual-reports.html">Annual Reports</a></li>
-          <li><a href="press-releases.html">Press Releases</a></li>
-          <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
-        </ul>
-          </div>
-          <div class="footer-col address-col">
-        <h4>BRDT</h4>
-        <p>
-          Village: Belghar; Union: Adra North, Upazilla: Nangalkot; Cumilla, Bangladesh
-        </p>
-        <p style="margin-top: 15px;">
-          Mobile: +44 7540 253384<br />
-          Mobile: +88 01967 613770<br />
-          Mobile: +88 01625 050379<br />
-          Email: brdtbd@gmail.com<br />
-          Web: www.brdtrust.com
-        </p>
+        </div>
+        <div class="footer-col">
+          <h4>Projects</h4>
+          <ul>
+            <li><a href="madrasah.html">Madrasah</a></li>
+            <li><a href="projects.html#initiative-10">Cleanliness & Environment</a></li>
+            <li><a href="projects.html#initiative-09">Healthcare for Poor</a></li>
+            <li><a href="projects.html#initiative-11">Skills for Life</a></li>
+            <li><a href="projects.html#initiative-12">Empowering Community</a></li>
+            <li><a href="projects.html#initiative-14">Education & Cultural Centres</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Appeals</h4>
+          <ul>
+            <li><a href="appeal-fitra.html">Fitra</a></li>
+            <li><a href="appeal-zakat.html">Zakat</a></li>
+            <li><a href="appeal-sadaqah.html">Sadaqah</a></li>
+            <li><a href="appeal-flood.html">Flood Relief</a></li>
+            <li><a href="appeal-back-to-school.html">Back to School</a></li>
+            <li><a href="appeal-sponsor-hafiz.html">Sponsor a Hafiz</a></li>
+            <li><a href="appeal-orphan.html">Orphan Sponsorship</a></li>
+          </ul>
+        </div>
+        <div class="footer-col links-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="who-we-are.html">FAQ's</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="policies.html">Policies</a></li>
+            <li><a href="latest-news.html">Latest News</a></li>
+            <li><a href="annual-reports.html">Annual Reports</a></li>
+            <li><a href="press-releases.html">Press Releases</a></li>
+            <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col contact-col">
+          <h4>BRDT</h4>
+          <p>Village: Belghar; Union: Adra North, Upazilla: Nangalkot; Cumilla, Bangladesh</p>
+          <p>Mobile: +44 7540 253384<br>Mobile: +88 01967 613770<br>Mobile: +88 01625 050379<br>Email: brdtbd@gmail.com<br>Web: www.brdtrust.com</p>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
     <script>
-      // Toggle between email login and password login
-      document
-        .getElementById("show-password-login")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          document.getElementById("email-login-view").style.display = "none";
-          document.getElementById("password-login-view").style.display =
-            "block";
-        });
-
-      document
-        .getElementById("show-email-login")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          document.getElementById("password-login-view").style.display = "none";
-          document.getElementById("email-login-view").style.display = "block";
-        });
-
-      // Password visibility toggle
-      document
-        .getElementById("toggle-login-pw")
-        .addEventListener("click", function () {
-          const pwInput = document.getElementById("login-password");
-          const icon = this.querySelector("i");
-          if (pwInput.type === "password") {
-            pwInput.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-          } else {
-            pwInput.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-          }
-        });
-
-      // Form submissions (Real API connection)
-      document
-        .getElementById("login-form-password")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
-          
-          const email = document.getElementById("login-email-pw").value;
-          const password = document.getElementById("login-password").value;
-          const submitBtn = this.querySelector('button[type="submit"]');
-
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Signing In...';
-
-          try {
-            const response = await fetch('http://localhost:5000/api/auth/login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-              localStorage.setItem('brdt_token', data.data.token);
-              localStorage.setItem('brdt_user', JSON.stringify(data.data));
-              
-              // Check if admin
-              if (data.data.email === 'brdtbd@gmail.com') {
-                alert("Welcome back, Admin!");
-                window.location.href = 'admin-dashboard.html';
-              } else {
-                alert("Login successful! Welcome back.");
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') || 'index.html';
-                window.location.href = redirect;
-              }
-            } else {
-              alert("Login failed: " + (data.message || 'Invalid credentials'));
-            }
-          } catch (error) {
-            console.error('Login Error:', error);
-            alert("Could not connect to server. Please ensure the backend is running.");
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Sign In';
-          }
-        });
-
-      // Email link login (Real API connection)
-      document
-        .getElementById("login-form-email")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
-          
-          const email = document.getElementById("login-email").value;
-          const submitBtn = this.querySelector('button[type="submit"]');
-
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending Link...';
-
-          try {
-            const response = await fetch('http://localhost:5000/api/auth/magic-link-request', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email }),
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-              alert(data.message);
-            } else {
-              alert("Error: " + (data.message || 'Something went wrong'));
-            }
-          } catch (error) {
-            console.error('Magic Link Error:', error);
-            alert("Could not connect to server. Please ensure the backend is running.");
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Get Login Link';
-          }
-        });
-
-      // Preserve redirect param on Sign Up link
-      const urlParams = new URLSearchParams(window.location.search);
-      const redirect = urlParams.get('redirect');
-      if (redirect) {
-        const signupLink = document.querySelector('.auth-switch a');
-        if (signupLink) {
-          signupLink.href = `register.html?redirect=${redirect}`;
+      // Password toggle
+      document.getElementById("toggle-login-pw").addEventListener("click", function () {
+        const pwInput = document.getElementById("login-password");
+        const icon = this.querySelector("i");
+        if (pwInput.type === "password") {
+          pwInput.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          pwInput.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
         }
-      }
+      });
+
+      // Login form submission
+      document.getElementById("login-form-password").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        
+        const email = document.getElementById("login-email-pw").value;
+        const password = document.getElementById("login-password").value;
+        const submitBtn = this.querySelector('button[type="submit"]');
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing In...';
+
+        try {
+          const response = await fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+
+          if (data.status === 'success') {
+            localStorage.setItem('brdt_token', data.data.token);
+            localStorage.setItem('brdt_user', JSON.stringify(data.data));
+            
+            if (data.data.email === 'brdtbd@gmail.com') {
+              alert("Welcome back, Admin!");
+              window.location.href = 'admin-dashboard.html';
+            } else {
+              alert("Login successful! Welcome back.");
+              const urlParams = new URLSearchParams(window.location.search);
+              const redirect = urlParams.get('redirect') || 'index.html';
+              window.location.href = redirect;
+            }
+          } else {
+            alert("Login failed: " + (data.message || 'Invalid credentials'));
+          }
+        } catch (error) {
+          console.error('Login Error:', error);
+          alert("Could not connect to server. Please ensure the backend is running.");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In';
+        }
+      });
+
     </script>
     <div id="google_translate_element" style="display:none;"></div>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="assets/js/switchers.js"></script>
-
-  <script src="assets/js/mobile-menu.js?v=2"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/switchers.js"></script>
+    <script src="assets/js/mobile-menu.js?v=2"></script>
 </body>
 </html>
-
-
-
-
-

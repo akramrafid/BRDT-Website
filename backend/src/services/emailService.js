@@ -1,22 +1,24 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Configure Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// The "from" address - use onboarding@resend.dev for testing, or your verified domain
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'BRDT <onboarding@resend.dev>';
+// Configure Email Transporter
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  secure: process.env.EMAIL_PORT === '465',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
 
 // Test Connection
 export const testEmailConnection = async () => {
   try {
-    if (!process.env.RESEND_API_KEY) {
-      console.error('❌ RESEND_API_KEY is not set in .env');
-      return false;
-    }
-    console.log('✅ Resend email service configured');
+    await transporter.verify();
+    console.log('✅ Email service configured successfully');
     return true;
   } catch (error) {
     console.error('❌ Email service configuration failed:', error.message);
@@ -27,22 +29,17 @@ export const testEmailConnection = async () => {
 // Send Email
 export const sendEmail = async (to, subject, html, attachments = []) => {
   try {
-    const emailData = {
-      from: FROM_EMAIL,
-      to: [to],
+    const mailOptions = {
+      from: `"${process.env.BRDT_DISPLAY_NAME}" <${process.env.EMAIL_USER}>`,
+      to,
       subject,
-      html
+      html,
+      attachments
     };
 
-    const { data, error } = await resend.emails.send(emailData);
-
-    if (error) {
-      console.error('❌ Error sending email:', error);
-      return { success: false, error: error.message };
-    }
-
-    console.log('✅ Email sent via Resend:', data.id);
-    return { success: true, messageId: data.id };
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email sent:', info.messageId);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
     console.error('❌ Error sending email:', error);
     return { success: false, error: error.message };

@@ -1,13 +1,13 @@
 import express from 'express';
 import { validateUser } from '../middleware/validation.js';
 import { authenticate } from '../middleware/auth.js';
-import { createUser, getUserByEmail, getUserById, updateUser, updateUserPassword, verifyPassword, createMagicLink, verifyMagicLink } from '../models/User.js';
+import { createUser, getUserByEmail, getUserById, updateUser, updateUserPassword, verifyPassword, createPasswordResetCode, verifyPasswordResetCode } from '../models/User.js';
 import { generateToken, createResponse } from '../utils/helpers.js';
 
 const router = express.Router();
 
-// ==================== POST: Magic Link Request ====================
-router.post('/magic-link-request', async (req, res, next) => {
+// ==================== POST: Forgot Password Request ====================
+router.post('/forgot-password', async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -15,73 +15,60 @@ router.post('/magic-link-request', async (req, res, next) => {
       return res.status(400).json(createResponse('error', 'Email is required'));
     }
 
-    // Attempt to create magic link
-    const result = await createMagicLink(email);
+    // Attempt to create reset code
+    const result = await createPasswordResetCode(email);
     
     if (!result.success) {
       // For security, do not reveal if user exists or not
-      return res.status(200).json(createResponse('success', 'If the email exists, a login link has been sent.'));
+      return res.status(200).json(createResponse('success', 'If the email exists, a password reset code has been sent.'));
     }
 
-    const magicLink = `${process.env.FRONTEND_URL || 'http://localhost:5000'}/api/auth/magic-link-verify?email=${encodeURIComponent(email)}&token=${result.token}`;
-
     const emailHtml = `
-      <h2>Login to BRDT</h2>
-      <p>You requested a magic login link. Click the button below to instantly securely log into your account.</p>
-      <br>
-      <a href="${magicLink}" style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Sign In Instantly</a>
-      <br><br>
-      <p>If the button doesn't work, copy and paste this link into your browser:</p>
-      <p><a href="${magicLink}">${magicLink}</a></p>
-      <p>This link will expire in 15 minutes.</p>
+      <h2>Reset Your BRDT Password</h2>
+      <p>You requested a password reset. Here is your 6-digit reset code:</p>
+      <h3 style="background-color: #f8fafc; padding: 15px; border-radius: 5px; font-size: 24px; letter-spacing: 5px; text-align: center;">${result.code}</h3>
+      <p>Enter this code on the password reset page.</p>
+      <p>This code will expire in 15 minutes.</p>
     `;
 
     try {
-      // Import inline to avoid circular dependencies if needed, or assume it's imported at top
       const { sendEmail } = await import('../services/emailService.js');
-      await sendEmail(email, 'Your BRDT Magic Login Link', emailHtml);
+      await sendEmail(email, 'Your BRDT Password Reset Code', emailHtml);
     } catch (emailErr) {
-      console.error('Failed to send magic link email:', emailErr);
+      console.error('Failed to send reset code email:', emailErr);
       // We still return success to not leak email existence, but log the error
     }
 
-    return res.status(200).json(createResponse('success', 'Magic link generated successfully. Please check your email.'));
+    return res.status(200).json(createResponse('success', 'Password reset code generated successfully. Please check your email.'));
   } catch (error) {
     next(error);
   }
 });
 
-// ==================== POST/GET: Magic Link Verify ====================
-router.all('/magic-link-verify', async (req, res, next) => {
+// ==================== POST: Reset Password ====================
+router.post('/reset-password', async (req, res, next) => {
   try {
-    // Support both GET (clicking link) and POST (API call)
-    const email = req.query.email || req.body.email;
-    const token = req.query.token || req.body.token;
+    const { email, code, newPassword } = req.body;
 
-    if (!email || !token) {
-      return res.status(400).json(createResponse('error', 'Email and token are required'));
+    if (!email || !code || !newPassword) {
+      return res.status(400).json(createResponse('error', 'Email, reset code, and new password are required'));
     }
 
-    const result = await verifyMagicLink(email, token);
+    // 1. Verify the code
+    const result = await verifyPasswordResetCode(email, code);
     
     if (!result.success) {
       return res.status(401).json(createResponse('error', result.error));
     }
 
-    const jwtToken = generateToken(result.user.user_id, email);
-
-    // If it was a GET request from a browser, redirect them to the frontend with token
-    if (req.method === 'GET') {
-      return res.redirect(`/?token=${jwtToken}`);
+    // 2. Update the password
+    const updateResult = await updateUserPassword(result.user.user_id, newPassword);
+    
+    if (!updateResult.success) {
+      return res.status(500).json(createResponse('error', 'Failed to reset password. Please try again later.'));
     }
 
-    return res.status(200).json(createResponse('success', 'Login successful', {
-      userId: result.user.user_id,
-      email: result.user.email,
-      firstName: result.user.first_name,
-      lastName: result.user.last_name,
-      token: jwtToken
-    }));
+    return res.status(200).json(createResponse('success', 'Password reset successfully. You can now login with your new password.'));
   } catch (error) {
     next(error);
   }

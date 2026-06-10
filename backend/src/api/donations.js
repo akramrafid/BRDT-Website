@@ -63,11 +63,11 @@ router.post('/submit', optional, validateDonation, async (req, res, next) => {
       email
     };
 
-    // Send emails asynchronously (don't await so the response is fast)
-    sendDonationConfirmation(donor, donationDetails, null).catch(console.error);
-    sendInvoiceToAdmin(donationDetails, null).catch(console.error);
+    // Emails disabled per user request
+    // sendDonationConfirmation(donor, donationDetails, null).catch(console.error);
+    // sendInvoiceToAdmin(donationDetails, null).catch(console.error);
 
-    return res.status(201).json(createResponse('success', 'Donation submitted successfully. We will verify your transaction shortly and you will receive an email receipt.', {
+    return res.status(201).json(createResponse('success', 'Donation submitted successfully. We will verify your transaction shortly.', {
       donationId: donationResult.donationId,
       amount,
       status: 'pending'

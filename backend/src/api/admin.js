@@ -52,6 +52,27 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
+// ==================== PATCH: Update Donation Status ====================
+router.patch('/donations/:id/status', async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    if (!['pending', 'completed', 'failed', 'refunded'].includes(status)) {
+      return res.status(400).json(createResponse('error', 'Invalid status'));
+    }
+
+    const conn = await pool.getConnection();
+    await conn.query(
+      'UPDATE donations SET payment_status = ?, updated_at = NOW() WHERE donation_id = ?',
+      [status, req.params.id]
+    );
+    conn.release();
+
+    return res.status(200).json(createResponse('success', 'Donation status updated'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 // ==================== GET: All Donations ====================
 router.get('/donations', async (req, res, next) => {
   try {

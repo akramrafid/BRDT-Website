@@ -366,6 +366,36 @@
       } catch (e) { console.error('Users error:', e); }
     }
 
+    // ==================== UPDATE DONATION STATUS ====================
+    async function updateDonationStatus(donationId, newStatus) {
+      if (!confirm(`Are you sure you want to mark this donation as ${newStatus}?`)) {
+        loadDonations(); // Reset dropdown
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/admin/donations/${donationId}/status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const json = await res.json();
+        if (json.status === 'success') {
+          loadStats(); // Update top cards
+          loadDonations();
+        } else {
+          alert(json.message || 'Failed to update status');
+          loadDonations();
+        }
+      } catch (e) {
+        console.error(e);
+        alert('An error occurred');
+        loadDonations();
+      }
+    }
+
     // ==================== LOAD DONATIONS ====================
     async function loadDonations() {
       try {
@@ -393,7 +423,14 @@
             <td style="font-weight:600;color:#4ade80;">${d.currency} ${d.amount}</td>
             <td>${d.payment_method}</td>
             <td style="font-size:12px;">${d.transaction_id || '—'}</td>
-            <td><span class="status-badge ${d.payment_status}">${d.payment_status}</span></td>
+            <td>
+              <select onchange="updateDonationStatus('${d.donation_id}', this.value)" style="padding: 4px; border-radius: 4px; border: 1px solid #ccc; font-size: 11px; font-weight: 600; outline: none; background: ${d.payment_status === 'completed' ? '#dcfce7' : d.payment_status === 'failed' ? '#fee2e2' : '#fef9c3'}">
+                <option value="pending" ${d.payment_status === 'pending' ? 'selected' : ''}>pending</option>
+                <option value="completed" ${d.payment_status === 'completed' ? 'selected' : ''}>completed</option>
+                <option value="failed" ${d.payment_status === 'failed' ? 'selected' : ''}>failed</option>
+                <option value="refunded" ${d.payment_status === 'refunded' ? 'selected' : ''}>refunded</option>
+              </select>
+            </td>
             <td>${formatDate(d.created_at)}</td>
           </tr>`;
         });

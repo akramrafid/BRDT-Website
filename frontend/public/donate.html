@@ -675,17 +675,25 @@
           }
 
           // Validate transaction ID length based on method
-          if (method === 'bkash' && transactionId.length !== 11) {
-             alert("bKash Transaction ID must be exactly 11 characters.");
+          if (method === 'bkash' && transactionId.length !== 10) {
+             alert("bKash Transaction ID must be exactly 10 characters.");
              return;
           }
-          if (method === 'nagad' && transactionId.length !== 8) {
-             alert("Nagad Transaction ID must be exactly 8 characters.");
+          if (method === 'nagad' && (transactionId.length < 10 || transactionId.length > 12)) {
+             alert("Nagad Transaction ID must be between 10 and 12 characters.");
              return;
           }
-          if (method === 'rocket' && transactionId.length !== 10) {
-             alert("Rocket Transaction ID must be exactly 10 characters.");
+          if (method === 'rocket' && (transactionId.length < 10 || transactionId.length > 12)) {
+             alert("Rocket Transaction ID must be between 10 and 12 characters.");
              return;
+          }
+
+          // Verify Alphanumeric (A-Z, 0-9)
+          if (['bkash', 'nagad', 'rocket'].includes(method)) {
+             if (!/^[a-zA-Z0-9]+$/.test(transactionId)) {
+                alert("Transaction ID must be alphanumeric (letters and numbers only).");
+                return;
+             }
           }
         } else {
           transactionId = document.getElementById('referenceNumber').value.trim();

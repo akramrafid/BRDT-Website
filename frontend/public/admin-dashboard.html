@@ -501,7 +501,7 @@
             <td>${c.email}</td>
             <td>${c.phone_number || '—'}</td>
             <td>${c.reason_for_contact || '—'}</td>
-            <td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${(c.message || '').replace(/"/g, '&quot;')}">${c.message || '—'}</td>
+            <td style="max-width:350px; white-space:pre-wrap; word-break:break-word;">${c.message || '—'}</td>
             <td><span class="status-badge ${c.is_resolved ? 'completed' : statusClass}">${statusText}</span></td>
             <td>${formatDate(c.created_at)}</td>
           </tr>`;

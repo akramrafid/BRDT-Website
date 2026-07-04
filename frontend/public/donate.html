@@ -164,8 +164,8 @@
           </div>
 
           <div class="amount-display">
-            <span id="currencySymbol">৳</span>
-            <span id="displayAmount">1000</span>
+            <span id="currencySymbol" class="notranslate">৳</span>
+            <span id="displayAmount" class="notranslate">1000</span>
           </div>
 
           <div class="amount-options">
@@ -236,7 +236,7 @@
               </div>
             </div>
 
-            <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span
+            <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span class="notranslate"
                 id="displayAmountFullDynamic">৳1000.00</span></h4>
 
             <p style="font-size: 14px; color: #475569; margin-bottom: 8px;">Account Type: <strong>Send Money/Cash
@@ -553,7 +553,7 @@
             btn.dataset.amount = amounts[index];
 
             if (btn.classList.contains('active')) {
-              displayAmount.textContent = amounts[index];
+              displayAmount.textContent = localizeNumber(amounts[index]);
               currentAmount = amounts[index];
             }
             index++;
@@ -572,22 +572,22 @@
             customAmountRow.style.display = 'block';
             customAmountInput.focus();
             if (customAmountInput.value) {
-              displayAmount.textContent = customAmountInput.value;
+              displayAmount.textContent = localizeNumber(customAmountInput.value);
               const elem = document.getElementById('displayAmountFullDynamic');
-              if (elem) elem.textContent = currentSymbol + parseFloat(customAmountInput.value).toFixed(2);
+              if (elem) elem.textContent = currentSymbol + localizeNumber(parseFloat(customAmountInput.value).toFixed(2));
               currentAmount = parseFloat(customAmountInput.value);
             } else {
-              displayAmount.textContent = '0';
+              displayAmount.textContent = localizeNumber('0');
               const elem = document.getElementById('displayAmountFullDynamic');
-              if (elem) elem.textContent = currentSymbol + '0.00';
+              if (elem) elem.textContent = currentSymbol + localizeNumber('0.00');
               currentAmount = 0;
             }
           } else {
             customAmountRow.style.display = 'none';
             const value = btn.dataset.amount || '0';
-            displayAmount.textContent = value;
+            displayAmount.textContent = localizeNumber(value);
             const elem = document.getElementById('displayAmountFullDynamic');
-            if (elem) elem.textContent = currentSymbol + parseFloat(value).toFixed(2);
+            if (elem) elem.textContent = currentSymbol + localizeNumber(parseFloat(value).toFixed(2));
             currentAmount = parseFloat(value);
           }
         });
@@ -596,14 +596,14 @@
       customAmountInput.addEventListener('input', (e) => {
         const val = e.target.value;
         if (val) {
-          displayAmount.textContent = val;
+          displayAmount.textContent = localizeNumber(val);
           const elem = document.getElementById('displayAmountFullDynamic');
-          if (elem) elem.textContent = currentSymbol + parseFloat(val).toFixed(2);
+          if (elem) elem.textContent = currentSymbol + localizeNumber(parseFloat(val).toFixed(2));
           currentAmount = parseFloat(val);
         } else {
-          displayAmount.textContent = '0';
+          displayAmount.textContent = localizeNumber('0');
           const elem = document.getElementById('displayAmountFullDynamic');
-          if (elem) elem.textContent = currentSymbol + '0.00';
+          if (elem) elem.textContent = currentSymbol + localizeNumber('0.00');
           currentAmount = 0;
         }
       });

@@ -149,4 +149,47 @@ router.get('/subscribers', async (req, res, next) => {
   }
 });
 
+// ==================== PATCH: Update Volunteer Status ====================
+router.patch('/volunteers/:id/status', async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    if (!['Pending', 'Active', 'Non-Active'].includes(status)) {
+      return res.status(400).json(createResponse('error', 'Invalid status'));
+    }
+
+    const conn = await pool.getConnection();
+    await conn.query(
+      'UPDATE volunteers SET status = ?, updated_at = NOW() WHERE volunteer_id = ?',
+      [status, req.params.id]
+    );
+    conn.release();
+
+    return res.status(200).json(createResponse('success', 'Volunteer status updated'));
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ==================== PATCH: Update Contact Status ====================
+router.patch('/contacts/:id/status', async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    if (!['New', 'Responded'].includes(status)) {
+      return res.status(400).json(createResponse('error', 'Invalid status'));
+    }
+
+    const is_resolved = status === 'Responded';
+    const conn = await pool.getConnection();
+    await conn.query(
+      'UPDATE contact_submissions SET is_resolved = ?, is_read = TRUE, updated_at = NOW() WHERE submission_id = ?',
+      [is_resolved, req.params.id]
+    );
+    conn.release();
+
+    return res.status(200).json(createResponse('success', 'Contact status updated'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

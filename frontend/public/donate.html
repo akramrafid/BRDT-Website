@@ -212,12 +212,28 @@
             </div>
 
             <div id="methodSteps" style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 20px;">
-              01. Go to your bKash app or dial *247#.<br>
-              02. Choose "Send Money."<br>
-              03. Enter below bKash Account Number<br>
-              04. Enter total amount<br>
-              05. Now enter your bKash Account PIN to confirm the transaction<br>
-              06. Copy the transaction ID from the payment confirmation message and paste that Transaction ID below
+              <div class="lang-step-en">
+                Follow the steps below using your mobile phone:<br>
+                01. Go to your bKash app or dial *247#.<br>
+                02. Select "Send Money".<br>
+                03. Enter our bKash account number: 01625050379<br>
+                04. Input the total amount of money.<br>
+                05. Enter your bKash PIN to confirm the transaction.<br>
+                06. Press and hold the Send Money button to complete the transfer.<br>
+                07. From the payment confirmation message, copy the Transaction ID and paste that Transaction ID along with your bKash number below.<br>
+                08. Enter your personal details and then click the "Donate Now" button.
+              </div>
+              <div class="lang-step-bn notranslate">
+                আপনার মোবাইল থেকে ব্যবহার করে নীচের ধাপগুলো অনুসরণ করুন:<br>
+                ০১. আপনার বিকাশ অ্যাপে যান অথবা *২৪৭# ডায়াল করুন।<br>
+                ০২. "সেন্ড মানি" (Send Money) নির্বাচন করুন।<br>
+                ০৩. নিচের বিকাশ একাউন্ট নম্বরটি লিখুনঃ ০১৬২৫০৫০৩৭৯<br>
+                ০৪. মোট টাকার পরিমাণ লিখুন।<br>
+                ০৫. এবার লেনদেনটি নিশ্চিত করতে আপনার বিকাশ একাউন্ট পিনটি লিখুন।<br>
+                ০৬. সেন্ড মানি করতে ট্যাপ দিয়ে ধরে রাখুন।<br>
+                ০৭. পেমেন্ট নিশ্চিতকরণ বার্তা থেকে ট্রানজ্যাকশন আইডিটি কপি করুন এবং সেই ট্রানজ্যাকশন আইডিটি ও আপনার বিকাশ নাম্বার নিচে পেস্ট করুন।<br>
+                ০৮. আপনার ব্যক্তিগত তথ্য দিয়ে “এখনি দান করুন” বাটনে ক্লিক করুন।
+              </div>
             </div>
 
             <h4 style="color: #16a34a; font-size: 16px; margin-bottom: 15px;">You need to send us <span
@@ -611,9 +627,12 @@
             // Capitalize method name for display
             let methodName = method;
             let ussd = '*247#';
-            if (method === 'bkash') { methodName = 'bKash'; ussd = '*247#'; }
-            if (method === 'nagad') { methodName = 'Nagad'; ussd = '*167#'; }
-            if (method === 'rocket') { methodName = 'Rocket'; ussd = '*322#'; }
+            let methodNameBn = 'বিকাশ';
+            let ussdBn = '*২৪৭#';
+            
+            if (method === 'bkash') { methodName = 'bKash'; ussd = '*247#'; methodNameBn = 'বিকাশ'; ussdBn = '*২৪৭#'; }
+            if (method === 'nagad') { methodName = 'Nagad'; ussd = '*167#'; methodNameBn = 'নগদ'; ussdBn = '*১৬৭#'; }
+            if (method === 'rocket') { methodName = 'Rocket'; ussd = '*322#'; methodNameBn = 'রকেট'; ussdBn = '*৩২২#'; }
 
             const headerElem = document.getElementById('selectedMethodTextHeader');
             if (headerElem) headerElem.textContent = methodName;
@@ -623,12 +642,28 @@
             const methodSteps = document.getElementById('methodSteps');
             if (methodSteps) {
               methodSteps.innerHTML = `
-                01. Go to your ${methodName} app or dial ${ussd}.<br>
-                02. Choose "Send Money."<br>
-                03. Enter below ${methodName} Account Number<br>
-                04. Enter total amount<br>
-                05. Now enter your ${methodName} Account PIN to confirm the transaction<br>
-                06. Copy the transaction ID from the payment confirmation message and paste that Transaction ID below
+                <div class="lang-step-en">
+                  Follow the steps below using your mobile phone:<br>
+                  01. Go to your ${methodName} app or dial ${ussd}.<br>
+                  02. Select "Send Money".<br>
+                  03. Enter our ${methodName} account number: 01625050379<br>
+                  04. Input the total amount of money.<br>
+                  05. Enter your ${methodName} PIN to confirm the transaction.<br>
+                  06. Press and hold the Send Money button to complete the transfer.<br>
+                  07. From the payment confirmation message, copy the Transaction ID and paste that Transaction ID along with your ${methodName} number below.<br>
+                  08. Enter your personal details and then click the "Donate Now" button.
+                </div>
+                <div class="lang-step-bn notranslate">
+                  আপনার মোবাইল থেকে ব্যবহার করে নীচের ধাপগুলো অনুসরণ করুন:<br>
+                  ০১. আপনার ${methodNameBn} অ্যাপে যান অথবা ${ussdBn} ডায়াল করুন।<br>
+                  ০২. "সেন্ড মানি" (Send Money) নির্বাচন করুন।<br>
+                  ০৩. নিচের ${methodNameBn} একাউন্ট নম্বরটি লিখুনঃ ০১৬২৫০৫০৩৭৯<br>
+                  ০৪. মোট টাকার পরিমাণ লিখুন।<br>
+                  ০৫. এবার লেনদেনটি নিশ্চিত করতে আপনার ${methodNameBn} একাউন্ট পিনটি লিখুন।<br>
+                  ০৬. সেন্ড মানি করতে ট্যাপ দিয়ে ধরে রাখুন।<br>
+                  ০৭. পেমেন্ট নিশ্চিতকরণ বার্তা থেকে ট্রানজ্যাকশন আইডিটি কপি করুন এবং সেই ট্রানজ্যাকশন আইডিটি ও আপনার ${methodNameBn} নাম্বার নিচে পেস্ট করুন।<br>
+                  ০৮. আপনার ব্যক্তিগত তথ্য দিয়ে “এখনি দান করুন” বাটনে ক্লিক করুন।
+                </div>
               `;
             }
           }

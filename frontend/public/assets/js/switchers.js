@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'en';
   };
   const currentLang = localStorage.getItem('siteLang') || getCookieLang();
+  document.documentElement.setAttribute('data-lang', currentLang);
   
   if (langSwitcherSelect) {
     langSwitcherSelect.value = currentLang;
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Update state
       localStorage.setItem('siteLang', targetLang);
+      document.documentElement.setAttribute('data-lang', targetLang);
       
       // Set the Google Translate cookie for persistence on actual servers
       document.cookie = `googtrans=/en/${targetLang}; path=/`;

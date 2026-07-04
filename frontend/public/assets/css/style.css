@@ -6,6 +6,23 @@
   --text-light: #ffffff;
   --bg-light: #f8fafc;
   --border-color: #e2e8f0;
+
+  /* Fluid Typography Scale */
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-sm: clamp(0.875rem, 0.85rem + 0.125vw, 0.9375rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --font-size-3xl: clamp(1.875rem, 1.6rem + 1.375vw, 2.5rem);
+  --font-size-4xl: clamp(2.25rem, 1.8rem + 2.25vw, 3.25rem);
+
+  /* Spacing Scale */
+  --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
+  --space-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  --space-xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  --space-2xl: clamp(4rem, 3.5rem + 2.5vw, 6rem);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
@@ -54,12 +71,30 @@ body {
   background-color: var(--bg-light);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  font-size: var(--font-size-base);
+  overflow-x: hidden;
+}
+
+/* Global Media Reset */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Global Mobile Fixes for Touch/Inputs */
+input, select, textarea {
+  font-size: max(16px, 1rem) !important;
+}
+
+button, .btn, a.btn, input[type="submit"], input[type="button"], select {
+  min-height: 44px;
 }
 
 .container {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--space-md);
 }
 
 a {
@@ -5127,3 +5162,10 @@ html[data-lang="bn"] .lang-step-en { display: none !important; }
 html[data-lang="bn"] .lang-step-bn { display: block !important; }
 html:not([data-lang="bn"]) .lang-step-en { display: block !important; }
 html:not([data-lang="bn"]) .lang-step-bn { display: none !important; }
+
+/* Mobile Header Actions */
+.mobile-header-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+.mobile-header-actions a { padding: 12px !important; text-align: center; border-radius: 8px; font-weight: 600; display: block !important; }
+.mobile-header-actions .btn-donate { background: var(--primary-purple); color: white; }
+.mobile-header-actions .login-link { border: 1px solid var(--border-color); color: var(--text-dark); }
+

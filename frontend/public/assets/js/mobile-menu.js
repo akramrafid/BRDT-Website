@@ -23,10 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Clone the main nav into the mobile drawer
     const mainNavUl = document.querySelector('.main-nav ul');
+    const mobileContent = document.querySelector('.mobile-nav-content');
     if (mainNavUl) {
         const clonedUl = mainNavUl.cloneNode(true);
-        // Remove class has-dropdown so we can handle it specifically for mobile if needed, or just let CSS handle it
-        document.querySelector('.mobile-nav-content').appendChild(clonedUl);
+        mobileContent.appendChild(clonedUl);
+    }
+    
+    // Clone header actions (Donate/Login) to bottom of mobile menu
+    const headerActions = document.querySelector('.header-actions');
+    if (headerActions) {
+        const clonedActions = headerActions.cloneNode(true);
+        clonedActions.classList.add('mobile-header-actions');
+        mobileContent.appendChild(clonedActions);
     }
 
     // 3. Handle Toggling
@@ -97,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const overlay = document.createElement('div');
                     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
                     overlay.innerHTML = `
-                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;width:90%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
                         <div style="width:70px;height:70px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
                           <i class="fa-solid fa-check" style="color:white;font-size:32px;"></i>
                         </div>
@@ -117,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const overlay = document.createElement('div');
                     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
                     overlay.innerHTML = `
-                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                      <div style="background:white;padding:40px;border-radius:12px;text-align:center;width:90%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
                         <div style="width:70px;height:70px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
                           <i class="fa-solid fa-xmark" style="color:white;font-size:32px;"></i>
                         </div>

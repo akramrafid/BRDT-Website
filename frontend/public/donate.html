@@ -508,6 +508,18 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const localizeNumber = (num) => {
+        const lang = localStorage.getItem('siteLang');
+        if (lang === 'bn') {
+          const bDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+          return num.toString().replace(/\d/g, d => bDigits[d]);
+        } else if (lang === 'ar') {
+          const aDigits = {'0':'٠','1':'١','2':'٢','3':'٣','4':'٤','5':'٥','6':'٦','7':'٧','8':'٨','9':'٩'};
+          return num.toString().replace(/\d/g, d => aDigits[d]);
+        }
+        return num;
+      };
+
       // Amount Selection Logic
       const amountBtns = document.querySelectorAll('.amount-btn');
       const displayAmount = document.getElementById('displayAmount');

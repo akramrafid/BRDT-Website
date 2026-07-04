@@ -169,11 +169,11 @@
           </div>
 
           <div class="amount-options">
-            <button class="amount-btn">৳100</button>
-            <button class="amount-btn">৳500</button>
-            <button class="amount-btn active">৳1000</button>
-            <button class="amount-btn">৳2000</button>
-            <button class="amount-btn">৳5000</button>
+            <button class="amount-btn" data-amount="100">৳100</button>
+            <button class="amount-btn" data-amount="500">৳500</button>
+            <button class="amount-btn active" data-amount="1000">৳1000</button>
+            <button class="amount-btn" data-amount="2000">৳2000</button>
+            <button class="amount-btn" data-amount="5000">৳5000</button>
             <button class="amount-btn" id="customAmountBtn">Custom Amount</button>
           </div>
 
@@ -534,6 +534,7 @@
         amountBtns.forEach(btn => {
           if (btn.id !== 'customAmountBtn') {
             btn.textContent = currentSymbol + amounts[index];
+            btn.dataset.amount = amounts[index];
 
             if (btn.classList.contains('active')) {
               displayAmount.textContent = amounts[index];
@@ -551,14 +552,14 @@
           // Add active class to clicked
           btn.classList.add('active');
 
-          if (btn.textContent === 'Custom Amount') {
+          if (btn.id === 'customAmountBtn') {
             customAmountRow.style.display = 'block';
             customAmountInput.focus();
             if (customAmountInput.value) {
               displayAmount.textContent = customAmountInput.value;
               const elem = document.getElementById('displayAmountFullDynamic');
               if (elem) elem.textContent = currentSymbol + parseFloat(customAmountInput.value).toFixed(2);
-              currentAmount = customAmountInput.value;
+              currentAmount = parseFloat(customAmountInput.value);
             } else {
               displayAmount.textContent = '0';
               const elem = document.getElementById('displayAmountFullDynamic');
@@ -567,11 +568,11 @@
             }
           } else {
             customAmountRow.style.display = 'none';
-            const value = btn.textContent.replace(currentSymbol, '').replace('£', '').replace('৳', '').replace('$', '').replace('€', '');
+            const value = btn.dataset.amount || '0';
             displayAmount.textContent = value;
             const elem = document.getElementById('displayAmountFullDynamic');
             if (elem) elem.textContent = currentSymbol + parseFloat(value).toFixed(2);
-            currentAmount = value;
+            currentAmount = parseFloat(value);
           }
         });
       });
@@ -582,7 +583,7 @@
           displayAmount.textContent = val;
           const elem = document.getElementById('displayAmountFullDynamic');
           if (elem) elem.textContent = currentSymbol + parseFloat(val).toFixed(2);
-          currentAmount = val;
+          currentAmount = parseFloat(val);
         } else {
           displayAmount.textContent = '0';
           const elem = document.getElementById('displayAmountFullDynamic');
@@ -663,7 +664,8 @@
           alert("Please fill in your Personal Info.");
           return;
         }
-        let senderAccountNumber = null;
+
+        let senderAccountNumber = null;
         let transactionId = null;
 
         if (method !== 'offline') {
@@ -829,7 +831,7 @@
   <div id="google_translate_element" style="display:none;"></div>
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="assets/js/switchers.js?v=2"></script>
+  <script src="assets/js/switchers.js?v=3"></script>
 
   <script src="assets/js/mobile-menu.js?v=2"></script>
 </body>

@@ -228,6 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (newText.includes('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে')) {
       newText = newText.replace('শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান করে', 'শিক্ষার্থীদের পরামর্শ ও সার্বিক সহায়তা প্রদান');
     }
+    if (newText.includes('নাগাদ')) {
+      newText = newText.replace(/নাগাদ/g, 'নগদ');
+    }
+    // Handle the case where Google translate might have different spaces or cases
+    if (newText.includes('নাগাদ ')) {
+      newText = newText.replace(/নাগাদ /g, 'নগদ ');
+    }
     return newText;
   };
 

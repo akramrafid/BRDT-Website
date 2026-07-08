@@ -635,6 +635,23 @@
     const TOKEN = localStorage.getItem('brdt_token');
     const headers = { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' };
 
+    // Centralized API response handler
+    async function handleApiResponse(res) {
+      if (res.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('brdt_token');
+        localStorage.removeItem('brdt_user');
+        window.location.href = 'login.html';
+        throw new Error('SESSION_EXPIRED');
+      }
+      const json = await res.json();
+      if (res.status === 404) {
+        console.warn('API route not found:', res.url);
+        return { status: 'error', message: 'This feature is temporarily unavailable.' };
+      }
+      return json;
+    }
+
     // Date
     document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -680,7 +697,7 @@
     async function loadStats() {
       try {
         const res = await fetch(`${API_BASE}/admin/stats`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         if (json.status === 'success') {
           const d = json.data;
           document.getElementById('statUsers').textContent = d.totalUsers;
@@ -690,14 +707,14 @@
           document.getElementById('unreadBadge').textContent = d.unreadContacts;
           if (d.unreadContacts === 0) document.getElementById('unreadBadge').style.display = 'none';
         }
-      } catch (e) { console.error('Stats error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Stats error:', e); }
     }
 
     // ==================== LOAD USERS ====================
     async function loadUsers() {
       try {
         const res = await fetch(`${API_BASE}/admin/users`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         document.getElementById('usersLoading').style.display = 'none';
         const container = document.getElementById('usersTable');
         container.style.display = 'block';
@@ -724,7 +741,7 @@
         });
         html += `</tbody></table>`;
         container.innerHTML = html;
-      } catch (e) { console.error('Users error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Users error:', e); }
     }
 
     // ==================== UPDATE DONATION STATUS ====================
@@ -738,22 +755,24 @@
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${TOKEN}`
           },
           body: JSON.stringify({ status: newStatus })
         });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         if (json.status === 'success') {
           loadStats(); // Update top cards
           loadDonations();
         } else {
-          alert(json.message || 'Failed to update status');
+          alert(json.message || 'Failed to update donation status.');
           loadDonations();
         }
       } catch (e) {
-        console.error(e);
-        alert('An error occurred');
-        loadDonations();
+        if (e.message !== 'SESSION_EXPIRED') {
+          console.error(e);
+          alert('Failed to update donation status. Please try again.');
+          loadDonations();
+        }
       }
     }
 
@@ -769,18 +788,20 @@
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
           body: JSON.stringify({ status: newStatus })
         });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         if (json.status === 'success') {
           loadStats();
           loadVolunteers();
         } else {
-          alert(json.message || 'Failed to update status');
+          alert(json.message || 'Failed to update volunteer status.');
           loadVolunteers();
         }
       } catch (e) {
-        console.error(e);
-        alert('An error occurred');
-        loadVolunteers();
+        if (e.message !== 'SESSION_EXPIRED') {
+          console.error(e);
+          alert('Failed to update volunteer status. Please try again.');
+          loadVolunteers();
+        }
       }
     }
 
@@ -796,18 +817,20 @@
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
           body: JSON.stringify({ status: newStatus })
         });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         if (json.status === 'success') {
           loadStats();
           loadContacts();
         } else {
-          alert(json.message || 'Failed to update status');
+          alert(json.message || 'Failed to update message status.');
           loadContacts();
         }
       } catch (e) {
-        console.error(e);
-        alert('An error occurred');
-        loadContacts();
+        if (e.message !== 'SESSION_EXPIRED') {
+          console.error(e);
+          alert('Failed to update message status. Please try again.');
+          loadContacts();
+        }
       }
     }
 
@@ -815,7 +838,7 @@
     async function loadDonations() {
       try {
         const res = await fetch(`${API_BASE}/admin/donations`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         document.getElementById('donationsLoading').style.display = 'none';
         const container = document.getElementById('donationsTable');
         container.style.display = 'block';
@@ -851,14 +874,14 @@
         });
         html += `</tbody></table>`;
         container.innerHTML = html;
-      } catch (e) { console.error('Donations error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Donations error:', e); }
     }
 
     // ==================== LOAD VOLUNTEERS ====================
     async function loadVolunteers() {
       try {
         const res = await fetch(`${API_BASE}/admin/volunteers`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         document.getElementById('volunteersLoading').style.display = 'none';
         const container = document.getElementById('volunteersTable');
         container.style.display = 'block';
@@ -892,14 +915,14 @@
         });
         html += `</tbody></table>`;
         container.innerHTML = html;
-      } catch (e) { console.error('Volunteers error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Volunteers error:', e); }
     }
 
     // ==================== LOAD CONTACTS ====================
     async function loadContacts() {
       try {
         const res = await fetch(`${API_BASE}/admin/contacts`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         document.getElementById('contactsLoading').style.display = 'none';
         const container = document.getElementById('contactsTable');
         container.style.display = 'block';
@@ -934,14 +957,14 @@
         });
         html += `</tbody></table>`;
         container.innerHTML = html;
-      } catch (e) { console.error('Contacts error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Contacts error:', e); }
     }
 
     // ==================== LOAD SUBSCRIBERS ====================
     async function loadSubscribers() {
       try {
         const res = await fetch(`${API_BASE}/admin/subscribers`, { headers });
-        const json = await res.json();
+        const json = await handleApiResponse(res);
         document.getElementById('subscribersLoading').style.display = 'none';
         const container = document.getElementById('subscribersTable');
         container.style.display = 'block';
@@ -965,7 +988,7 @@
         });
         html += `</tbody></table>`;
         container.innerHTML = html;
-      } catch (e) { console.error('Subscribers error:', e); }
+      } catch (e) { if (e.message !== 'SESSION_EXPIRED') console.error('Subscribers error:', e); }
     }
 
     // Initialize

@@ -907,10 +907,10 @@
             <td>${v.skills || '—'}</td>
             <td>${v.availability || '—'}</td>
             <td>
-              <select onchange="updateVolunteerStatus('${v.volunteer_id}', this.value)" style="padding: 4px; border-radius: 4px; border: 1px solid #ccc; font-size: 11px; font-weight: 600; outline: none; background: ${v.status === 'Active' ? '#dcfce7' : v.status === 'Non-Active' ? '#fee2e2' : '#fef9c3'}">
-                <option value="Pending" ${v.status === 'Pending' || v.status === 'pending' ? 'selected' : ''}>Pending</option>
-                <option value="Active" ${v.status === 'Active' ? 'selected' : ''}>Active</option>
-                <option value="Non-Active" ${v.status === 'Non-Active' ? 'selected' : ''}>Non-Active</option>
+              <select onchange="updateVolunteerStatus('${v.volunteer_id}', this.value)" style="padding: 4px; border-radius: 4px; border: 1px solid #ccc; font-size: 11px; font-weight: 600; outline: none; background: ${(v.status === 'approved' || v.status === 'Active') ? '#dcfce7' : (v.status === 'rejected' || v.status === 'Non-Active') ? '#fee2e2' : '#fef9c3'}">
+                <option value="pending" ${v.status === 'pending' || v.status === 'Pending' || !v.status ? 'selected' : ''}>Pending</option>
+                <option value="approved" ${v.status === 'approved' || v.status === 'Active' ? 'selected' : ''}>Approved</option>
+                <option value="rejected" ${v.status === 'rejected' || v.status === 'Non-Active' ? 'selected' : ''}>Rejected</option>
               </select>
             </td>
             <td>${formatDate(v.created_at)}</td>

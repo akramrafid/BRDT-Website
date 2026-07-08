@@ -153,14 +153,23 @@ router.get('/subscribers', async (req, res, next) => {
 router.patch('/volunteers/:id/status', async (req, res, next) => {
   try {
     const { status } = req.body;
-    if (!['Pending', 'Active', 'Non-Active'].includes(status)) {
+    let dbStatus = '';
+    
+    if (status) {
+      const lower = status.toLowerCase();
+      if (lower === 'pending') dbStatus = 'pending';
+      else if (lower === 'active' || lower === 'approved') dbStatus = 'approved';
+      else if (lower === 'non-active' || lower === 'rejected') dbStatus = 'rejected';
+    }
+
+    if (!dbStatus) {
       return res.status(400).json(createResponse('error', 'Invalid status'));
     }
 
     const conn = await pool.getConnection();
     await conn.query(
       'UPDATE volunteers SET status = ?, updated_at = NOW() WHERE volunteer_id = ?',
-      [status, req.params.id]
+      [dbStatus, req.params.id]
     );
     conn.release();
 

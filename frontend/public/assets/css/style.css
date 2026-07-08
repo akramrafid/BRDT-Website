@@ -183,7 +183,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0 16px 0;
+  padding: 38px 0 16px 0;
 }
 
 /* Logo Setup */
@@ -344,37 +344,37 @@ a {
 
 .top-switchers {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   position: absolute;
-  top: -26px;
+  top: -46px;
   right: 0;
 }
 
 .switcher-btn {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 3px 8px;
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-dark);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .switcher-btn:hover {
   border-color: var(--primary-purple);
   color: var(--primary-purple);
   box-shadow: 0 4px 12px rgba(140, 29, 84, 0.15);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .switcher-btn i {
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .custom-select-wrapper {

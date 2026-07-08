@@ -331,9 +331,7 @@ a {
 .top-switchers {
   display: flex;
   gap: 8px;
-  position: absolute;
-  top: -48px;
-  right: 0;
+  margin-bottom: 6px;
 }
 
 .switcher-btn {

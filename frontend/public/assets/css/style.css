@@ -344,8 +344,10 @@ a {
 
 .top-switchers {
   display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 6px;
+  position: absolute;
+  top: -26px;
+  right: 0;
 }
 
 .switcher-btn {
@@ -361,14 +363,14 @@ a {
   align-items: center;
   gap: 4px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .switcher-btn:hover {
   border-color: var(--primary-purple);
   color: var(--primary-purple);
   box-shadow: 0 4px 12px rgba(140, 29, 84, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .switcher-btn i {

@@ -344,16 +344,16 @@ a {
 
 .top-switchers {
   display: flex;
-  gap: 8px;
+  gap: 18px;
   position: absolute;
-  top: -42px;
+  top: -50px;
   right: 0;
 }
 
 .switcher-btn {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;

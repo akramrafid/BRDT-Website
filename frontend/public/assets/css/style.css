@@ -1519,27 +1519,37 @@ body {
 }
 
 .stat-item {
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 35px 20px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
 }
 
 .stat-icon {
-  font-size: 40px;
+  font-size: 32px;
   color: var(--light-blue);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .stat-item h3 {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .stat-item p {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 /* CTA Section */

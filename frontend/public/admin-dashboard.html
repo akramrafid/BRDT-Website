@@ -854,12 +854,15 @@
 
         document.getElementById('donationsCount').textContent = json.data.length;
         let html = `<table class="data-table"><thead><tr>
-          <th>Donor</th><th>Email</th><th>Segment</th><th>Amount</th><th>Method</th><th>TXN ID</th><th>Status</th><th>Date</th>
+          <th>Donor</th><th>Contact Info</th><th>Segment</th><th>Amount</th><th>Method</th><th>TXN ID</th><th>Status</th><th>Date</th>
         </tr></thead><tbody>`;
         json.data.forEach(d => {
           html += `<tr>
             <td>${d.first_name} ${d.last_name}</td>
-            <td>${d.email}</td>
+            <td>
+              <div>${d.email}</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:2px;">${d.phone_number || '—'}</div>
+            </td>
             <td>${d.segment}${d.specific_cause ? ' — ' + d.specific_cause : ''}</td>
             <td style="font-weight:600;color:#4ade80;">${d.currency} ${d.amount}</td>
             <td>${d.payment_method}</td>

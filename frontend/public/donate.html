@@ -8,12 +8,7 @@
   <link href="assets/css/style.css?v=6" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script>
-    // Auth Guard for Donate Page
-    if (!localStorage.getItem('brdt_token')) {
-      window.location.href = 'login.html?redirect=donate.html';
-    }
-  </script>
+  <!-- No login required — donations are open to everyone -->
 </head>
 
 <body>
@@ -708,8 +703,8 @@
         const email = document.getElementById('donorEmail').value;
         const phoneNumber = document.getElementById('donorPhone').value;
 
-        if (!firstName || !lastName || !email) {
-          alert("Please fill in your Personal Info.");
+        if (!firstName || !lastName || !email || !phoneNumber) {
+          alert("Please fill in all Personal Info fields (First Name, Last Name, Email, and Phone Number).");
           return;
         }
 

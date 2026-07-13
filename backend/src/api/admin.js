@@ -78,7 +78,7 @@ router.get('/donations', async (req, res, next) => {
   try {
     const conn = await pool.getConnection();
     const [rows] = await conn.query(
-      'SELECT donation_id, first_name, last_name, email, segment, specific_cause, amount, currency, payment_method, payment_status, transaction_id, created_at FROM donations ORDER BY created_at DESC'
+      'SELECT donation_id, first_name, last_name, email, phone_number, segment, specific_cause, amount, currency, payment_method, payment_status, transaction_id, created_at FROM donations ORDER BY created_at DESC'
     );
     conn.release();
 
